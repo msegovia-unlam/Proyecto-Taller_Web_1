@@ -28,17 +28,17 @@ public class ControladorLogin {
 	}
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
-	@RequestMapping("/login")
-	public ModelAndView irALogin() {
-
-		ModelMap modelo = new ModelMap();
-		// Se agrega al modelo un objeto con key 'datosLogin' para que el mismo sea asociado
-		// al model attribute del form que esta definido en la vista 'login'
-		modelo.put("datosLogin", new DatosLogin());
-		// Se va a la vista login (el nombre completo de la lista se resuelve utilizando el view resolver definido en el archivo spring-servlet.xml)
-		// y se envian los datos a la misma  dentro del modelo
-		return new ModelAndView("login", modelo);
-	}
+//	@RequestMapping("/login")
+//	public ModelAndView irALogin() {
+//
+//		ModelMap modelo = new ModelMap();
+//		// Se agrega al modelo un objeto con key 'datosLogin' para que el mismo sea asociado
+//		// al model attribute del form que esta definido en la vista 'login'
+//		modelo.put("datosLogin", new DatosLogin());
+//		// Se va a la vista login (el nombre completo de la lista se resuelve utilizando el view resolver definido en el archivo spring-servlet.xml)
+//		// y se envian los datos a la misma  dentro del modelo
+//		return new ModelAndView("login", modelo);
+//	}
 
 	// Este metodo escucha la URL validar-login siempre y cuando se invoque con metodo http POST
 	// El metodo recibe un objeto Usuario el que tiene los datos ingresados en el form correspondiente y se corresponde con el modelAttribute definido en el
@@ -60,15 +60,4 @@ public class ControladorLogin {
 		return new ModelAndView("login", model);
 	}
 
-	// Escucha la URL /home por GET, y redirige a una vista.
-	@RequestMapping(path = "/home", method = RequestMethod.GET)
-	public ModelAndView irAHome() {
-		return new ModelAndView("home");
-	}
-
-	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
-	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public ModelAndView inicio() {
-		return new ModelAndView("redirect:/login");
-	}
 }

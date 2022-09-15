@@ -6,7 +6,7 @@ hs_err_pid*
 /target/
 /classes/
 /out/
-.idea/*
+.idea/**
 *.iml
 *.DS_Store
 /.java-version
