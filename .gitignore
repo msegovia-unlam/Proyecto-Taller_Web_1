@@ -1,3 +1,6 @@
+/.idea/
+/__MACOSX/
+target/
 *.class
 *.jar
 *.war
@@ -6,7 +9,5 @@ hs_err_pid*
 /target/
 /classes/
 /out/
-.idea/**
 *.iml
-*.DS_Store
 /.java-version
