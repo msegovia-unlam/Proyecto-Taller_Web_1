@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,6 +53,13 @@ public class ControladorLibro {
         ModelMap modelo = new ModelMap();
 
         return new ModelAndView("libro", modelo);
+    }
+
+    @RequestMapping(path = "/crear-libro", method = RequestMethod.GET)
+    public ModelAndView irFormularioCrearLibro() {
+        ModelMap modelo = new ModelMap();
+
+        return new ModelAndView("form-crear-libro", modelo);
     }
 
 }
