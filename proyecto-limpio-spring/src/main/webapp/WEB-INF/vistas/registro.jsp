@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<%@include file="common html/nav-bar.html"%>
+
 <article class="container w-25 p-5">
     <form action="">
         <fieldset class="pb-2">

@@ -13,6 +13,5 @@ public class ControladorRegistro {
         ModelMap modelo = new ModelMap();
 
         return new ModelAndView("registro", modelo);
-
     }
 }

@@ -54,10 +54,4 @@ public class ControladorLibro {
         return new ModelAndView("libro", modelo);
     }
 
-    @RequestMapping(path = "/login", method = RequestMethod.GET)
-    public String irALogin() {
-
-        return "login";
-    }
-
 }
