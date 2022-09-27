@@ -1,73 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
     <%@include file="common html/bootstrap.html" %>
+    <title>Crear libro</title>
 </head>
 <body>
 
 <%@include file="common html/nav-bar.html" %>
 
 <article class="container w-50 p-5">
-    <form>
+    <form:form modelAttribute="libro" action="crear-libro">
         <fieldset>
             <legend>Crear un libro</legend>
 
             <div class="form-group">
-                <label class="col-form-label mt-4" for="titulo">Título del libro</label>
-                <input type="text" class="form-control" placeholder="Título del libro" id="titulo">
+                <form:label class="col-form-label mt-4" path="titulo">Título del libro</form:label>
+                <form:input type="text" class="form-control" placeholder="Título del libro" path="titulo" />
             </div>
             <div class="form-group">
-                <label for="autor-nombre" class="form-label mt-4">Nombre del autor</label>
-                <input list="autores-lista" class="form-control" id="autor-nombre">
-                <datalist id="autores-lista">
-                    <option value="Un Autor">Un Autor</option>
-                </datalist>
+                <form:label path="autor" class="form-label mt-4">Nombre del autor</form:label>
+                <form:input type="text" class="form-control" path="autor" />
             </div>
             <div class="form-group">
-                <label class="col-form-label mt-4" for="cantidad-paginas">Cantidad de paginas</label>
-                <input type="number" class="form-control" id="cantidad-paginas">
+                <form:label class="col-form-label mt-4" path="numeroDePaginas">Cantidad de paginas</form:label>
+                <form:input type="number" class="form-control" path="numeroDePaginas" />
             </div>
             <div class="form-group">
-                <label for="editorial-nombre" class="form-label mt-4">Nombre de la editorial</label>
-                <input list="editoriales-lista" class="form-control" id="editorial-nombre">
-                <datalist id="editoriales-lista">
-                    <option value="Editorial">Editorial</option>
-                </datalist>
+                <form:label path="editorial" class="form-label mt-4">Nombre de la editorial</form:label>
+                <form:input type="text" class="form-control" path="editorial" />
             </div>
             <div class="form-group">
-                <label for="tipo-obra" class="form-label mt-4">Tipo de Obra</label>
-                <select class="form-select" id="tipo-obra">
+                <form:label path="tipoDeOtra" class="form-label mt-4">Tipo de Obra</form:label>
+                <form:select class="form-select" path="tipoDeObra">
                     <option>Novela</option>
                     <option>Manga</option>
                     <option>Comic Americano</option>
                     <option>Cuento</option>
                     <option>Antologia</option>
-                </select>
+                </form:select>
             </div>
             <div class="form-group">
-                <label for="generos" class="form-label mt-4">Géneros</label>
-                <select multiple="" class="form-select" id="generos">
+                <form:label path="genero" class="form-label mt-4">Géneros</form:label>
+                <form:select class="form-select" path="genero">
                     <option>Terror</option>
                     <option>Fantasia</option>
                     <option>Historia</option>
                     <option>Ciencia Ficcion</option>
-                </select>
+                </form:select>
             </div>
             <div class="form-group">
-                <label class="col-form-label mt-4" for="año-impresion">Año de impresión</label>
-                <input type="number" class="form-control" id="año-impresion">
+                <form:label class="col-form-label mt-4" path="agnoDeImpresion">Año de impresión</form:label>
+                <form:input type="number" class="form-control" path="agnoDeImpresion" />
             </div>
             <div class="form-group">
-                <label class="col-form-label mt-4" for="isbn">ISBN</label>
-                <input type="text" class="form-control" placeholder="ISBN" id="isbn">
+                <form:label class="col-form-label mt-4" path="ISBN">ISBN</form:label>
+                <form:input type="text" class="form-control" placeholder="ISBN" path="ISBN" />
+            </div>
+            <div class="form-group">
+                <form:label path="precioDeVenta" class="col-form-label mt-4">Precio de Venta</form:label>
+                <form:input type="number" class="form-control" path="precioDeVenta" />
+            </div>
+            <div class="form-group">
+                <form:label path="aLaVenta" class="col-form-label mt-4">¿Poner a la venta?</form:label>
+                <div class="form-check">
+                    <form:radiobutton class="form-check-input" path="aLaVenta" value="true" />
+                    <form:label class="form-check-label" path="aLaVenta">Si</form:label>
+                </div>
+                <div class="form-check">
+                    <form:radiobutton class="form-check-input" path="aLaVenta" value="false" />
+                    <form:label class="form-check-label" path="aLaVenta">No</form:label>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary mt-4">Crear</button>
         </fieldset>
-    </form>
+    </form:form>
 </article>
 
 <%@include file="common html/footer.html" %>

@@ -6,6 +6,7 @@
 <html>
 <head>
     <%@include file="common html/bootstrap.html" %>
+    <title>Home</title>
 </head>
 <body>
 
@@ -64,46 +65,6 @@
 
             </c:forEach>
 
-        </div>
-    </div>
-    <div class="grid  mt-2 ">
-        <div class="row gap-3 justify-content-center">
-            <div class="card col-3 " style="width: 225px">
-                <div class="card-body text-center">
-                    <h4 class="card-title">Título</h4>
-                    <img width="100px" src="img/libro5.jpg" alt="">
-                    <p class="card-text">Texto
-                    </p>
-                    <a href="#" class="card-link ">Comprar</a>
-                </div>
-            </div>
-            <div class="card col-3" style="width: 225px">
-                <div class="card-body text-center">
-                    <h4 class="card-title">Título</h4>
-                    <img width="100px" src="img/libro6.jpg" alt="">
-                    <p class="card-text">Texto
-                    </p>
-                    <a href="#" class="card-link ">Comprar</a>
-                </div>
-            </div>
-            <div class="card col-3" style="width: 225px">
-                <div class="card-body text-center">
-                    <h4 class="card-title">Título</h4>
-                    <img width="100px" src="img/libro7.jpg" alt="">
-                    <p class="card-text">Texto
-                    </p>
-                    <a href="#" class="card-link ">Comprar</a>
-                </div>
-            </div>
-            <div class="card col-3" style="width: 225px">
-                <div class="card-body text-center">
-                    <h4 class="card-title">Título</h4>
-                    <img width="100px" src="img/libro8.jpg" alt="">
-                    <p class="card-text">Texto
-                    </p>
-                    <a href="#" class="card-link ">Comprar</a>
-                </div>
-            </div>
         </div>
     </div>
 
