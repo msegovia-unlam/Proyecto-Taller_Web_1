@@ -20,6 +20,7 @@ public class Usuario {
 	private String email;
 	private String password;
 	private String rol;
+	private String nombre;
 	private Boolean activo = false;
 	
 	public Long getId() {
@@ -51,6 +52,14 @@ public class Usuario {
 	}
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public boolean activo() {
