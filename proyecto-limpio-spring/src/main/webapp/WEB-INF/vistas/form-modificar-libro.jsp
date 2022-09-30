@@ -5,16 +5,16 @@
 <html>
 <head>
     <%@include file="common html/bootstrap.html" %>
-    <title>Crear libro</title>
+    <title>Modificar Libro</title>
 </head>
 <body>
 
 <%@include file="common html/nav-bar.jsp" %>
 
 <article class="container w-50 p-5">
-    <form:form modelAttribute="libro" action="crear-libro">
+    <form:form modelAttribute="libro" action="${pageContext.request.contextPath}/modificar-libro/${libro.id}">
         <fieldset>
-            <legend>Crear un libro</legend>
+            <legend>Modificar un libro</legend>
 
             <div class="form-group">
                 <form:label class="col-form-label mt-4" path="titulo">Título del libro</form:label>
@@ -86,3 +86,4 @@
 </body>
 
 </html>
+

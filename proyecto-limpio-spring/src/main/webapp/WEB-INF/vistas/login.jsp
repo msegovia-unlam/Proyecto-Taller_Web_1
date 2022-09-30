@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<%@include file="common html/nav-bar.html"%>
+<%@include file="common html/nav-bar.jsp"%>
 
 <c:if test="${not empty error}">
     <p class="alert alert-danger text-center my-3">${error}</p>

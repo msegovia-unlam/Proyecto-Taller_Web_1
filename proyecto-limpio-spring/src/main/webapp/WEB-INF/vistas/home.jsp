@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<%@include file="common html/nav-bar.html"%>
+<%@include file="common html/nav-bar.jsp"%>
 
 
 
@@ -59,7 +59,7 @@
     <div class="grid  mt-2 ">
         <div class="row gap-3 justify-content-center">
 
-            <c:forEach items="${libros}" var="libro">
+            <c:forEach items="${librosALaVenta}" var="libro">
 
                 <div class="card col-3 " style="width: 225px">
                     <div class="card-body text-center">

@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<%@include file="common html/nav-bar.html"%>
+<%@include file="common html/nav-bar.jsp"%>
 
 <c:if test="${not empty exitoso}">
     <p class="alert alert-dismissible alert-success text-center my-3 ">${exitoso}</p>

@@ -3,8 +3,9 @@ package ar.edu.unlam.tallerweb1.domain.libros;
 import java.util.List;
 
 public interface RepositorioLibro {
-    Long guardarLibro(Libro libro);
+    Integer guardarLibro(Libro libro);
     List<Libro> obtenerListaDeLibros();
-    Libro buscarLibroPorId(Long id);
+    Libro buscarLibroPorId(Integer id);
     void borrarlibro(Libro libro);
+    Integer modificarLibro(Libro libro);
 }

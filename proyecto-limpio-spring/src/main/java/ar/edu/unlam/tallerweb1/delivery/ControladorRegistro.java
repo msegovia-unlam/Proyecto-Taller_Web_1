@@ -24,7 +24,6 @@ public class ControladorRegistro {
 
     @RequestMapping(path = "/registro", method = RequestMethod.GET)
     ModelAndView irAlRegistro() {
-
         ModelMap modelo = new ModelMap();
         modelo.put("datosRegistro", new DatosRegistro());
         return new ModelAndView("registro", modelo);
@@ -36,7 +35,6 @@ public class ControladorRegistro {
 
         Usuario usuarioBuscado = servicioRegistro.consultarUsuario(datosRegistro.getEmail(), datosRegistro.getUsuarioName());
         if (usuarioBuscado != null) {
-            // si el usuario no existe agrega un mensaje de error en el modelo.
             model.put("error", "El usuario ya existe");
         } else {
             usuarioBuscado = new Usuario();

@@ -19,9 +19,9 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     }
 
     @Override
-    public Long guardarLibro(Libro libro) {
+    public Integer guardarLibro(Libro libro) {
         final Session session= this.sessionFactory.getCurrentSession();
-        session.save(libro);
+        session.saveOrUpdate(libro);
         return libro.getId();
     }
 
@@ -34,7 +34,7 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     }
 
     @Override
-    public Libro buscarLibroPorId(Long id) {
+    public Libro buscarLibroPorId(Integer id) {
         return (Libro) this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.eq("id",id))
                 .uniqueResult();
@@ -43,5 +43,11 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     @Override
     public void borrarlibro(Libro libro){
         this.sessionFactory.getCurrentSession().delete(libro);
+    }
+
+    @Override
+    public Integer modificarLibro(Libro libro) {
+        this.sessionFactory.getCurrentSession().update(libro);
+        return libro.getId();
     }
 }

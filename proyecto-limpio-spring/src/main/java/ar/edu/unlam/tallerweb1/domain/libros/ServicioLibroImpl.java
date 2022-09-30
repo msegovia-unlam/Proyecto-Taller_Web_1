@@ -19,13 +19,13 @@ public class ServicioLibroImpl implements ServicioLibro {
     }
 
     @Override
-    public Long guardarLibro(Libro libro) {
+    public Integer guardarLibro(Libro libro) {
         repositorioLibro.guardarLibro(libro);
         return libro.getId();
     }
 
     @Override
-    public Libro buscarLibroPorId(Long id) {
+    public Libro buscarLibroPorId(Integer id) {
         return repositorioLibro.buscarLibroPorId(id);
     }
 
@@ -37,7 +37,13 @@ public class ServicioLibroImpl implements ServicioLibro {
     @Override
     public List<Libro> obtenerLibrosALaVenta() {
         List<Libro> listaDeLibros = repositorioLibro.obtenerListaDeLibros();
-        List<Libro> listaDeLibrosALaVenta = listaDeLibros.stream().filter((libro -> libro.getaLaVenta())).collect(Collectors.toList());
+        // Con esto se filtran solo los libros que tengan en true la propiedad a la venta
+        List<Libro> listaDeLibrosALaVenta = listaDeLibros.stream().filter((libro -> libro.getALaVenta())).collect(Collectors.toList());
         return listaDeLibrosALaVenta;
+    }
+
+    @Override
+    public Integer modificarLibro(Libro libro) {
+        return repositorioLibro.modificarLibro(libro);
     }
 }

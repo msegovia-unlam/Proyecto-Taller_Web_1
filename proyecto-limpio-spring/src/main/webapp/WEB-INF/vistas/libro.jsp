@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -8,7 +9,7 @@
 </head>
 <body>
 
-<%@include file="common html/nav-bar.html" %>
+<%@include file="common html/nav-bar.jsp" %>
 
 <div class="card-body">
     <div class="container p-5">
@@ -32,27 +33,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 text-center my-4"><h4>El señor de los anillos: La comunidad del anillo</h4></div>
+            <div class="col-12 text-center my-4"><h4>${libro.titulo}</h4></div>
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="card mx-auto" style="width: 18rem;">
                     <img src="https://images.cdn3.buscalibre.com/fit-in/360x360/4d/0b/4d0b1fe621b2ae13392695c8e8e5b80a.jpg"
                          class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">La Comunidad del Anillo es el primero de los tres volúmenes que forman
-                            la novela El Señor de los Anillos, secuela de El hobbit, del escritor británico J. R. R.
-                            Tolkien.</p>
-                    </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="card text-end" style="width: 22rem; height: auto; background-color: #e7e7e7">
                     <div class="card-body">
-                        <h4 class="card-title">$4.200</h4>
-                        <p class="card-text">Hasta <strong>6 coutas sin interés de $700,00</strong></p>
-
-
+                        <h4 class="card-title">$${libro.precioDeVenta}</h4>
                         <div class="d-grid gap-2">
                             <button class="btn btn-primary rounded-pill" type="button">Comprar Ahora</button>
                             <button class="btn btn-success rounded-pill" type="button">Agregar al carrito</button>
@@ -75,6 +68,6 @@
 
 <%@include file="common html/footer.html" %>
 
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>
