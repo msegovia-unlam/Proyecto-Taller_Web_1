@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,14 +12,18 @@
 
 <%@include file="common html/nav-bar.html"%>
 
-<article class="container w-25 p-5">
+<c:if test="${not empty exitoso}">
+    <p class="alert alert-dismissible alert-success text-center my-3 ">${exitoso}</p>
+</c:if>
+<article class="container w-50 p-3">
+
     <form:form modelAttribute="datosRegistro" action = "validar-registro" method="POST" >
         <fieldset class="pb-2">
             <legend>Registrate</legend>
             <div class="form-group">
                 <div class="form-floating mb-3">
                     <form:input path="usuarioName" type="text" class="form-control" id="floatingUser" placeholder="User1234"
-                           name="usuarioName"/>
+                                name="usuarioName"/>
                     <label for="floatingEmail">Nombre de Usuario</label>
                 </div>
 
@@ -36,10 +41,10 @@
                 </div>
             </div>
         </fieldset>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Registrate</button>
         <span>${error}</span>
-        <p>¿Ya tienes una cuenta? <a href="login">Inicia sesión</a></p>
     </form:form>
+    <p>¿Ya tienes una cuenta? <a href="login">Inicia sesión</a></p>
 </article>
 
 <%@include file="common html/footer.html" %>

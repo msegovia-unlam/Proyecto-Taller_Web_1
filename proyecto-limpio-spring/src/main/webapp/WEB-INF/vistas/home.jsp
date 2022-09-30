@@ -12,6 +12,8 @@
 
 <%@include file="common html/nav-bar.html"%>
 
+
+
 <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="true">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -46,7 +48,14 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+
+
+
 <article class="container">
+    <form class="d-flex ">
+        <input class="form-control me-sm-2" type="text" placeholder="Buscá tu libro...">
+        <button class="btn btn-primary my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
     <div class="grid  mt-2 ">
         <div class="row gap-3 justify-content-center">
 

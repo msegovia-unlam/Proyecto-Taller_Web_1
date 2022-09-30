@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.domain.libros;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,5 +31,17 @@ public class RepositorioLibroImpl implements RepositorioLibro {
                 .getCurrentSession()
                 .createCriteria(Libro.class)
                 .list();
+    }
+
+    @Override
+    public Libro buscarLibroPorId(Long id) {
+        return (Libro) this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
+    }
+
+    @Override
+    public void borrarlibro(Libro libro){
+        this.sessionFactory.getCurrentSession().delete(libro);
     }
 }

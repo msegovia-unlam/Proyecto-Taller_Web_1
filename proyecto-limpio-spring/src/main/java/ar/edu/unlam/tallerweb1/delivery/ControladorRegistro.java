@@ -46,7 +46,7 @@ public class ControladorRegistro {
 
             servicioRegistro.almacenarUsuario(usuarioBuscado);
             model.put("exitoso", "Se ha registrado correctamente");
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("registro", model);
         }
         return new ModelAndView("registro", model);
     }

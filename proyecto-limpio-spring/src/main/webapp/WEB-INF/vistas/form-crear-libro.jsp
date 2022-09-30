@@ -12,7 +12,7 @@
 <%@include file="common html/nav-bar.html" %>
 
 <article class="container w-50 p-5">
-    <form:form modelAttribute="libro" action="crear-libro">
+    <form:form modelAttribute="libro" action="validar-libro-nuevo">
         <fieldset>
             <legend>Crear un libro</legend>
 
@@ -33,7 +33,7 @@
                 <form:input type="text" class="form-control" path="editorial" />
             </div>
             <div class="form-group">
-                <form:label path="tipoDeOtra" class="form-label mt-4">Tipo de Obra</form:label>
+                <form:label path="tipoDeObra" class="form-label mt-4">Tipo de Obra</form:label>
                 <form:select class="form-select" path="tipoDeObra">
                     <option>Novela</option>
                     <option>Manga</option>

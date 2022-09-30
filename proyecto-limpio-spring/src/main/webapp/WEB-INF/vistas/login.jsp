@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,10 @@
 
 <%@include file="common html/nav-bar.html"%>
 
-<article class="container w-25 p-5">
+<c:if test="${not empty error}">
+    <p class="alert alert-danger text-center my-3">${error}</p>
+</c:if>
+<article class="container w-50 pt-3">
     <form:form modelAttribute="datosLogin" action = "validar-login" method="POST">
         <fieldset class="pb-2">
             <legend>Login</legend>

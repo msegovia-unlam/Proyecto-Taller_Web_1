@@ -25,6 +25,16 @@ public class ServicioLibroImpl implements ServicioLibro {
     }
 
     @Override
+    public Libro buscarLibroPorId(Long id) {
+        return repositorioLibro.buscarLibroPorId(id);
+    }
+
+    @Override
+    public void borrarLibro(Libro libro) {
+        repositorioLibro.borrarlibro(libro);
+    }
+
+    @Override
     public List<Libro> obtenerLibrosALaVenta() {
         List<Libro> listaDeLibros = repositorioLibro.obtenerListaDeLibros();
         List<Libro> listaDeLibrosALaVenta = listaDeLibros.stream().filter((libro -> libro.getaLaVenta())).collect(Collectors.toList());
