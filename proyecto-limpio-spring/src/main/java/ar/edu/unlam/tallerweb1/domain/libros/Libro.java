@@ -30,8 +30,9 @@ public class Libro {
     @Column(name = "genero")
     private String genero;
 
-    @Column(name = "imagen")
-    private String imagen;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "imagen")
+    private ImagenLibro imagen;
 
     @Column(name = "editorial")
     private String editorial;

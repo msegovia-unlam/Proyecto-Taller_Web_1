@@ -6,6 +6,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.servlet.ServletContext;
 import java.util.List;
 
 @Repository
@@ -19,10 +20,10 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     }
 
     @Override
-    public Integer guardarLibro(Libro libro) {
+    public Libro guardarLibro(Libro libro) {
         final Session session= this.sessionFactory.getCurrentSession();
         session.saveOrUpdate(libro);
-        return libro.getId();
+        return libro;
     }
 
     @Override

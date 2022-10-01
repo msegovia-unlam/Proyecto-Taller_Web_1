@@ -64,7 +64,7 @@
                 <div class="card col-3 " style="width: 225px">
                     <div class="card-body text-center">
                         <h4 class="card-title">${libro.titulo}</h4>
-                        <img width="100px" src="img/libro1.jpg" alt="">
+                        <img width="100px" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="">
                         <p class="card-text">Autor: ${libro.autor}</p>
                         <p class="card-text">Género: ${libro.genero}</p>
                         <p class="card-text">Num. de paginas: ${libro.numeroDePaginas}</p>

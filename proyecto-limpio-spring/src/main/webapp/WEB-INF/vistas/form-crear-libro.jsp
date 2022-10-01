@@ -12,7 +12,7 @@
 <%@include file="common html/nav-bar.jsp" %>
 
 <article class="container w-50 p-5">
-    <form:form modelAttribute="libro" action="crear-libro">
+    <form:form modelAttribute="libro" action="crear-libro" enctype="multipart/form-data">
         <fieldset>
             <legend>Crear un libro</legend>
 
@@ -74,7 +74,10 @@
                     <form:label class="form-check-label" path="aLaVenta">No</form:label>
                 </div>
             </div>
-
+            <div class="form-group">
+                <label for="file" class="form-label mt-4">Subir una imagen</label>
+                <input class="form-control" type="file" id="file" name="file">
+            </div>
             <button type="submit" class="btn btn-primary mt-4">Crear</button>
         </fieldset>
     </form:form>

@@ -38,8 +38,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="card mx-auto" style="width: 18rem;">
-                    <img src="https://images.cdn3.buscalibre.com/fit-in/360x360/4d/0b/4d0b1fe621b2ae13392695c8e8e5b80a.jpg"
-                         class="card-img-top" alt="...">
+                    <img src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="">
                 </div>
             </div>
             <div class="col-sm-6">

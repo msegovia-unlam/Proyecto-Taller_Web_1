@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -27,7 +28,6 @@ public class ControladorLibro {
         ModelMap modelo = new ModelMap();
         List<Libro> librosALaVenta = servicioLibro.obtenerLibrosALaVenta();
         modelo.addAttribute("librosALaVenta", librosALaVenta);
-        // TODO: modificar la vista de home para que muestre las imagenes de los libros
         return new ModelAndView("home", modelo);
     }
 
@@ -36,7 +36,6 @@ public class ControladorLibro {
         ModelMap modelo = new ModelMap();
         Libro libro = servicioLibro.buscarLibroPorId(idLibro);
         modelo.addAttribute("libro", libro);
-        // TODO: modificar vista de detalles de un libro para mostrar la imagen
         return new ModelAndView("libro", modelo);
     }
 
@@ -48,10 +47,9 @@ public class ControladorLibro {
     }
 
     @RequestMapping(path = "/crear-libro", method = RequestMethod.POST)
-    public ModelAndView crearLibro(Libro libro) {
-        // TODO: agregar la carga de una imagen
+    public ModelAndView crearLibro(Libro libro, MultipartFile file) {
         ModelMap modelo = new ModelMap();
-        servicioLibro.guardarLibro(libro);
+        servicioLibro.crearLibro(libro, file);
         return new ModelAndView("redirect:/", modelo);
     }
 

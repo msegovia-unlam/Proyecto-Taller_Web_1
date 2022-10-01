@@ -3,7 +3,11 @@ package ar.edu.unlam.tallerweb1.domain.libros;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import java.awt.*;
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,15 +16,30 @@ import java.util.stream.Collectors;
 public class ServicioLibroImpl implements ServicioLibro {
 
     private RepositorioLibro repositorioLibro;
+    private ServletContext servletContext;
 
     @Autowired
-    public ServicioLibroImpl (RepositorioLibro repositorioLibro) {
+    public ServicioLibroImpl (RepositorioLibro repositorioLibro, ServletContext servletContext) {
         this.repositorioLibro = repositorioLibro;
+        this.servletContext = servletContext;
     }
 
     @Override
-    public Integer guardarLibro(Libro libro) {
-        repositorioLibro.guardarLibro(libro);
+    public Integer crearLibro(Libro libro, MultipartFile imagen) {
+        // Pregunto si la imagen que se subio esta vacia o es nula
+        if(!imagen.isEmpty() && imagen != null) {
+            // Guardo el libro y su imagen en la base de datos
+            ImagenLibro imagenLibro = new ImagenLibro();
+            libro.setImagen(imagenLibro);
+            libro = repositorioLibro.guardarLibro(libro);
+            // Guardo la imagen en el servidor
+            try {
+                String nombreDeLaImagen = servletContext.getRealPath("/") + "images"+ "\\" + libro.getImagen().getId() + ".jpg";
+                imagen.transferTo(new File(nombreDeLaImagen));
+            } catch (Exception e ){
+                e.printStackTrace();
+            }
+        }
         return libro.getId();
     }
 
