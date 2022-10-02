@@ -11,47 +11,23 @@
 
 <%@include file="common html/nav-bar.jsp" %>
 
-<div class="card-body">
-    <div class="container p-5">
-        <div class="row">
-            <div class="btn-group col-12" role="group" aria-label="Basic example">
-                <button type="button" class="btn text-light me-1 shadow" style="background-color: #772953">Libros
-                </button>
-                <button type="button" class="btn text-light me-1 shadow" style="background-color: #772953">
-                    Novedades
-                </button>
-                <button type="button" class="btn text-light me-1 shadow" style="background-color: #772953">Top 100
-                </button>
-                <button type="button" class="btn text-light me-1 shadow" style="background-color: #772953">Comics y
-                    Manga
-                </button>
-                <button type="button" class="btn text-light me-1 shadow" style="background-color: #772953">Locales
-                </button>
-                <button type="button" class="btn text-light shadow" style="background-color: #772953">Guia de
-                    Compra
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 text-center my-4"><h4>${libro.titulo}</h4></div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card mx-auto" style="width: 18rem;">
-                    <img src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card text-end" style="width: 22rem; height: auto; background-color: #e7e7e7">
+<main class="container">
+    <article class="card-body mb-3">
+        <h2 class="col-sm-12 my-4  text-uppercase">${libro.titulo}</h2>
+        <div class="d-flex gap-5">
+            <img class="w-25" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="${libro.titulo}-imagen">
+            <div>
+                <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">$${libro.precioDeVenta}</h4>
-                        <div class="d-grid gap-2">
+                        <p class="mb-0">Autor: ${libro.autor}</p>
+                        <p class="my-1">Editorial: ${libro.editorial}</p>
+                        <h4 >$${libro.precioDeVenta},00</h4>
+                        <div class="grid">
                             <button class="btn btn-primary rounded-pill" type="button">Comprar Ahora</button>
                             <button class="btn btn-success rounded-pill" type="button">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
-                <br><br>
                 <div class="row" style="width: 22rem;">
                     <label for="customRange2" class="form-label">¿Ya leíste este libro? ¡Rankealo!</label>
                     <input type="range" class="form-range" min="1" max="5" id="customRange2">
@@ -62,8 +38,22 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </article>
+
+    <article>
+        <h2>Sinopsis</h2>
+        <p class="w-75">${libro.sinopsis}</p>
+        <h3>Detalles del libro</h3>
+        <p>Numero de páginas: ${libro.numeroDePaginas}</p>
+        <p>Edición: ${libro.editorial}</p>
+        <p>ISBN: ${libro.ISBN}</p>
+    </article>
+
+    <article>
+        <h2>Libros relacionados</h2>
+    </article>
+
+</main>
 
 <%@include file="common html/footer.html" %>
 

@@ -52,8 +52,8 @@
 
 
 <article class="container">
-    <form class="d-flex ">
-        <input class="form-control me-sm-2" type="text" placeholder="Buscá tu libro...">
+    <form action="buscar-home" class="d-flex">
+        <input class="form-control me-sm-2" type="text" name="buscar" placeholder="Buscá tu libro...">
         <button class="btn btn-primary my-2 my-sm-0" type="submit">Buscar</button>
     </form>
     <div class="grid  mt-2 ">
@@ -62,13 +62,13 @@
             <c:forEach items="${librosALaVenta}" var="libro">
 
                 <div class="card col-3 " style="width: 225px">
-                    <div class="card-body text-center">
-                        <h4 class="card-title">${libro.titulo}</h4>
-                        <img width="100px" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="">
-                        <p class="card-text">Autor: ${libro.autor}</p>
-                        <p class="card-text">Género: ${libro.genero}</p>
-                        <p class="card-text">Num. de paginas: ${libro.numeroDePaginas}</p>
-                        <a href="#" class="card-link ">Comprar</a>
+                    <div class="card-body">
+                        <a class="text-decoration-none" href="libro/${libro.id}">
+                        <h4 class="card-title text-uppercase text-center">${libro.titulo}</h4>
+                        <img class="text-center w-100" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="${libro.titulo}-imagen">
+                        </a>
+                        <p class="card-text my-1">${libro.autor}</p>
+                        <h4 class="card-text">$${libro.precioDeVenta},00</h4>
                     </div>
                 </div>
 

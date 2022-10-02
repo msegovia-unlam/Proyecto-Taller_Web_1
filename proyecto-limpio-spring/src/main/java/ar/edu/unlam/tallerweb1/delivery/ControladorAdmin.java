@@ -24,6 +24,7 @@ public class ControladorAdmin {
     @RequestMapping("/admin")
     public ModelAndView irAAdmin(){
         ModelMap modelo = new ModelMap();
+        modelo.put("libroId",new DatosLibro());
         List<Libro> libros = servicioLibro.devolverTodosLosLibros();
         modelo.put("datosLibro", libros);
         return new ModelAndView("admin", modelo);

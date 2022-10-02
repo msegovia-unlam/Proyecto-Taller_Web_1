@@ -52,4 +52,7 @@ public class Libro {
     @Column(name = "aLaVenta")
     private Boolean aLaVenta;
 
+    @Column(name = "sinopsis", length = 9999)
+    private String sinopsis;
+
 }

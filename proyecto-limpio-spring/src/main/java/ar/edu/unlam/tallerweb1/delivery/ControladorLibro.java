@@ -5,9 +5,7 @@ import ar.edu.unlam.tallerweb1.domain.libros.ServicioLibro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -74,16 +72,24 @@ public class ControladorLibro {
         return new ModelAndView("redirect:/libro/" + id, modelo);
     }
 
-    @RequestMapping(path = "/borrar-libro/{id}", method = RequestMethod.POST)
-    public ModelAndView eliminarLibro(@PathVariable("id") Integer id) {
+    @RequestMapping(path = "/borrar-libro", method = RequestMethod.POST)
+    public ModelAndView eliminarLibro(@ModelAttribute("libroId") DatosLibro libroId) {
         ModelMap modelo = new ModelMap();
-        Libro libroABuscar = servicioLibro.buscarLibroPorId(id);
+        Libro libroABuscar = servicioLibro.buscarLibroPorId(libroId.getId());
         if (libroABuscar != null) {
             servicioLibro.borrarLibro(libroABuscar);
             modelo.put("mensajeExitoso", "El libro se borró correctamente");
         } else {
             modelo.put("mensajeError", "Ha ocurrido un error");
         }
-        return new ModelAndView("admin", modelo);
+        return new ModelAndView("redirect:/admin", modelo);
+    }
+
+    @RequestMapping("/buscar-home")
+    public ModelAndView buscarLibroHome(@RequestParam(name = "buscar") String titulo){
+        ModelMap modelo = new ModelMap();
+        List<Libro> libros = servicioLibro.buscarLibroPorTitulo(titulo);
+        modelo.put("librosALaVenta", libros);
+        return new ModelAndView("home", modelo);
     }
 }
