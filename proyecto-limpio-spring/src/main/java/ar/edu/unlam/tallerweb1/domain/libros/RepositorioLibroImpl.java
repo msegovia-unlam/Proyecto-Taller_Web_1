@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.domain.libros;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,5 +51,20 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     public Integer modificarLibro(Libro libro) {
         this.sessionFactory.getCurrentSession().update(libro);
         return libro.getId();
+    }
+
+    @Override
+    public List<Libro> devolverTodosLosLibros() {
+        return this.sessionFactory
+                .getCurrentSession()
+                .createCriteria(Libro.class)
+                .list();
+    }
+
+    @Override
+    public List<Libro> buscarLibroPorTitulo(String titulo) {
+        return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.like("titulo",titulo, MatchMode.ANYWHERE))
+                .list();
     }
 }

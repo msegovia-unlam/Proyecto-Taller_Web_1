@@ -34,6 +34,7 @@
         </fieldset>
         <button type="submit" class="btn btn-primary">Submit</button>
         <span>${error}</span>
+        <p>¿No tienes una cuenta? <a href="registro">Registrate</a></p>
     </form:form>
 </article>
 

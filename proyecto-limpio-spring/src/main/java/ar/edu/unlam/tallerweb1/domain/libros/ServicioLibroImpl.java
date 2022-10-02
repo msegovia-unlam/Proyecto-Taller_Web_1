@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
-import java.awt.*;
 import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,4 +64,16 @@ public class ServicioLibroImpl implements ServicioLibro {
     public Integer modificarLibro(Libro libro) {
         return repositorioLibro.modificarLibro(libro);
     }
+
+    @Override
+    public List<Libro> devolverTodosLosLibros() {
+        return repositorioLibro.devolverTodosLosLibros();
+    }
+
+    @Override
+    public List<Libro> buscarLibroPorTitulo(String titulo) {
+        return repositorioLibro.buscarLibroPorTitulo(titulo);
+    }
+
+
 }

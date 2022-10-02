@@ -49,8 +49,13 @@ public class ControladorLibro {
     @RequestMapping(path = "/crear-libro", method = RequestMethod.POST)
     public ModelAndView crearLibro(Libro libro, MultipartFile file) {
         ModelMap modelo = new ModelMap();
-        servicioLibro.crearLibro(libro, file);
-        return new ModelAndView("redirect:/", modelo);
+        Integer idLibroNuevo = servicioLibro.crearLibro(libro, file);
+        if (idLibroNuevo!=null){
+            modelo.put("libroCreado", "El libro se ha creado correctamente");
+        }else{
+            modelo.put("libroNoCreado", "Hubo un error con la creación del libro");
+        }
+        return new ModelAndView("redirect:/admin", modelo);
     }
 
     @RequestMapping(value = "/modificar-libro/{id}", method = RequestMethod.GET)
@@ -75,9 +80,10 @@ public class ControladorLibro {
         Libro libroABuscar = servicioLibro.buscarLibroPorId(id);
         if (libroABuscar != null) {
             servicioLibro.borrarLibro(libroABuscar);
+            modelo.put("mensajeExitoso", "El libro se borró correctamente");
         } else {
-            modelo.put("error", "Ha ocurrido un error");
+            modelo.put("mensajeError", "Ha ocurrido un error");
         }
-        return new ModelAndView("redirect:/", modelo);
+        return new ModelAndView("admin", modelo);
     }
 }

@@ -10,4 +10,10 @@ public interface ServicioLibro {
     void borrarLibro(Libro libro);
     List<Libro> obtenerLibrosALaVenta();
     Integer modificarLibro(Libro libro);
+
+    List<Libro> devolverTodosLosLibros();
+
+    List<Libro> buscarLibroPorTitulo(String titulo);
+
+
 }
