@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -46,27 +47,27 @@ public class ControladorLibro {
     }
 
     @RequestMapping(path = "/crear-libro", method = RequestMethod.POST)
-    public ModelAndView crearLibro(Libro libro, MultipartFile file) {
+    public ModelAndView crearLibro(Libro libro, MultipartFile file, RedirectAttributes redirectAttributes) {
         ModelMap modelo = new ModelMap();
         Integer idLibroNuevo = servicioLibro.crearLibro(libro, file);
         if (idLibroNuevo!=null){
-            modelo.put("libroCreado", "El libro se ha creado correctamente");
+            redirectAttributes.addFlashAttribute("libroCreado", "El libro se ha creado correctamente");
         }else{
-            modelo.put("libroNoCreado", "Hubo un error con la creación del libro");
+            redirectAttributes.addFlashAttribute("libroNoCreado", "Hubo un error con la creación del libro");
         }
         return new ModelAndView("redirect:/admin", modelo);
     }
 
 
-    @RequestMapping(path = "/borrar-libro", method = RequestMethod.POST)
-    public ModelAndView eliminarLibro(@ModelAttribute("libroId") DatosLibro libroId) {
+    @RequestMapping(path = "/borrar-libro/{id}", method = RequestMethod.POST)
+    public ModelAndView eliminarLibro(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
         ModelMap modelo = new ModelMap();
-        Libro libroABuscar = servicioLibro.buscarLibroPorId(libroId.getId());
+        Libro libroABuscar = servicioLibro.buscarLibroPorId(id);
         if (libroABuscar != null) {
             servicioLibro.borrarLibro(libroABuscar);
-            modelo.put("mensajeExitoso", "El libro se borró correctamente");
+            redirectAttributes.addFlashAttribute("mensajeExitoso", "El libro se borró correctamente");
         } else {
-            modelo.put("mensajeError", "Ha ocurrido un error");
+            redirectAttributes.addFlashAttribute("mensajeError", "Ha ocurrido un error");
         }
         return new ModelAndView("redirect:/admin", modelo);
     }

@@ -73,7 +73,7 @@
                         </c:if>
                     </td>
                     <td class="d-flex gap-2">
-                        <form:form modelAttribute="libroId" action="${pageContext.request.contextPath}/modificar-libro/${libro.id}">
+                        <form:form  action="${pageContext.request.contextPath}/modificar-libro/${libro.id}">
                             <button type="submit" class="btn btn-info" >
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -83,7 +83,7 @@
                             </svg>
                             </button>
                         </form:form>
-                        <form:form modelAttribute="libroId" action="borrar-libro">
+                        <form:form  action="${pageContext.request.contextPath}/borrar-libro/${libro.id}">
                             <button type="submit" class="btn btn-danger">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
