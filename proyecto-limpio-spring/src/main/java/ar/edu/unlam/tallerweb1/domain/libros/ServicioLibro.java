@@ -9,11 +9,11 @@ public interface ServicioLibro {
     Libro buscarLibroPorId(Integer id);
     void borrarLibro(Libro libro);
     List<Libro> obtenerLibrosALaVenta();
-    Integer modificarLibro(Libro libro);
 
     List<Libro> devolverTodosLosLibros();
 
     List<Libro> buscarLibroPorTitulo(String titulo);
 
 
+    void actualizarLibro(Libro libroAActualizar);
 }

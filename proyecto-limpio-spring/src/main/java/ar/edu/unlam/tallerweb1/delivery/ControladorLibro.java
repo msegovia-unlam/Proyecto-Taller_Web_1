@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -56,21 +57,6 @@ public class ControladorLibro {
         return new ModelAndView("redirect:/admin", modelo);
     }
 
-    @RequestMapping(value = "/modificar-libro/{id}", method = RequestMethod.GET)
-    public ModelAndView modificarLibro(@PathVariable("id") Integer id) {
-        ModelMap modelo = new ModelMap();
-        Libro libro = servicioLibro.buscarLibroPorId(id);
-        modelo.addAttribute("libro", libro);
-        return new ModelAndView("form-modificar-libro", modelo);
-    }
-
-    @RequestMapping(path = "/modificar-libro/{id}", method = RequestMethod.POST)
-    public ModelAndView salvarLibro(@PathVariable("id") Integer id, Libro libro) {
-        System.out.println(libro);
-        ModelMap modelo = new ModelMap();
-        servicioLibro.modificarLibro(libro);
-        return new ModelAndView("redirect:/libro/" + id, modelo);
-    }
 
     @RequestMapping(path = "/borrar-libro", method = RequestMethod.POST)
     public ModelAndView eliminarLibro(@ModelAttribute("libroId") DatosLibro libroId) {
@@ -91,5 +77,33 @@ public class ControladorLibro {
         List<Libro> libros = servicioLibro.buscarLibroPorTitulo(titulo);
         modelo.put("librosALaVenta", libros);
         return new ModelAndView("home", modelo);
+    }
+
+    @RequestMapping(value = "/modificar-libro/{id}", method = RequestMethod.POST)
+    public ModelAndView modificarLibro(@PathVariable("id") Integer id){
+
+        ModelMap modelo = new ModelMap();
+        Libro libroAEditar = servicioLibro.buscarLibroPorId(id);
+
+        if (libroAEditar != null){
+            modelo.put("libro", libroAEditar);
+            return new ModelAndView("modificar-libro", modelo);
+
+        }else{
+            modelo.put("error", "Libro no encontrado");
+        }
+        return new ModelAndView("home", modelo);
+    }
+
+    @RequestMapping(path = "/actualizarLibro", method = RequestMethod.POST)
+    public ModelAndView actualizarLibro(@ModelAttribute("libro") Libro libroAActualizar, HttpServletRequest request){
+        ModelMap modelo = new ModelMap();
+
+        servicioLibro.actualizarLibro(libroAActualizar);
+
+        modelo.put("libro", libroAActualizar);
+
+        return new ModelAndView("libro", modelo);
+
     }
 }

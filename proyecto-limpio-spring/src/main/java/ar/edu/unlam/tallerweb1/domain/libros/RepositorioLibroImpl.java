@@ -48,9 +48,9 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     }
 
     @Override
-    public Integer modificarLibro(Libro libro) {
-        this.sessionFactory.getCurrentSession().update(libro);
-        return libro.getId();
+    public void actualizarLibro(Libro libroAActualizar){
+
+        sessionFactory.getCurrentSession().update(libroAActualizar);
     }
 
     @Override
