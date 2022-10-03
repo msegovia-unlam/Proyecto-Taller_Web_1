@@ -29,9 +29,10 @@ public class RepositorioLibroImpl implements RepositorioLibro {
 
     @Override
     public List<Libro> obtenerListaDeLibros() {
-        return this.sessionFactory
+        return  this.sessionFactory
                 .getCurrentSession()
                 .createCriteria(Libro.class)
+                .add(Restrictions.eq("aLaVenta", true))
                 .list();
     }
 
