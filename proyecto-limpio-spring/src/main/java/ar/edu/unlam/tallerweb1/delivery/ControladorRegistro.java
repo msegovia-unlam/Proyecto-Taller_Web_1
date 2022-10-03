@@ -37,14 +37,14 @@ public class ControladorRegistro {
         if (usuarioBuscado != null) {
             model.put("error", "El usuario ya existe");
         } else {
-            usuarioBuscado = new Usuario();
-            usuarioBuscado.setEmail(datosRegistro.getEmail());
-            usuarioBuscado.setNombre(datosRegistro.getUsuarioName());
-            usuarioBuscado.setPassword(datosRegistro.getPassword());
+                usuarioBuscado = new Usuario();
+                usuarioBuscado.setEmail(datosRegistro.getEmail());
+                usuarioBuscado.setNombre(datosRegistro.getUsuarioName());
+                usuarioBuscado.setPassword(datosRegistro.getPassword());
+                servicioRegistro.almacenarUsuario(usuarioBuscado);
+                model.put("exitoso", "Se ha registrado correctamente");
+                return new ModelAndView("registro", model);
 
-            servicioRegistro.almacenarUsuario(usuarioBuscado);
-            model.put("exitoso", "Se ha registrado correctamente");
-            return new ModelAndView("registro", model);
         }
         return new ModelAndView("registro", model);
     }

@@ -16,4 +16,6 @@ public interface ServicioLibro {
 
 
     void actualizarLibro(Libro libroAActualizar);
+
+    void cambiarEstadoDeVentaDelLibro(Integer id);
 }

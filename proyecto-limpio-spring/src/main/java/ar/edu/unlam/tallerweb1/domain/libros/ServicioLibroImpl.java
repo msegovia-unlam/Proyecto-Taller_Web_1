@@ -66,6 +66,11 @@ public class ServicioLibroImpl implements ServicioLibro {
     }
 
     @Override
+    public void cambiarEstadoDeVentaDelLibro(Integer id) {
+        repositorioLibro.cambiarEstadoDeVentaDelLibro(id);
+    }
+
+    @Override
     public List<Libro> devolverTodosLosLibros() {
         return repositorioLibro.devolverTodosLosLibros();
     }

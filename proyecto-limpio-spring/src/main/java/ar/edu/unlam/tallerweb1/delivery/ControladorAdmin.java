@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.domain.libros.ServicioLibro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +25,6 @@ public class ControladorAdmin {
     @RequestMapping("/admin")
     public ModelAndView irAAdmin(){
         ModelMap modelo = new ModelMap();
-        modelo.put("libroId",new DatosLibro());
         List<Libro> libros = servicioLibro.devolverTodosLosLibros();
         modelo.put("datosLibro", libros);
         return new ModelAndView("admin", modelo);
@@ -35,6 +35,13 @@ public class ControladorAdmin {
         List<Libro> libros = servicioLibro.buscarLibroPorTitulo(titulo);
         modelo.put("datosLibro", libros);
         return new ModelAndView("admin", modelo);
+    }
+
+    @RequestMapping("/cambiar-estado-venta/{id}")
+    public ModelAndView cambiarEstadoDeVentaDelLibro(@PathVariable("id") Integer id){
+        ModelMap modelo = new ModelMap();
+        servicioLibro.cambiarEstadoDeVentaDelLibro(id);
+        return new ModelAndView("redirect:/admin",modelo);
     }
 
 }

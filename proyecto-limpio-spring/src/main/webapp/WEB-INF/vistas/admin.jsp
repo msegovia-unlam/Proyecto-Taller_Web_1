@@ -62,13 +62,27 @@
                     <td>$${libro.precioDeVenta}.00</td>
                     <td>
                         <c:if test="${libro.ALaVenta}">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
+                            <div class="d-flex gap-2">
+                                <div >
+                                    <span class=" py-3 h-75 badge bg-success">En venta</span>
+                                </div>
+                                <form:form action="${pageContext.request.contextPath}/cambiar-estado-venta/${libro.id}">
+                                    <button type="submit" class="btn btn-warning" >
+                                        Cambiar
+                                    </button>
+                                </form:form>
                             </div>
                         </c:if>
                         <c:if test="${!libro.ALaVenta}">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <div class="d-flex gap-2">
+                                <div >
+                                    <span class="py-3 h-75 badge bg-danger">No está en venta</span>
+                                </div>
+                                <form:form action="${pageContext.request.contextPath}/cambiar-estado-venta/${libro.id}">
+                                    <button type="submit" class="btn btn-warning" >
+                                        Cambiar
+                                    </button>
+                                </form:form>
                             </div>
                         </c:if>
                     </td>

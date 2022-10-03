@@ -12,4 +12,6 @@ public interface RepositorioLibro {
     List<Libro> devolverTodosLosLibros();
 
     List<Libro> buscarLibroPorTitulo(String titulo);
+
+    void cambiarEstadoDeVentaDelLibro(Integer id);
 }
