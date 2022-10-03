@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.usuarios.Rol;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioRegistro;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class ControladorRegistro {
             usuarioBuscado.setEmail(datosRegistro.getEmail());
             usuarioBuscado.setNombre(datosRegistro.getUsuarioName());
             usuarioBuscado.setPassword(datosRegistro.getPassword());
+            usuarioBuscado.setRol(Rol.NO_ADMIN);
 
             servicioRegistro.almacenarUsuario(usuarioBuscado);
             model.put("exitoso", "Se ha registrado correctamente");

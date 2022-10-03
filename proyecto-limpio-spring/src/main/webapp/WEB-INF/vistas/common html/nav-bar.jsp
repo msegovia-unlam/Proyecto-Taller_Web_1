@@ -27,12 +27,14 @@
           <a class="nav-link" href="#">Guia de compra</a>
         </li>
       </ul>
-      <form action="login">
-        <button class="btn btn-secondary my-2 my-sm-0" name="inisiarSesion" type="submit">Iniciar Sesión</button>
-      </form>
-      <form action="registro ">
-        <button class="btn btn-secondary my-2 my-sm-0 mx-3" name="registrarse" type="submit">Registrarse</button>
-      </form>
+      <c:if test="${sessionScope.get('ROL') == null}">
+        <form action="login">
+          <button class="btn btn-secondary my-2 my-sm-0" name="inisiarSesion" type="submit">Iniciar Sesión</button>
+        </form>
+        <form action="registro">
+          <button class="btn btn-secondary my-2 my-sm-0 mx-3" name="registrarse" type="submit">Registrarse</button>
+        </form>
+      </c:if>
     </div>
   </div>
 </nav>

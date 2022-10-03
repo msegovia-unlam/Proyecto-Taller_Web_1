@@ -26,7 +26,7 @@ public class Usuario {
 	// el atributo, la misma admite nulos, y el tipo de dato se deduce del tipo de dato de java.
 	private String email;
 	private String password;
-	private String rol;
+	private Rol rol;
 	private String nombre;
 	private Boolean activo = false;
 
