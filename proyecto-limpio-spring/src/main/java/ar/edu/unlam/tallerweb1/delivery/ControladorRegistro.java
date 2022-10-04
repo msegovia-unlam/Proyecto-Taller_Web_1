@@ -17,38 +17,49 @@ import javax.servlet.http.HttpServletRequest;
 public class ControladorRegistro {
 
     private ServicioRegistro servicioRegistro;
+    private HttpServletRequest request;
 
     @Autowired
-    public ControladorRegistro(ServicioRegistro servicioRegistro) {
+    public ControladorRegistro(ServicioRegistro servicioRegistro, HttpServletRequest request) {
+        this.request = request;
         this.servicioRegistro = servicioRegistro;
     }
 
     @RequestMapping(path = "/registro", method = RequestMethod.GET)
     ModelAndView irAlRegistro() {
         ModelMap modelo = new ModelMap();
-        modelo.put("datosRegistro", new DatosRegistro());
-        return new ModelAndView("registro", modelo);
+        String vista;
+        if(request.getSession().getAttribute("ROL") == null) {
+            modelo.put("datosRegistro", new DatosRegistro());
+            vista = "registro";
+        } else {
+            vista = "redirect:/";
+        }
+        return new ModelAndView(vista, modelo);
     }
 
     @RequestMapping(path = "/validar-registro", method = RequestMethod.POST)
     public ModelAndView validarRegistro(@ModelAttribute("datosRegistro") DatosRegistro datosRegistro) {
         ModelMap model = new ModelMap();
-
-        Usuario usuarioBuscado = servicioRegistro.consultarUsuario(datosRegistro.getEmail(), datosRegistro.getUsuarioName());
-        if (usuarioBuscado != null) {
-            model.put("error", "El usuario ya existe");
+        String vista;
+        if(request.getSession().getAttribute("ROL") == null) {
+            Usuario usuarioBuscado = servicioRegistro.consultarUsuario(datosRegistro.getEmail(), datosRegistro.getUsuarioName());
+            if (usuarioBuscado != null) {
+                model.put("error", "El usuario ya existe");
+            } else {
+                usuarioBuscado = new Usuario();
+                usuarioBuscado.setEmail(datosRegistro.getEmail());
+                usuarioBuscado.setNombre(datosRegistro.getUsuarioName());
+                usuarioBuscado.setPassword(datosRegistro.getPassword());
+                usuarioBuscado.setRol(Rol.NO_ADMIN);
+                servicioRegistro.almacenarUsuario(usuarioBuscado);
+                model.put("exitoso", "Se ha registrado correctamente");
+            }
+            vista = "registro";
         } else {
-            usuarioBuscado = new Usuario();
-            usuarioBuscado.setEmail(datosRegistro.getEmail());
-            usuarioBuscado.setNombre(datosRegistro.getUsuarioName());
-            usuarioBuscado.setPassword(datosRegistro.getPassword());
-            usuarioBuscado.setRol(Rol.NO_ADMIN);
-
-            servicioRegistro.almacenarUsuario(usuarioBuscado);
-            model.put("exitoso", "Se ha registrado correctamente");
-            return new ModelAndView("registro", model);
+            vista = "redirect:/";
         }
-        return new ModelAndView("registro", model);
+        return new ModelAndView(vista, model);
     }
 
 }

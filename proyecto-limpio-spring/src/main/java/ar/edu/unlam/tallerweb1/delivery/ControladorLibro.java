@@ -39,25 +39,6 @@ public class ControladorLibro {
         return new ModelAndView("libro", modelo);
     }
 
-    @RequestMapping(path = "/crear-libro", method = RequestMethod.GET)
-    public ModelAndView irFormularioCrearLibro(Libro libro) {
-        ModelMap modelo = new ModelMap();
-        modelo.addAttribute("libro", libro);
-        return new ModelAndView("form-crear-libro", modelo);
-    }
-
-    @RequestMapping(path = "/crear-libro", method = RequestMethod.POST)
-    public ModelAndView crearLibro(Libro libro, MultipartFile file) {
-        ModelMap modelo = new ModelMap();
-        Integer idLibroNuevo = servicioLibro.crearLibro(libro, file);
-        if (idLibroNuevo!=null){
-            modelo.put("libroCreado", "El libro se ha creado correctamente");
-        }else{
-            modelo.put("libroNoCreado", "Hubo un error con la creación del libro");
-        }
-        return new ModelAndView("redirect:/admin", modelo);
-    }
-
     @RequestMapping(value = "/modificar-libro/{id}", method = RequestMethod.GET)
     public ModelAndView modificarLibro(@PathVariable("id") Integer id) {
         ModelMap modelo = new ModelMap();
@@ -74,16 +55,4 @@ public class ControladorLibro {
         return new ModelAndView("redirect:/libro/" + id, modelo);
     }
 
-    @RequestMapping(path = "/borrar-libro/{id}", method = RequestMethod.POST)
-    public ModelAndView eliminarLibro(@PathVariable("id") Integer id) {
-        ModelMap modelo = new ModelMap();
-        Libro libroABuscar = servicioLibro.buscarLibroPorId(id);
-        if (libroABuscar != null) {
-            servicioLibro.borrarLibro(libroABuscar);
-            modelo.put("mensajeExitoso", "El libro se borró correctamente");
-        } else {
-            modelo.put("mensajeError", "Ha ocurrido un error");
-        }
-        return new ModelAndView("admin", modelo);
-    }
 }

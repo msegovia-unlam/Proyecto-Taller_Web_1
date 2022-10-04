@@ -33,12 +33,12 @@
     <c:if test="${not empty libroNoCreado}">
         <p class="alert alert-danger text-center my-3">${libroNoCreado}</p>
     </c:if>
-    <form action="buscar" class="d-flex my-3">
+    <form action="${pageContext.request.contextPath}/admin/buscar" class="d-flex my-3">
         <input class="form-control me-sm-2" type="text" name="buscar" placeholder="Buscar libro...">
         <button class="btn btn-primary my-2" type="submit">Buscar</button>
     </form>
     <div class="flex text-end">
-        <a class="btn btn-success mb-2" href="crear-libro">
+        <a class="btn btn-success mb-2" href="${pageContext.request.contextPath}/admin/crear-libro">
             Agregar Libro
         </a>
     </div>
