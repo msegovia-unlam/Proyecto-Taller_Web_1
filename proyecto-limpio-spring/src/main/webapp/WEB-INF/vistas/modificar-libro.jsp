@@ -1,20 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
-    <meta charset="UTF-8"/>
+    <%@include file="common html/bootstrap.html" %>
+    <title>Modificar libro</title>
 </head>
 <body>
 
 <%@include file="common html/nav-bar.jsp" %>
 
 <article class="container w-50 p-5">
-    <form:form action="${pageContext.request.contextPath}/actualizarLibro"  method="post" modelAttribute="libro">
+    <form:form action="${pageContext.request.contextPath}/actualizarLibro"  method="post" modelAttribute="libro" enctype="multipart/form-data">
         <fieldset>
             <legend>"${libro.titulo}"</legend>
 
@@ -37,7 +34,7 @@
                 <form:input type="text" class="form-control" id="editorial" path="editorial" />
             </div>
             <div class="form-group">
-                <label for="resenia" class="form-label mt-4">Nombre de la editorial</label>
+                <label for="resenia" class="form-label mt-4">Reseña</label>
                 <form:textarea class="form-control" id="resenia" path="sinopsis" />
             </div>
             <div>
@@ -69,6 +66,11 @@
                         Terror
                     </label>
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label mt-4" for="precioDeVenta">Precio</label>
+                <form:input type="number" class="form-control"  id="precioDeVenta" path="precioDeVenta" />
             </div>
 
             <button type="submit" class="btn btn-primary mt-4">Actualizar</button>

@@ -24,6 +24,13 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+
     <!--Se indica el context listener, el mismo hace referencia el archivo de configuracion principal de spring: applicationContext.xml-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
