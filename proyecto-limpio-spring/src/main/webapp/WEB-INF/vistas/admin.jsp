@@ -8,17 +8,7 @@
 </head>
 <body>
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/">Logo</a>
-
-            <form action="login">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerrar Sesión</button>
-            </form>
-        </div>
-    </nav>
-</header>
+<%@include file="common html/nav-bar.jsp"%>
 
 <main class="container">
     <c:if test="${not empty mensajeExitoso}">
@@ -66,7 +56,7 @@
                                 <div >
                                     <span class=" py-3 h-75 badge bg-success">En venta</span>
                                 </div>
-                                <form:form action="${pageContext.request.contextPath}/cambiar-estado-venta/${libro.id}">
+                                <form:form action="${pageContext.request.contextPath}/admin/cambiar-estado-venta/${libro.id}">
                                     <button type="submit" class="btn btn-warning" >
                                         Cambiar
                                     </button>
@@ -78,7 +68,7 @@
                                 <div >
                                     <span class="py-3 h-75 badge bg-danger">No está en venta</span>
                                 </div>
-                                <form:form action="${pageContext.request.contextPath}/cambiar-estado-venta/${libro.id}">
+                                <form:form action="${pageContext.request.contextPath}/admin/cambiar-estado-venta/${libro.id}">
                                     <button type="submit" class="btn btn-warning" >
                                         Cambiar
                                     </button>
@@ -87,7 +77,7 @@
                         </c:if>
                     </td>
                     <td class="d-flex gap-2">
-                        <form:form  action="${pageContext.request.contextPath}/modificar-libro/${libro.id}">
+                        <form:form  action="${pageContext.request.contextPath}/admin/modificar-libro/${libro.id}">
                             <button type="submit" class="btn btn-info" >
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -97,7 +87,7 @@
                             </svg>
                             </button>
                         </form:form>
-                        <form:form  action="${pageContext.request.contextPath}/borrar-libro/${libro.id}">
+                        <form:form  action="${pageContext.request.contextPath}/admin/borrar-libro/${libro.id}">
                             <button type="submit" class="btn btn-danger">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>

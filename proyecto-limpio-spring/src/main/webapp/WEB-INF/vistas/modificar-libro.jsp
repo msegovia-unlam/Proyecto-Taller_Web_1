@@ -14,7 +14,7 @@
 <%@include file="common html/nav-bar.jsp" %>
 
 <article class="container w-50 p-5">
-    <form:form action="${pageContext.request.contextPath}/actualizarLibro"  method="post" modelAttribute="libro">
+    <form:form action="${pageContext.request.contextPath}/admin/actualizarLibro"  method="post" modelAttribute="libro">
         <fieldset>
             <legend>"${libro.titulo}"</legend>
 

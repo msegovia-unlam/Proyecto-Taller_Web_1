@@ -6,10 +6,7 @@ import ar.edu.unlam.tallerweb1.domain.usuarios.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -90,29 +87,61 @@ public class ControladorAdmin {
     }
 
     @RequestMapping(path = "/borrar-libro/{id}", method = RequestMethod.POST)
-    public ModelAndView eliminarLibro(@PathVariable("id") Integer id) {
+    public ModelAndView eliminarLibro(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
         ModelMap modelo = new ModelMap();
         String vista;
-        if(request.getSession().getAttribute("ROL") == Rol.ADMIN) {
+        if (request.getSession().getAttribute("ROL") == Rol.ADMIN) {
             Libro libroABuscar = servicioLibro.buscarLibroPorId(id);
             if (libroABuscar != null) {
                 servicioLibro.borrarLibro(libroABuscar);
-                modelo.put("mensajeExitoso", "El libro se borró correctamente");
+                redirectAttributes.addFlashAttribute("mensajeExitoso", "El libro se borró correctamente");
             } else {
-                modelo.put("mensajeError", "Ha ocurrido un error");
+                redirectAttributes.addFlashAttribute("mensajeError", "Ha ocurrido un error");
             }
-            vista = "admin";
+            vista = "redirect:/admin/";
         } else {
             vista = "redirect:/";
         }
         return new ModelAndView(vista, modelo);
     }
 
-    @RequestMapping("/cambiar-estado-venta/{id}")
-    public ModelAndView cambiarEstadoDeVentaDelLibro(@PathVariable("id") Integer id){
+    @RequestMapping(value = "/cambiar-estado-venta/{id}", method = RequestMethod.POST)
+    public ModelAndView cambiarEstadoDeVentaDelLibro(@PathVariable("id") Integer id) {
         ModelMap modelo = new ModelMap();
-        servicioLibro.cambiarEstadoDeVentaDelLibro(id);
-        return new ModelAndView("redirect:/admin",modelo);
+        String vista;
+        if (request.getSession().getAttribute("ROL") == Rol.ADMIN) {
+            servicioLibro.cambiarEstadoDeVentaDelLibro(id);
+            vista = "redirect:/admin/";
+        } else {
+            vista = "redirect:/";
+        }
+        return new ModelAndView(vista, modelo);
+    }
+
+    @RequestMapping(value = "/modificar-libro/{id}", method = RequestMethod.POST)
+    public ModelAndView modificarLibro(@PathVariable("id") Integer id) {
+        ModelMap modelo = new ModelMap();
+        String vista;
+        if (request.getSession().getAttribute("ROL") == Rol.ADMIN) {
+            Libro libroAEditar = servicioLibro.buscarLibroPorId(id);
+            modelo.put("libro", libroAEditar);
+            vista = "modificar-libro";
+        } else {
+            vista = "redirect:/";
+        }
+        return new ModelAndView(vista, modelo);
+    }
+
+    @RequestMapping(path = "/actualizarLibro", method = RequestMethod.POST)
+    public ModelAndView actualizarLibro(@ModelAttribute("libro") Libro libroAActualizar) {
+        ModelMap modelo = new ModelMap();
+        String vista;
+        if (request.getSession().getAttribute("ROL") == Rol.ADMIN) {
+            servicioLibro.actualizarLibro(libroAActualizar);
+            modelo.put("libro", libroAActualizar);
+        }
+        vista = "redirect:/";
+        return new ModelAndView(vista, modelo);
     }
 
 }

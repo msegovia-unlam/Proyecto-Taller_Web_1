@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +20,7 @@ public class ServicioLibroImpl implements ServicioLibro {
     private ServletContext servletContext;
 
     @Autowired
-    public ServicioLibroImpl (RepositorioLibro repositorioLibro, ServletContext servletContext) {
+    public ServicioLibroImpl(RepositorioLibro repositorioLibro, ServletContext servletContext) {
         this.repositorioLibro = repositorioLibro;
         this.servletContext = servletContext;
     }
@@ -26,16 +28,20 @@ public class ServicioLibroImpl implements ServicioLibro {
     @Override
     public Integer crearLibro(Libro libro, MultipartFile imagen) {
         // Pregunto si la imagen que se subio esta vacia o es nula
-        if(!imagen.isEmpty() && imagen != null) {
+        if (!imagen.isEmpty() && imagen != null) {
             // Guardo el libro y su imagen en la base de datos
             ImagenLibro imagenLibro = new ImagenLibro();
             libro.setImagen(imagenLibro);
             libro = repositorioLibro.guardarLibro(libro);
             // Guardo la imagen en el servidor
             try {
-                String nombreDeLaImagen = servletContext.getRealPath("/") + "images"+ "\\" + libro.getImagen().getId() + ".jpg";
+                // Creo la carpeta images si no existe
+                Path carpetaImages = Path.of(servletContext.getRealPath("/") + "images");
+                if (!Files.exists(carpetaImages))
+                    Files.createDirectory(carpetaImages);
+                String nombreDeLaImagen = carpetaImages + "\\" + libro.getImagen().getId() + ".jpg";
                 imagen.transferTo(new File(nombreDeLaImagen));
-            } catch (Exception e ){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

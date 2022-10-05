@@ -9,13 +9,8 @@ public interface ServicioLibro {
     Libro buscarLibroPorId(Integer id);
     void borrarLibro(Libro libro);
     List<Libro> obtenerLibrosALaVenta();
-
     List<Libro> devolverTodosLosLibros();
-
     List<Libro> buscarLibroPorTitulo(String titulo);
-
-
     void actualizarLibro(Libro libroAActualizar);
-
     void cambiarEstadoDeVentaDelLibro(Integer id);
 }

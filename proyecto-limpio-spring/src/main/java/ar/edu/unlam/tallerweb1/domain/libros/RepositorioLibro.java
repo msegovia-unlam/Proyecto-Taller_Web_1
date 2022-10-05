@@ -8,10 +8,7 @@ public interface RepositorioLibro {
     Libro buscarLibroPorId(Integer id);
     void borrarlibro(Libro libro);
     void actualizarLibro(Libro libro);
-
     List<Libro> devolverTodosLosLibros();
-
     List<Libro> buscarLibroPorTitulo(String titulo);
-
     void cambiarEstadoDeVentaDelLibro(Integer id);
 }
