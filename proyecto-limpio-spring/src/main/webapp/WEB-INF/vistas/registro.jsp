@@ -20,26 +20,25 @@
 </c:if>
 <article class="container w-50 p-3">
 
-    <form:form modelAttribute="datosRegistro" action = "validar-registro" method="POST" >
+    <form:form modelAttribute="datosRegistro" action = "validar-registro" method="POST">
         <fieldset class="pb-2">
             <legend>Registrate</legend>
             <div class="form-group">
                 <div class="form-floating mb-3">
                     <form:input path="usuarioName" type="text" class="form-control" id="floatingUser" placeholder="User1234"
-                                name="usuarioName"/>
+                                name="usuarioName" required="required"/>
                     <label for="floatingEmail">Nombre de Usuario</label>
                 </div>
 
                 <div class="form-floating mb-3">
                     <form:input path="email" type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
-                                name="email"/>
+                                name="email" required="required"/>
                     <label for="floatingUser">Correo electrónico</label>
-
                 </div>
 
                 <div class="form-floating">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                           name="password">
+                    <form:input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                           name="password" path="password" required="required"/>
                     <label for="floatingPassword">Contraseña</label>
                 </div>
             </div>

@@ -108,4 +108,11 @@ public class ControladorAdmin {
         return new ModelAndView(vista, modelo);
     }
 
+    @RequestMapping("/cambiar-estado-venta/{id}")
+    public ModelAndView cambiarEstadoDeVentaDelLibro(@PathVariable("id") Integer id){
+        ModelMap modelo = new ModelMap();
+        servicioLibro.cambiarEstadoDeVentaDelLibro(id);
+        return new ModelAndView("redirect:/admin",modelo);
+    }
+
 }

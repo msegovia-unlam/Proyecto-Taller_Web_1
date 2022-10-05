@@ -29,9 +29,10 @@ public class RepositorioLibroImpl implements RepositorioLibro {
 
     @Override
     public List<Libro> obtenerListaDeLibros() {
-        return this.sessionFactory
+        return  this.sessionFactory
                 .getCurrentSession()
                 .createCriteria(Libro.class)
+                .add(Restrictions.eq("aLaVenta", true))
                 .list();
     }
 
@@ -48,9 +49,9 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     }
 
     @Override
-    public Integer modificarLibro(Libro libro) {
-        this.sessionFactory.getCurrentSession().update(libro);
-        return libro.getId();
+    public void actualizarLibro(Libro libroAActualizar){
+
+        sessionFactory.getCurrentSession().update(libroAActualizar);
     }
 
     @Override
@@ -66,5 +67,17 @@ public class RepositorioLibroImpl implements RepositorioLibro {
         return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.like("titulo",titulo, MatchMode.ANYWHERE))
                 .list();
+    }
+
+    @Override
+    public void cambiarEstadoDeVentaDelLibro(Integer id) {
+       Libro libro = (Libro) this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.eq("id",id))
+               .uniqueResult();
+       if(libro.getALaVenta()){
+           libro.setALaVenta(false);
+       }else{
+           libro.setALaVenta(true);
+       }
     }
 }

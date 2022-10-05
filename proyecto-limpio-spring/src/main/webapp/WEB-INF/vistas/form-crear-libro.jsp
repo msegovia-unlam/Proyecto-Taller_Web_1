@@ -78,6 +78,10 @@
                 <label for="file" class="form-label mt-4">Subir una imagen</label>
                 <input class="form-control" type="file" id="file" name="file">
             </div>
+            <div class="form-group">
+                <form:label class="col-form-label mt-4" path="sinopsis">Sinopsis</form:label>
+                <form:textarea  class="form-control" placeholder="Sinopsis del libro..." path="sinopsis" />
+            </div>
             <button type="submit" class="btn btn-primary mt-4">Crear</button>
         </fieldset>
     </form:form>

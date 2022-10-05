@@ -7,9 +7,11 @@ public interface RepositorioLibro {
     List<Libro> obtenerListaDeLibros();
     Libro buscarLibroPorId(Integer id);
     void borrarlibro(Libro libro);
-    Integer modificarLibro(Libro libro);
+    void actualizarLibro(Libro libro);
 
     List<Libro> devolverTodosLosLibros();
 
     List<Libro> buscarLibroPorTitulo(String titulo);
+
+    void cambiarEstadoDeVentaDelLibro(Integer id);
 }
