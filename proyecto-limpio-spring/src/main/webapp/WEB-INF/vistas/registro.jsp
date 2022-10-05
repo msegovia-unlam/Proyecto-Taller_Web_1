@@ -15,6 +15,9 @@
 <c:if test="${not empty exitoso}">
     <p class="alert alert-dismissible alert-success text-center my-3 ">${exitoso}</p>
 </c:if>
+<c:if test="${not empty error}">
+    <p class="alert alert-dismissible alert-danger text-center my-3 ">${error}</p>
+</c:if>
 <article class="container w-50 p-3">
 
     <form:form modelAttribute="datosRegistro" action = "validar-registro" method="POST" >
@@ -42,7 +45,6 @@
             </div>
         </fieldset>
         <button type="submit" class="btn btn-primary">Registrate</button>
-        <span>${error}</span>
     </form:form>
     <p>¿Ya tienes una cuenta? <a href="login">Inicia sesión</a></p>
 </article>
