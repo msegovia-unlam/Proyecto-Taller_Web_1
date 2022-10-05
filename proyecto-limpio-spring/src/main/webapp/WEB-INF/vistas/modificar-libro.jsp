@@ -11,11 +11,12 @@
 <%@include file="common html/nav-bar.jsp" %>
 
 <article class="container w-50 p-5">
-    <form:form action="${pageContext.request.contextPath}/actualizarLibro"  method="post" modelAttribute="libro">
+    <form:form action="${pageContext.request.contextPath}/admin/actualizarLibro"  method="post" modelAttribute="libro" enctype="multipart/form-data">
         <fieldset>
             <legend>"${libro.titulo}"</legend>
 
             <form:input path="id" type="hidden" id="id" value="${libro.id}" />
+            <form:input path="imagen.id" type="hidden" id="imagen.id" value="${libro.imagen.id}" />
 
             <div class="form-group">
                 <label class="col-form-label mt-4" for="titulo">Título del libro</label>
@@ -34,53 +35,58 @@
                 <form:input type="text" class="form-control" id="editorial" path="editorial" />
             </div>
             <div class="form-group">
-                <label for="resenia" class="form-label mt-4">Sinopsis</label>
-                <form:textarea class="form-control" id="resenia" path="sinopsis" />
-            </div>
-            <div>
-
+                <label for="sinopsis" class="form-label mt-4">Sinopsis</label>
+                <form:textarea class="form-control" id="sinopsis" path="sinopsis" />
             </div>
             <div class="form-group">
-                <label for="Aventura" class="form-label mt-4">Género</label>
-                <div class="form-check" id="Aventura">
-                    <form:radiobutton class="form-check-input" value="aventura" id="aventura" path="genero" />
-                    <label class="form-check-label" for="Aventura">
-                        Aventura
-                    </label>
-                </div>
-                <div class="form-check" id="CFiccion">
-                    <form:radiobutton class="form-check-input" value="ciencia ficcion" id="cienciaFiccion" path="genero" />
-                    <label class="form-check-label" for="CFiccion">
-                        Ciencia Ficcion
-                    </label>
-                </div>
-                <div class="form-check" id="Policial">
-                    <form:radiobutton class="form-check-input" value="policial" id="policial" path="genero" />
-                    <label class="form-check-label" for="Policial">
-                        Policial
-                    </label>
-                </div>
-                <div class="form-check" id="Terror">
-                    <form:radiobutton class="form-check-input" value="terror" id="terror" path="genero" />
-                    <label class="form-check-label" for="Terror">
-                        Terror
-                    </label>
-                </div>
+                <form:label path="tipoDeObra" class="form-label mt-4">Tipo de Obra</form:label>
+                <form:select class="form-select" path="tipoDeObra">
+                    <option>Novela</option>
+                    <option>Manga</option>
+                    <option>Comic Americano</option>
+                    <option>Cuento</option>
+                    <option>Antologia</option>
+                </form:select>
             </div>
-
+            <div class="form-group">
+                <form:label path="genero" class="form-label mt-4">Géneros</form:label>
+                <form:select class="form-select" path="genero">
+                    <option>Terror</option>
+                    <option>Fantasia</option>
+                    <option>Historia</option>
+                    <option>Ciencia Ficcion</option>
+                </form:select>
+            </div>
+            <div class="form-group">
+                <form:label class="col-form-label mt-4" path="agnoDeImpresion">Año de impresión</form:label>
+                <form:input type="number" class="form-control" path="agnoDeImpresion" />
+            </div>
+            <div class="form-group">
+                <form:label class="col-form-label mt-4" path="ISBN">ISBN</form:label>
+                <form:input type="text" class="form-control" placeholder="ISBN" path="ISBN" />
+            </div>
             <div class="form-group">
                 <label class="col-form-label mt-4" for="precioDeVenta">Precio</label>
                 <form:input type="number" class="form-control"  id="precioDeVenta" path="precioDeVenta" />
             </div>
-
+            <div class="form-group">
+                <form:label path="aLaVenta" class="col-form-label mt-4">¿Poner a la venta?</form:label>
+                <div class="form-check">
+                    <form:radiobutton class="form-check-input" path="ALaVenta" value="true" />
+                    <form:label class="form-check-label" path="aLaVenta">Si</form:label>
+                </div>
+                <div class="form-check">
+                    <form:radiobutton class="form-check-input" path="ALaVenta" value="false" />
+                    <form:label class="form-check-label" path="aLaVenta">No</form:label>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary mt-4">Actualizar</button>
         </fieldset>
     </form:form>
 </article>
 
 <%@include file="common html/footer.html" %>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 
 </html>
