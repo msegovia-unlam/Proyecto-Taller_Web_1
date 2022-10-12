@@ -11,6 +11,10 @@
 
 <%@include file="common html/nav-bar.jsp" %>
 
+<c:if test="${msj != null}">
+    <p class="alert alert-success text-center my-3">${msj}</p>
+</c:if>
+
 <main class="container">
     <div class="row">
 
@@ -26,7 +30,9 @@
                             <p class="my-1">Editorial: ${libro.editorial}</p>
                             <h4 >$${libro.precioDeVenta},00</h4>
                             <div class="grid">
-                                <button class="btn btn-primary rounded-pill" type="button">Comprar Ahora</button>
+                                <form action="${pageContext.request.contextPath}/comprar/${libro.id}">
+                                    <button class="btn btn-primary rounded-pill m-2" type="submit">Comprar Ahora</button>
+                                </form>
                                 <button class="btn btn-success rounded-pill" type="button">Agregar al carrito</button>
                             </div>
                         </div>
