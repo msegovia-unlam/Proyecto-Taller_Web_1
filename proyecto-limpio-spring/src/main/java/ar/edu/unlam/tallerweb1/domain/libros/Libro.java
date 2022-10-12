@@ -58,5 +58,7 @@ public class Libro {
     @Column(name = "novedad")
     private Boolean novedad;
 
+    @Column(name = "cantidadEnStock")
+    private Integer cantidadEnStock;
 
 }

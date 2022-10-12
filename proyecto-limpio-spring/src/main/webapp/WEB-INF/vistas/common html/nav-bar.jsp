@@ -28,8 +28,8 @@
                         <a class="nav-link" href="#">Guia de compra</a>
                     </li>
                     <c:if test="${sessionScope.get('ROL').ordinal() == 0}">
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/">Administrar Libros</a>
+                        <li class="nav-item bg-success bg-gradient rounded-3">
+                            <a class="nav-link active" href="${pageContext.request.contextPath}/admin/">Administrar Libros</a>
                         </li>
                     </c:if>
                 </ul>

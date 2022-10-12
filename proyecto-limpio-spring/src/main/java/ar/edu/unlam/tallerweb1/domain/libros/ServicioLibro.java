@@ -13,8 +13,7 @@ public interface ServicioLibro {
     List<Libro> buscarLibroPorTitulo(String titulo);
     void actualizarLibro(Libro libroAActualizar);
     void cambiarEstadoDeVentaDelLibro(Integer id);
-
     List<Libro> obtenerLibrosEnNovedad();
-
     void cambiarEstadoDeNovedadDelLibro(Integer id);
+    boolean comprarLibro(Integer idLibro);
 }

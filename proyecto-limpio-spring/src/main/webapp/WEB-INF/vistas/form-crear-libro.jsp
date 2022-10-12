@@ -12,6 +12,7 @@
 <%@include file="common html/nav-bar.jsp" %>
 
 <article class="container w-50 p-5">
+    <%--@elvariable id="libro" type="ar.edu.unlam.tallerweb1.domain.libros.Libro"--%>
     <form:form modelAttribute="libro" action="${pageContext.request.contextPath}/admin/crear-libro" enctype="multipart/form-data">
         <fieldset>
             <legend>Crear un libro</legend>
@@ -64,6 +65,10 @@
                 <form:input type="number" class="form-control" path="precioDeVenta" />
             </div>
             <div class="form-group">
+                <form:label path="cantidadEnStock" cssClass="col-form-label mt-4">Cantidad en Stock</form:label>
+                <form:input type="number" class="form-control" path="cantidadEnStock" />
+            </div>
+            <div class="form-group">
                 <form:label path="aLaVenta" class="col-form-label mt-4">¿Poner a la venta?</form:label>
                 <div class="form-check">
                     <form:radiobutton class="form-check-input" path="ALaVenta" value="true" />
@@ -75,12 +80,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="file" class="form-label mt-4">Subir una imagen</label>
-                <input class="form-control" type="file" id="file" name="file">
-            </div>
-            <div class="form-group">
                 <form:label class="col-form-label mt-4" path="sinopsis">Sinopsis</form:label>
                 <form:textarea  class="form-control" placeholder="Sinopsis del libro..." path="sinopsis" />
+            </div>
+            <div class="form-group">
+                <label for="file" class="form-label mt-4">Subir una imagen</label>
+                <input class="form-control" type="file" id="file" name="file">
             </div>
             <button type="submit" class="btn btn-primary mt-4">Crear</button>
         </fieldset>
