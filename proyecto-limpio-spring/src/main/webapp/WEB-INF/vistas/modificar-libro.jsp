@@ -11,6 +11,7 @@
 <%@include file="common html/nav-bar.jsp" %>
 
 <article class="container w-50 p-5">
+    <%--@elvariable id="libro" type="ar.edu.unlam.tallerweb1.domain.libros.Libro"--%>
     <form:form action="${pageContext.request.contextPath}/admin/actualizarLibro"  method="post" modelAttribute="libro" enctype="multipart/form-data">
         <fieldset>
             <legend>"${libro.titulo}"</legend>
@@ -79,6 +80,10 @@
                     <form:radiobutton class="form-check-input" path="ALaVenta" value="false" />
                     <form:label class="form-check-label" path="aLaVenta">No</form:label>
                 </div>
+            </div>
+            <div class="form-group">
+                <form:label path="cantidadEnStock" cssClass="col-form-label mt-4">Cantidad en Stock</form:label>
+                <form:input type="number" class="form-control" path="cantidadEnStock" />
             </div>
             <button type="submit" class="btn btn-primary mt-4">Actualizar</button>
         </fieldset>

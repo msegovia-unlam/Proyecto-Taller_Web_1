@@ -33,6 +33,7 @@ public class RepositorioLibroImpl implements RepositorioLibro {
                 .getCurrentSession()
                 .createCriteria(Libro.class)
                 .add(Restrictions.eq("aLaVenta", true))
+                .add(Restrictions.gt("cantidadEnStock", 0))
                 .list();
     }
 
@@ -79,5 +80,18 @@ public class RepositorioLibroImpl implements RepositorioLibro {
        }else{
            libro.setALaVenta(true);
        }
+    }
+
+    @Override
+    public boolean reducirStock(Integer idLibro) {
+        Libro libro = this.buscarLibroPorId(idLibro);
+        libro.setCantidadEnStock(libro.getCantidadEnStock() - 1);
+        try {
+            this.sessionFactory.getCurrentSession().update(libro);
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

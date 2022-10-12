@@ -40,6 +40,7 @@
             <th scope="col">Editorial</th>
             <th scope="col">Precio</th>
             <th scope="col">A la venta</th>
+            <th scope="col">Cantidad en stock</th>
             <th scope="col">Acciones</th>
         </tr>
         </thead>
@@ -76,6 +77,7 @@
                             </div>
                         </c:if>
                     </td>
+                    <td>${libro.cantidadEnStock}</td>
                     <td class="d-flex gap-2">
                         <form:form  action="${pageContext.request.contextPath}/admin/modificar-libro/${libro.id}">
                             <button type="submit" class="btn btn-info" >

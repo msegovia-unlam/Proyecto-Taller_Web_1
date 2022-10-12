@@ -140,7 +140,7 @@ public class ControladorAdmin {
             servicioLibro.actualizarLibro(libroAActualizar);
             modelo.put("libro", libroAActualizar);
         }
-        vista = "redirect:/";
+        vista = "redirect:/admin/";
         return new ModelAndView(vista, modelo);
     }
 
