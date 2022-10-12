@@ -60,7 +60,7 @@
 
 
                 <c:if test="${not empty sinLibros}">
-                    <p class="alert alert-success text-center my-3">${sinLibros}</p>
+                    <p class="alert alert-info text-center my-3">${sinLibros}</p>
                 </c:if>
 
                 <c:forEach items="${librosALaVenta}" var="libro">

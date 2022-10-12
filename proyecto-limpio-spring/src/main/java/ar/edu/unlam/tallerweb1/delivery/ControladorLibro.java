@@ -42,11 +42,10 @@ public class ControladorLibro {
     public ModelAndView buscarLibroHome(@RequestParam(name = "buscar") String titulo, RedirectAttributes redirectAttributes){
         ModelMap modelo = new ModelMap();
         List<Libro> libros = servicioLibro.buscarLibroPorTitulo(titulo);
-        if( libros==null){
+        if( libros.size()==0){
             modelo.put("sinLibros", "No se ha encontrado ningun libro");
-        }else {
-            modelo.put("librosALaVenta", libros);
         }
+        modelo.put("librosALaVenta", libros);
         return new ModelAndView("home", modelo);
     }
 
@@ -57,5 +56,15 @@ public class ControladorLibro {
         modelo.addAttribute("librosEnNovedad", librosEnNovedad);
         return new ModelAndView("novedades", modelo);
     }
+
+    @RequestMapping("/carrito")
+    public ModelAndView irACarrito(){
+        ModelMap modelo = new ModelMap();
+        List<Libro> librosEnNovedad = servicioLibro.obtenerLibrosEnNovedad();
+        modelo.addAttribute("librosEnNovedad", librosEnNovedad);
+
+        return new ModelAndView("carrito", modelo);
+    }
+
 
 }

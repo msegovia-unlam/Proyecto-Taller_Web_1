@@ -58,4 +58,5 @@ public class Libro {
     @Column(name = "novedad")
     private Boolean novedad;
 
+
 }
