@@ -16,4 +16,6 @@ public interface ServicioLibro {
     List<Libro> obtenerLibrosEnNovedad();
     void cambiarEstadoDeNovedadDelLibro(Integer id);
     boolean comprarLibro(Integer idLibro);
+
+    List<Libro> buscarRelacionadosPorAutor(String autor);
 }

@@ -14,4 +14,6 @@ public interface RepositorioLibro {
     List<Libro> obtenerListaDeLibrosEnNovedad();
     void cambiarEstadoDeNovedadDellibro(Integer id);
     boolean reducirStock(Integer idLibro);
+
+    List<Libro> buscarRelacionadosPorAutor(String autor);
 }

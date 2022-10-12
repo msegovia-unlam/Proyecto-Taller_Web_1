@@ -117,4 +117,15 @@ public class RepositorioLibroImpl implements RepositorioLibro {
             return false;
         }
     }
+
+    @Override
+    public List<Libro> buscarRelacionadosPorAutor(String autor) {
+        return  this.sessionFactory
+                .getCurrentSession()
+                .createCriteria(Libro.class)
+                .add(Restrictions.eq("aLaVenta", true))
+                .add(Restrictions.eq("autor", autor))
+                .list();
+
+    }
 }

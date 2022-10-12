@@ -37,8 +37,12 @@ public class ControladorLibro {
     @RequestMapping(path = "/libro/{idLibro}", method = RequestMethod.GET)
     public ModelAndView irALibro(@PathVariable Integer idLibro) {
         ModelMap modelo = new ModelMap();
+
         Libro libro = servicioLibro.buscarLibroPorId(idLibro);
+        List<Libro> librosRelacionados = servicioLibro.buscarRelacionadosPorAutor(libro.getAutor());
+
         modelo.addAttribute("libro", libro);
+        modelo.addAttribute("relacionados", librosRelacionados);
         return new ModelAndView("libro", modelo);
     }
 

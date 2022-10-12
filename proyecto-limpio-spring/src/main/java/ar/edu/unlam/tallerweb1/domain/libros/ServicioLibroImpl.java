@@ -97,6 +97,12 @@ public class ServicioLibroImpl implements ServicioLibro {
     }
 
     @Override
+    public List<Libro> buscarRelacionadosPorAutor(String autor) {
+        List<Libro> listaRelacionados = repositorioLibro.buscarRelacionadosPorAutor(autor);
+        return listaRelacionados;
+    }
+
+    @Override
     public List<Libro> devolverTodosLosLibros() {
         return repositorioLibro.devolverTodosLosLibros();
     }
