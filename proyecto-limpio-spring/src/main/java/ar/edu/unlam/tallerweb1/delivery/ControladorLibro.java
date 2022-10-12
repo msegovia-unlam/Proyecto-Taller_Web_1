@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.libros.ServicioLibro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,11 +39,23 @@ public class ControladorLibro {
     }
 
     @RequestMapping("/buscar-home")
-    public ModelAndView buscarLibroHome(@RequestParam(name = "buscar") String titulo){
+    public ModelAndView buscarLibroHome(@RequestParam(name = "buscar") String titulo, RedirectAttributes redirectAttributes){
         ModelMap modelo = new ModelMap();
         List<Libro> libros = servicioLibro.buscarLibroPorTitulo(titulo);
-        modelo.put("librosALaVenta", libros);
+        if( libros==null){
+            modelo.put("sinLibros", "No se ha encontrado ningun libro");
+        }else {
+            modelo.put("librosALaVenta", libros);
+        }
         return new ModelAndView("home", modelo);
+    }
+
+    @RequestMapping("/novedades")
+    public ModelAndView irANovedades(){
+        ModelMap modelo = new ModelMap();
+        List<Libro> librosEnNovedad = servicioLibro.obtenerLibrosEnNovedad();
+        modelo.addAttribute("librosEnNovedad", librosEnNovedad);
+        return new ModelAndView("novedades", modelo);
     }
 
 }

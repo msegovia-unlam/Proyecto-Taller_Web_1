@@ -55,4 +55,7 @@ public class Libro {
     @Column(name = "sinopsis", length = 9999)
     private String sinopsis;
 
+    @Column(name = "novedad")
+    private Boolean novedad;
+
 }

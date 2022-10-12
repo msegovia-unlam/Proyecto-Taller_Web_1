@@ -7,7 +7,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.servlet.ServletContext;
 import java.util.List;
 
 @Repository
@@ -66,6 +65,7 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     public List<Libro> buscarLibroPorTitulo(String titulo) {
         return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.like("titulo",titulo, MatchMode.ANYWHERE))
+                .add(Restrictions.eq("aLaVenta", true))
                 .list();
     }
 
@@ -80,4 +80,27 @@ public class RepositorioLibroImpl implements RepositorioLibro {
            libro.setALaVenta(true);
        }
     }
+    @Override
+    public void cambiarEstadoDeNovedadDellibro(Integer id) {
+        Libro libro = (Libro) this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
+        if(libro.getNovedad()==null){
+            libro.setNovedad(true);
+        }else if(libro.getNovedad()){
+            libro.setNovedad(false);
+        }else{
+            libro.setNovedad(true);
+        }
+    }
+
+    @Override
+    public List<Libro> obtenerListaDeLibrosEnNovedad() {
+
+        return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.eq("novedad", true))
+                .add(Restrictions.eq("aLaVenta", true))
+                .list();
+    }
+
 }

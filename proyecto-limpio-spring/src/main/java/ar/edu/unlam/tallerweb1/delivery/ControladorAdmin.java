@@ -118,6 +118,19 @@ public class ControladorAdmin {
         return new ModelAndView(vista, modelo);
     }
 
+    @RequestMapping(value = "/cambiar-estado-novedad/{id}", method = RequestMethod.POST)
+    public ModelAndView cambiarEstadoDeNovedadDelLibro(@PathVariable("id") Integer id){
+        ModelMap modelo = new ModelMap();
+        String vista;
+        if (request.getSession().getAttribute("ROL") == Rol.ADMIN) {
+            servicioLibro.cambiarEstadoDeNovedadDelLibro(id);
+            vista = "redirect:/admin/";
+        } else {
+            vista = "redirect:/";
+        }
+        return new ModelAndView(vista, modelo);
+    }
+
     @RequestMapping(value = "/modificar-libro/{id}", method = RequestMethod.POST)
     public ModelAndView modificarLibro(@PathVariable("id") Integer id) {
         ModelMap modelo = new ModelMap();

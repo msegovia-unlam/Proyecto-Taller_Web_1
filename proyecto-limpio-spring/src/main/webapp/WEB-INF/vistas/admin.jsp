@@ -40,6 +40,7 @@
             <th scope="col">Editorial</th>
             <th scope="col">Precio</th>
             <th scope="col">A la venta</th>
+            <th scope="col">Novedad</th>
             <th scope="col">Acciones</th>
         </tr>
         </thead>
@@ -69,6 +70,34 @@
                                     <span class="py-3 h-75 badge bg-danger">No está en venta</span>
                                 </div>
                                 <form:form action="${pageContext.request.contextPath}/admin/cambiar-estado-venta/${libro.id}">
+                                    <button type="submit" class="btn btn-warning" >
+                                        Cambiar
+                                    </button>
+                                </form:form>
+                            </div>
+                        </c:if>
+                    </td>
+
+<%--                    NOVEDAD     --%>
+                    <td>
+                        <c:if test="${libro.novedad}">
+                            <div class="d-flex gap-2">
+                                <div >
+                                    <span class=" py-3 h-75 badge bg-success">Es novedad</span>
+                                </div>
+                                <form:form action="${pageContext.request.contextPath}/admin/cambiar-estado-novedad/${libro.id}">
+                                    <button type="submit" class="btn btn-warning" >
+                                        Cambiar
+                                    </button>
+                                </form:form>
+                            </div>
+                        </c:if>
+                        <c:if test="${!libro.novedad}">
+                            <div class="d-flex gap-2">
+                                <div >
+                                    <span class="py-3 h-75 badge bg-danger">No es es novedad</span>
+                                </div>
+                                <form:form action="${pageContext.request.contextPath}/admin/cambiar-estado-novedad/${libro.id}">
                                     <button type="submit" class="btn btn-warning" >
                                         Cambiar
                                     </button>
