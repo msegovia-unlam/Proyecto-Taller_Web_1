@@ -65,6 +65,14 @@ public class ControladorLibro {
         return new ModelAndView("novedades", modelo);
     }
 
+    @RequestMapping(value = "/buscar-autor/{autor}", method = RequestMethod.GET)
+    public ModelAndView libroPorAutor(@PathVariable String autor) {
+        ModelMap modelo = new ModelMap();
+        List<Libro> libros = servicioLibro.buscarLibroPorAutor(autor);
+        modelo.put("librosPorAutor", libros);
+        return new ModelAndView("libros-por-autor", modelo);
+    }
+
     @RequestMapping("/carrito")
     public ModelAndView irACarrito(){
         ModelMap modelo = new ModelMap();

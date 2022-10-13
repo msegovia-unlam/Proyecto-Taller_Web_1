@@ -16,4 +16,6 @@ public interface RepositorioLibro {
     boolean reducirStock(Integer idLibro);
 
     List<Libro> buscarRelacionadosPorAutor(String autor);
+
+    List<Libro> devolverLibroPorAutor(String autor);
 }

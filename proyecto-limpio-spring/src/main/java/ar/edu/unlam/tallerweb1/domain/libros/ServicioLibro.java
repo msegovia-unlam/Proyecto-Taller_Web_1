@@ -18,4 +18,6 @@ public interface ServicioLibro {
     boolean comprarLibro(Integer idLibro);
 
     List<Libro> buscarRelacionadosPorAutor(String autor);
+
+    List<Libro> buscarLibroPorAutor(String autor);
 }

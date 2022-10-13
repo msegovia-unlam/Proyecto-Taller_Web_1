@@ -22,16 +22,18 @@
         <article class="card-body mb-3 col-7">
             <h2 class="col-sm-12 my-4  text-uppercase">${libro.titulo}</h2>
             <div class="d-flex gap-5">
-                <img class="w-25" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="${libro.titulo}-imagen">
+                <img class="w-25" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg"
+                     alt="${libro.titulo}-imagen">
                 <div>
                     <div class="card">
                         <div class="card-body">
                             <p class="mb-0">Autor: ${libro.autor}</p>
                             <p class="my-1">Editorial: ${libro.editorial}</p>
-                            <h4 >$${libro.precioDeVenta},00</h4>
+                            <h4>$${libro.precioDeVenta},00</h4>
                             <div class="grid">
                                 <form action="${pageContext.request.contextPath}/comprar/${libro.id}">
-                                    <button class="btn btn-primary rounded-pill m-2" type="submit">Comprar Ahora</button>
+                                    <button class="btn btn-primary rounded-pill m-2" type="submit">Comprar Ahora
+                                    </button>
                                 </form>
                                 <button class="btn btn-success rounded-pill" type="button">Agregar al carrito</button>
                             </div>
@@ -68,7 +70,9 @@
                 <div class="card-body">
                     <a class="text-decoration-none" href="/${libro.id}">
                         <h4 class="card-title text-uppercase text-center">${libro.titulo}</h4>
-                        <img class="text-center w-100" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="${libro.titulo}-imagen">
+                        <img class="text-center w-100"
+                             src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg"
+                             alt="${libro.titulo}-imagen">
                     </a>
                     <p class="card-text my-1">${libro.autor}</p>
                     <h4 class="card-text">$${libro.precioDeVenta},00</h4>
@@ -82,7 +86,9 @@
             <div class="card-body m-2 col-3">
                 <a class="text-decoration-none" href="${relacionado.id}">
                     <h4 class="card-title text-uppercase text-center">${libro.titulo}</h4>
-                    <img class="text-center w-100" src="${pageContext.request.contextPath}/img/${relacionado.imagen.id}.jpg" alt="${relacionado.titulo}-imagen">
+                    <img class="text-center w-100"
+                         src="${pageContext.request.contextPath}/img/${relacionado.imagen.id}.jpg"
+                         alt="${relacionado.titulo}-imagen">
                 </a>
                 <p class="card-text my-1">${relacionado.autor}</p>
                 <h4 class="card-text">$${relacionado.precioDeVenta},00</h4>

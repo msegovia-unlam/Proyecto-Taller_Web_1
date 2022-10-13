@@ -128,4 +128,13 @@ public class RepositorioLibroImpl implements RepositorioLibro {
                 .list();
 
     }
+
+    @Override
+    public List<Libro> devolverLibroPorAutor(String autor) {
+        return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.like("autor", autor, MatchMode.ANYWHERE))
+                .list();
+    }
+
+
 }

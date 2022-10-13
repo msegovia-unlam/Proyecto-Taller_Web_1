@@ -1,10 +1,12 @@
 package ar.edu.unlam.tallerweb1.domain.usuarios;
 
+import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 // Clase que modela el concepto de Usuario, la anotacion @Entity le avisa a hibernate que esta clase es persistible
 // el paquete ar.edu.unlam.tallerweb1.modelo esta indicado en el archivo hibernateCOntext.xml para que hibernate
@@ -26,5 +28,8 @@ public class Usuario {
 	private Rol rol;
 	private String nombre;
 	private Boolean activo = false;
+
+//	@ManyToMany
+//	private List<Libro> listaFavoritos;
 
 }
