@@ -85,7 +85,7 @@
         <c:forEach items="${relacionados}" var="relacionado">
             <div class="card-body m-2 col-3">
                 <a class="text-decoration-none" href="${relacionado.id}">
-                    <h4 class="card-title text-uppercase text-center">${libro.titulo}</h4>
+                    <h4 class="card-title text-uppercase text-center">${relacionado.titulo}</h4>
                     <img class="text-center w-100"
                          src="${pageContext.request.contextPath}/img/${relacionado.imagen.id}.jpg"
                          alt="${relacionado.titulo}-imagen">
