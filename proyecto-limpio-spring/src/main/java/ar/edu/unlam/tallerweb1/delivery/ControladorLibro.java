@@ -40,7 +40,9 @@ public class ControladorLibro {
 
         Libro libro = servicioLibro.buscarLibroPorId(idLibro);
         List<Libro> librosRelacionados = servicioLibro.buscarRelacionadosPorAutor(libro.getAutor());
+        List<Libro> librosDelMismoGenero = servicioLibro.buscarRelacionadosPorGenero(libro.getGenero());
 
+        modelo.addAttribute("relacionadosPorGenero", librosDelMismoGenero);
         modelo.addAttribute("libro", libro);
         modelo.addAttribute("relacionados", librosRelacionados);
         return new ModelAndView("libro", modelo);

@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>${libro.titulo}</title>
     <%@include file="common html/bootstrap.html" %>
 </head>
 <body>
@@ -62,39 +63,42 @@
 
     </div>
 
-    <article>
+    <article class="mt-4">
         <h2>Libros del mismo autor</h2>
-        <c:forEach items="${librosALaVenta}" var="libro">
-
-            <div class="card col-3 " style="width: 225px">
-                <div class="card-body">
-                    <a class="text-decoration-none" href="/${libro.id}">
-                        <h4 class="card-title text-uppercase text-center">${libro.titulo}</h4>
+        <div class="d-flex flex-row flex-nowrap">
+            <c:forEach items="${relacionados}" var="relacionado">
+                <div class="card-body m-2 col-3">
+                    <a class="text-decoration-none" href="${relacionado.id}">
+                        <h4 class="card-title text-uppercase text-center">${relacionado.titulo}</h4>
                         <img class="text-center w-100"
-                             src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg"
-                             alt="${libro.titulo}-imagen">
+                             src="${pageContext.request.contextPath}/img/${relacionado.imagen.id}.jpg"
+                             alt="${relacionado.titulo}-imagen">
                     </a>
-                    <p class="card-text my-1">${libro.autor}</p>
-                    <h4 class="card-text">$${libro.precioDeVenta},00</h4>
+                    <p class="card-text my-1">${relacionado.autor}</p>
+                    <h4 class="card-text">$${relacionado.precioDeVenta},00</h4>
                 </div>
-            </div>
-        </c:forEach>
+            </c:forEach>
+        </div>
     </article>
 
-    <div class="d-flex flex-row flex-nowrap">
-        <c:forEach items="${relacionados}" var="relacionado">
-            <div class="card-body m-2 col-3">
-                <a class="text-decoration-none" href="${relacionado.id}">
-                    <h4 class="card-title text-uppercase text-center">${relacionado.titulo}</h4>
-                    <img class="text-center w-100"
-                         src="${pageContext.request.contextPath}/img/${relacionado.imagen.id}.jpg"
-                         alt="${relacionado.titulo}-imagen">
-                </a>
-                <p class="card-text my-1">${relacionado.autor}</p>
-                <h4 class="card-text">$${relacionado.precioDeVenta},00</h4>
-            </div>
-        </c:forEach>
-    </div>
+    <article class="mt-4">
+        <h2>Libros que podrian interesarte</h2>
+        <div class="d-flex flex-row flex-nowrap">
+            <c:forEach items="${relacionadosPorGenero}" var="relacionado">
+                <div class="card-body m-2 col-3">
+                    <a class="text-decoration-none" href="${relacionado.id}">
+                        <h4 class="card-title text-uppercase text-center">${relacionado.titulo}</h4>
+                        <img class="text-center w-100"
+                             src="${pageContext.request.contextPath}/img/${relacionado.imagen.id}.jpg"
+                             alt="${relacionado.titulo}-imagen">
+                    </a>
+                    <p class="card-text my-1">${relacionado.autor}</p>
+                    <h4 class="card-text">$${relacionado.precioDeVenta},00</h4>
+                </div>
+            </c:forEach>
+        </div>
+    </article>
+
 </main>
 
 <%@include file="common html/footer.html" %>
