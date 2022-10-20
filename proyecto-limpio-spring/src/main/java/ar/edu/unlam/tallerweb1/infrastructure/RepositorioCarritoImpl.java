@@ -30,7 +30,6 @@ public class RepositorioCarritoImpl implements RepositorioCarrito{
     @Override
     public void agregarLibroAlCarrito(Usuario usuario, Libro libro){
         sesion().save(new Carrito(usuario,libro,1));
-
     }
     @Override
     public List <Libro> obtenerListaDeIdDeLibrosDelCarrito(Usuario usuario){

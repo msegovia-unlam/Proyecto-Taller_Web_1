@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ServicioCarrito{
 
-    void agregarLibroAlCarrito(Usuario usuario, Libro libro);
+    boolean agregarLibroAlCarrito(Usuario usuario, Libro libro);
     void quitarLibroDelCarrito(Integer id, Integer usuario);
     List<Libro> obtenerListaDeIdDeLibrosDelCarrito(Integer usuarioId);
 

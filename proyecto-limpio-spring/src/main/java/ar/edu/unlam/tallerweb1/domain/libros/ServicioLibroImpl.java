@@ -88,9 +88,6 @@ public class ServicioLibroImpl implements ServicioLibro {
         repositorioLibro.cambiarEstadoDeNovedadDelLibro(id);
     }
 
-
-
-
     @Override
     public boolean comprarLibro(Integer idLibro) {
         Libro libro = repositorioLibro.buscarLibroPorId(idLibro);

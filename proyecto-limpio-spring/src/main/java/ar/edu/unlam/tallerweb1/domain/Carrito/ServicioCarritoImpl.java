@@ -22,8 +22,7 @@ public class ServicioCarritoImpl implements  ServicioCarrito{
     ServicioLibro servicioLibro;
 
     @Autowired
-    public ServicioCarritoImpl(RepositorioCarrito repositorioCarrito, RepositorioUsuario repositorioUsuario,
-                               ServicioLogin servicioLogin, ServicioLibro servicioLibro) {
+    public ServicioCarritoImpl(RepositorioCarrito repositorioCarrito, RepositorioUsuario repositorioUsuario, ServicioLogin servicioLogin, ServicioLibro servicioLibro) {
         this.repositorioCarrito=repositorioCarrito;
         this.repositorioUsuario=repositorioUsuario;
         this.servicioLogin=servicioLogin;
@@ -31,10 +30,13 @@ public class ServicioCarritoImpl implements  ServicioCarrito{
     }
 
     @Override
-    public void agregarLibroAlCarrito(Usuario usuario, Libro libro){
-
-        repositorioCarrito.agregarLibroAlCarrito(usuario, libro);
-
+    public boolean agregarLibroAlCarrito(Usuario usuario, Libro libro) {
+        if (libro.getCantidadEnStock() > 0) {
+            repositorioCarrito.agregarLibroAlCarrito(usuario, libro);
+            return true;
+        }
+        else
+            return false;
     }
     @Override
     public void quitarLibroDelCarrito(Integer idLibro, Integer idUsuario){

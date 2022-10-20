@@ -67,10 +67,13 @@ public class ControladorCarrito {
             Libro libro = servicioLibro.buscarLibroPorId(libroId);
             Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
             Usuario usuario = servicioLogin.buscarUsuarioPorId(usuarioId);
-            servicioCarrito.agregarLibroAlCarrito(usuario, libro);
-            redirectAttributes.addFlashAttribute("libroAgregado", "El libro se agrego al carrito");
+            boolean seAgrego = servicioCarrito.agregarLibroAlCarrito(usuario, libro);
+            if(seAgrego)
+                redirectAttributes.addFlashAttribute("libroAgregado", "El libro se agrego al carrito");
+            else
+                redirectAttributes.addFlashAttribute("libroNoAgregado", "No hay stock");
         } else {
-            redirectAttributes.addFlashAttribute("libroNoAgregado", "Para agregar un libro al carrito tiene que ");
+            redirectAttributes.addFlashAttribute("libroNoAgregado", "Para agregar un libro al carrito tiene que estar logueado");
         }
 
         return new ModelAndView("redirect:/libro/{libroId}", modelo);
