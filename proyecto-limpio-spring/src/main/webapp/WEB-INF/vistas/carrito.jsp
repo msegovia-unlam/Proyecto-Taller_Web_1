@@ -36,12 +36,22 @@
     <c:if test="${not empty carritoVacio}">
       <p class="alert alert-info text-center my-3">${carritoVacio}</p>
     </c:if>
+    <c:if test="${not empty errorAgregar}">
+      <p class="alert alert-danger text-center my-3">${errorAgregar}</p>
+    </c:if>
     <tbody>
     <c:forEach var="libro" items="${carrito}">
       <tr>
         <td><img class="text-center w-25" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="${libro.titulo}-imagen"></td>
         <td>${libro.titulo}</td>
-        <td><input style="width: 3em" type="number" min="1" max="99" value="${libro.carrito.size()}"></td>
+        <td>
+          <form:form action="${pageContext.request.contextPath}/actualizar-cantidad-del-carrito/${libro.id}">
+            <input style="width: 3em" name="nuevaCantidad" type="number" min="1" max="99" value="${libro.carrito.size()}">
+            <button type="submit" class="btn btn-outline-dark" >
+              Actualizar
+            </button>
+          </form:form>
+        </td>
         <td>$${libro.precioDeVenta}.00</td>
         <td class="d-flex gap-2">
           <form:form  action="${pageContext.request.contextPath}/quitar-libro-del-carrito/${libro.id}">

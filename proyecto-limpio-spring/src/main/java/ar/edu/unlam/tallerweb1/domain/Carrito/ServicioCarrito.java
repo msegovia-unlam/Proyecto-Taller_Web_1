@@ -9,5 +9,5 @@ public interface ServicioCarrito{
     boolean agregarLibroAlCarrito(Usuario usuario, Libro libro);
     void quitarLibroDelCarrito(Integer id, Integer usuario);
     List<Libro> obtenerListaDeIdDeLibrosDelCarrito(Integer usuarioId);
-
+    boolean actualizarCantidad(Libro libro, Integer nuevaCantidad, Integer usuarioId);
 }

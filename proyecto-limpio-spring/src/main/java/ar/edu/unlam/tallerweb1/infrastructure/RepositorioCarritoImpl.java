@@ -60,16 +60,30 @@ public class RepositorioCarritoImpl implements RepositorioCarrito{
         }
     }
 
-//
-//    @Override
-//    public void quitarLibroDelCarrito(Integer id, Usuario usuario) {
-//        Libro libroABorrar = (Libro) sesion().createCriteria(Libro.class)
-//                .createAlias("carrito", "carritoBuscado")
-//                .add(Restrictions.eq("carritoBuscado.usuario", usuario))
-//                .add(Restrictions.eq("id", id))
-//                .uniqueResult();
-//
-//        sesion().delete(libroABorrar);
-//    }
+    @Override
+    public void actualizarCantidad(Libro libro, Integer nuevaCantidad, Usuario usuario) {
+        List<Carrito> carritos = this.sessionFactory.getCurrentSession().createCriteria(Carrito.class)
+                .add(Restrictions.eq("usuario", usuario))
+                .add(Restrictions.eq("libro", libro))
+                .list();
+        List<Libro> libros = new ArrayList<>();
+        for (Carrito carrito : carritos) {
+            libros.add(carrito.getLibro());
+        }
+        Integer cantidadAAgregar = nuevaCantidad - libros.size();
+        if(cantidadAAgregar < 0) {
+            cantidadAAgregar *= -1;
+            for (int i = 0; i < cantidadAAgregar; i++) {
+                this.sessionFactory.getCurrentSession().delete(carritos.get(0));
+            }
+        } else {
+            for (int i = 0; i < cantidadAAgregar; i++) {
+                Carrito carrito = new Carrito();
+                carrito.setLibro(libro);
+                carrito.setUsuario(usuario);
+                this.sessionFactory.getCurrentSession().save(carrito);
+            }
+        }
+    }
 
 }

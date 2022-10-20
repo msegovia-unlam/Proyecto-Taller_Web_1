@@ -53,4 +53,15 @@ public class ServicioCarritoImpl implements  ServicioCarrito{
         return repositorioCarrito.obtenerListaDeIdDeLibrosDelCarrito(usuario);
     }
 
+    @Override
+    public boolean actualizarCantidad(Libro libro, Integer nuevaCantidad, Integer usuarioId) {
+        if(libro.getCantidadEnStock() >= nuevaCantidad) {
+            Usuario usuario = repositorioUsuario.buscarUsuarioPorId(usuarioId);
+            repositorioCarrito.actualizarCantidad(libro, nuevaCantidad, usuario);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

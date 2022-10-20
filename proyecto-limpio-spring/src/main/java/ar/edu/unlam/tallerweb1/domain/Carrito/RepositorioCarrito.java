@@ -9,5 +9,5 @@ public interface RepositorioCarrito{
     void agregarLibroAlCarrito(Usuario usuario, Libro libro);
     List <Libro> obtenerListaDeIdDeLibrosDelCarrito(Usuario usuario);
     void quitarLibroDelCarrito(Usuario usuario, Libro libro);
-
+    void actualizarCantidad(Libro libro, Integer nuevaCantidad, Usuario usuario);
 }

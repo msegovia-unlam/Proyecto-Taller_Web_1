@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -89,5 +90,23 @@ public class ControladorCarrito {
         servicioCarrito.quitarLibroDelCarrito(idLibro, usuarioId);
 
         return new ModelAndView("redirect:/carrito", modelo);
+    }
+
+    @RequestMapping(value = "/actualizar-cantidad-del-carrito/{id}", method = RequestMethod.POST)
+    public ModelAndView actualizarCantidadDeUnLibroEnCarrito(@PathVariable("id") Integer idLibro, @RequestParam(value = "nuevaCantidad", defaultValue = "-1") Integer nuevaCantidad, RedirectAttributes redirectAttributes) {
+        ModelMap modelo = new ModelMap();
+        String vista;
+
+        Libro libro = servicioLibro.buscarLibroPorId(idLibro);
+        if(libro == null || nuevaCantidad == -1)
+            return new ModelAndView("redirect:/");
+        Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
+        boolean seActualizo = servicioCarrito.actualizarCantidad(libro, nuevaCantidad, usuarioId);
+        if(!seActualizo) {
+            redirectAttributes.addFlashAttribute("errorAgregar", "No hay suficiente stock");
+        }
+        vista = "redirect:/carrito";
+
+        return new ModelAndView(vista, modelo);
     }
 }
