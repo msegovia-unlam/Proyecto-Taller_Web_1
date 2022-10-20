@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<%@include file="common html/nav-bar.jsp"%>
+<%@include file="common html/nav-bar.jsp" %>
 
 <main>
     <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="true">
@@ -49,7 +49,6 @@
     </div>
 
 
-
     <article class="container">
         <form action="buscar-home" class="d-flex">
             <input class="form-control me-sm-2" type="text" name="buscar" placeholder="Buscá tu libro...">
@@ -70,8 +69,10 @@
                             <a class="text-decoration-none" href="libro/${libro.id}">
                             <h6 title="${libro.titulo}" class="text-truncate card-title text-uppercase text-center">${libro.titulo}</h6>
                             <img class="text-center w-100" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="${libro.titulo}-imagen">
+
                             </a>
-                            <p class="card-text my-1">${libro.autor}</p>
+                            <a href="${pageContext.request.contextPath}/buscar-autor/${libro.autor}"
+                               class="card-text my-1">${libro.autor}</a>
                             <h4 class="card-text">$${libro.precioDeVenta},00</h4>
                         </div>
                     </div>
@@ -112,7 +113,7 @@
 </main>
 
 
-<%@include file="common html/footer.html"%>
+<%@include file="common html/footer.html" %>
 
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 </body>

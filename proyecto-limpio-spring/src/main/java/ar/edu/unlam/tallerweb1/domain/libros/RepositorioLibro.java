@@ -13,10 +13,13 @@ public interface RepositorioLibro {
     List<Libro> devolverTodosLosLibros();
     List<Libro> buscarLibroPorTitulo(String titulo);
     void cambiarEstadoDeVentaDelLibro(Integer id);
-
     List<Libro> obtenerListaDeLibrosEnNovedad();
 
-    void cambiarEstadoDeNovedadDelLibro(Integer id);
 
-//    void guardarLibroEnCarrito(Carrito carrito, Libro libro, Usuario usuario);
+    void cambiarEstadoDeNovedadDelLibro(Integer id);
+    boolean reducirStock(Integer idLibro);
+
+    List<Libro> buscarRelacionadosPorAutor(String autor);
+
+    List<Libro> devolverLibroPorAutor(String autor);
 }

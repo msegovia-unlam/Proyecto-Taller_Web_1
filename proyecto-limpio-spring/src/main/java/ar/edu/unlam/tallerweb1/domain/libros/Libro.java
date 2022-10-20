@@ -65,12 +65,7 @@ public class Libro {
     @OneToMany(mappedBy = "libro", fetch = FetchType.EAGER)
     private Set <Carrito> carrito;
 
-
-
-//    @OneToMany(mappedBy = "libro",cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-//@ManyToMany(mappedBy = "libros")
-//    private List<Usuario> usuarios;
-
-
+    @Column(name = "cantidadEnStock")
+    private Integer cantidadEnStock;
 
 }

@@ -37,13 +37,6 @@ public class Usuario {
 	@Column(name = "activo")
 	private Boolean activo = false;
 
-
-//	@ManyToMany(cascade = {CascadeType.ALL})
-//	@JoinTable(
-//			name = "Carrito",
-//			joinColumns = { @JoinColumn(name = "usuario_id") },
-//			inverseJoinColumns = { @JoinColumn(name = "libro_id") }
-//	)
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private Set <Carrito> carrito;
 

@@ -92,6 +92,29 @@ public class ServicioLibroImpl implements ServicioLibro {
 
 
     @Override
+    public boolean comprarLibro(Integer idLibro) {
+        Libro libro = repositorioLibro.buscarLibroPorId(idLibro);
+        if(libro == null)
+            return false;
+        int librosEnStock = libro.getCantidadEnStock();
+        if(librosEnStock > 0)
+            return this.repositorioLibro.reducirStock(idLibro);
+        else
+            return false;
+    }
+
+    @Override
+    public List<Libro> buscarRelacionadosPorAutor(String autor) {
+        List<Libro> listaRelacionados = repositorioLibro.buscarRelacionadosPorAutor(autor);
+        return listaRelacionados;
+    }
+
+    @Override
+    public List<Libro> buscarLibroPorAutor(String autor) {
+        return repositorioLibro.devolverLibroPorAutor(autor);
+    }
+
+    @Override
     public List<Libro> devolverTodosLosLibros() {
         return repositorioLibro.devolverTodosLosLibros();
     }
@@ -100,6 +123,5 @@ public class ServicioLibroImpl implements ServicioLibro {
     public List<Libro> buscarLibroPorTitulo(String titulo) {
         return repositorioLibro.buscarLibroPorTitulo(titulo);
     }
-
 
 }
