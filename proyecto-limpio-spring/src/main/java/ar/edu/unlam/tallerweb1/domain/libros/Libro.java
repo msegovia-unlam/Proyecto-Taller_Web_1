@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.domain.libros;
 
 import ar.edu.unlam.tallerweb1.domain.Carrito.Carrito;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode(of = {"id"})
 @Entity
 @Table(name = "Libro")
 public class Libro {
@@ -62,7 +64,7 @@ public class Libro {
     @Column(name = "novedad")
     private Boolean novedad;
 
-    @OneToMany(mappedBy = "libro", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "libro")
     private Set <Carrito> carrito;
 
     @Column(name = "cantidadEnStock")
