@@ -4,10 +4,8 @@ import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.libros.ServicioLibro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,6 +15,7 @@ import java.util.List;
 public class ControladorLibro {
 
     private ServicioLibro servicioLibro;
+
 
     @Autowired
     public ControladorLibro(ServicioLibro servicioLibro) {
@@ -57,14 +56,8 @@ public class ControladorLibro {
         return new ModelAndView("novedades", modelo);
     }
 
-    @RequestMapping("/carrito")
-    public ModelAndView irACarrito(){
-        ModelMap modelo = new ModelMap();
-        List<Libro> librosEnNovedad = servicioLibro.obtenerLibrosEnNovedad();
-        modelo.addAttribute("librosEnNovedad", librosEnNovedad);
 
-        return new ModelAndView("carrito", modelo);
-    }
+
 
 
 }

@@ -1,10 +1,12 @@
 package ar.edu.unlam.tallerweb1.domain.libros;
 
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+
 import java.util.List;
 
 public interface RepositorioLibro {
     Libro guardarLibro(Libro libro);
-    List<Libro> obtenerListaDeLibros();
+    List<Libro> obtenerListaDeLibrosALaVenta();
     Libro buscarLibroPorId(Integer id);
     void borrarlibro(Libro libro);
     void actualizarLibro(Libro libro);
@@ -14,5 +16,7 @@ public interface RepositorioLibro {
 
     List<Libro> obtenerListaDeLibrosEnNovedad();
 
-    void cambiarEstadoDeNovedadDellibro(Integer id);
+    void cambiarEstadoDeNovedadDelLibro(Integer id);
+
+//    void guardarLibroEnCarrito(Carrito carrito, Libro libro, Usuario usuario);
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 // ser manejado por el framework, debe indicarse en applicationContext que busque en el paquete ar.edu.unlam.tallerweb1.dao
 // para encontrar esta clase.
 @Repository("repositorioUsuario")
-public class RepositorioUsuarioImpl implements RepositorioUsuario {
+public class RepositorioUsuarioImpl implements RepositorioUsuario{
 
 	// Maneja acciones de persistencia, normalmente estara inyectado el session factory de hibernate
 	// el mismo esta difinido en el archivo hibernateContext.xml
@@ -59,6 +59,13 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 	@Override
 	public void modificar(Usuario usuario) {
 		sessionFactory.getCurrentSession().update(usuario);
+	}
+
+	@Override
+	public Usuario buscarUsuarioPorId(Integer usuarioId) {
+		return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+				.add(Restrictions.eq("id", usuarioId))
+				.uniqueResult();
 	}
 
 }

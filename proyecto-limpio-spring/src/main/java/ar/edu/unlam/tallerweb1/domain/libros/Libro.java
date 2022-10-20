@@ -1,10 +1,14 @@
 package ar.edu.unlam.tallerweb1.domain.libros;
 
+import ar.edu.unlam.tallerweb1.domain.Carrito.Carrito;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -57,6 +61,16 @@ public class Libro {
 
     @Column(name = "novedad")
     private Boolean novedad;
+
+    @OneToMany(mappedBy = "libro", fetch = FetchType.EAGER)
+    private Set <Carrito> carrito;
+
+
+
+//    @OneToMany(mappedBy = "libro",cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+//@ManyToMany(mappedBy = "libros")
+//    private List<Usuario> usuarios;
+
 
 
 }

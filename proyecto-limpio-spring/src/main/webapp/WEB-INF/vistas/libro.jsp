@@ -13,6 +13,12 @@
 
 <main class="container">
     <article class="card-body mb-3">
+        <c:if test="${not empty libroAgregado}">
+            <p class="alert alert-success text-center my-3">${libroAgregado} <a href="${pageContext.request.contextPath}/carrito" class="alert-link">Ver carrito</a> </p>
+        </c:if>
+        <c:if test="${not empty libroNoAgregado}">
+            <p class="alert alert-info text-center my-3">${libroNoAgregado} <a href="${pageContext.request.contextPath}/login" class="alert-link">iniciar sesion</a> </p>
+        </c:if>
         <h2 class="col-sm-12 my-4  text-uppercase">${libro.titulo}</h2>
         <div class="d-flex gap-5">
             <img class="w-25" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="${libro.titulo}-imagen">
@@ -24,7 +30,9 @@
                         <h4 >$${libro.precioDeVenta},00</h4>
                         <div class="grid">
                             <button class="btn btn-primary rounded-pill" type="button">Comprar Ahora</button>
-                            <button class="btn btn-success rounded-pill" type="button">Agregar al carrito</button>
+                            <form action="${pageContext.request.contextPath}/agregar-a-carrito/${libro.id}" method="POST">
+                            <button href="" class="btn btn-success rounded-pill" type="submit">Agregar al carrito</button>
+                            </form>
                         </div>
                     </div>
                 </div>

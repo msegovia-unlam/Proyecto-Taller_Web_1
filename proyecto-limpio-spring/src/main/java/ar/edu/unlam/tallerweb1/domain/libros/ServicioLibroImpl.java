@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.libros;
 
+import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +12,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -18,11 +19,14 @@ public class ServicioLibroImpl implements ServicioLibro {
 
     private RepositorioLibro repositorioLibro;
     private ServletContext servletContext;
+    private RepositorioUsuario repositorioUsuario;
+
 
     @Autowired
-    public ServicioLibroImpl(RepositorioLibro repositorioLibro, ServletContext servletContext) {
+    public ServicioLibroImpl(RepositorioLibro repositorioLibro, ServletContext servletContext, RepositorioUsuario repositorioUsuario) {
         this.repositorioLibro = repositorioLibro;
         this.servletContext = servletContext;
+        this.repositorioUsuario=repositorioUsuario;
     }
 
     @Override
@@ -60,8 +64,8 @@ public class ServicioLibroImpl implements ServicioLibro {
 
     @Override
     public List<Libro> obtenerLibrosALaVenta() {
-        List<Libro> listaDeLibros = repositorioLibro.obtenerListaDeLibros();
-        return listaDeLibros;
+        List<Libro> listaDeLibrosALaVenta = repositorioLibro.obtenerListaDeLibrosALaVenta();
+        return listaDeLibrosALaVenta;
     }
 
     @Override
@@ -81,8 +85,11 @@ public class ServicioLibroImpl implements ServicioLibro {
 
     @Override
     public void cambiarEstadoDeNovedadDelLibro(Integer id) {
-        repositorioLibro.cambiarEstadoDeNovedadDellibro(id);
+        repositorioLibro.cambiarEstadoDeNovedadDelLibro(id);
     }
+
+
+
 
     @Override
     public List<Libro> devolverTodosLosLibros() {

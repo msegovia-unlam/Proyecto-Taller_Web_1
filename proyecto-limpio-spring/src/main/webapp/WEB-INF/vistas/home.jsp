@@ -68,7 +68,7 @@
                     <div class="card col-3 " style="width: 225px">
                         <div class="card-body">
                             <a class="text-decoration-none" href="libro/${libro.id}">
-                            <h4 class="card-title text-uppercase text-center">${libro.titulo}</h4>
+                            <h6 title="${libro.titulo}" class="text-truncate card-title text-uppercase text-center">${libro.titulo}</h6>
                             <img class="text-center w-100" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="${libro.titulo}-imagen">
                             </a>
                             <p class="card-text my-1">${libro.autor}</p>

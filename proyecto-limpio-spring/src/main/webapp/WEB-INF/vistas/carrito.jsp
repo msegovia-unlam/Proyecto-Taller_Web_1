@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,7 @@
 <%@include file="common html/nav-bar.jsp"%>
 
 <main>
+
   <table class="table table-hover my-3 container">
     <thead >
     <tr>
@@ -30,15 +32,19 @@
       <th scope="col">Quitar</th>
     </tr>
     </thead>
+
+    <c:if test="${not empty carritoVacio}">
+      <p class="alert alert-info text-center my-3">${carritoVacio}</p>
+    </c:if>
     <tbody>
-    <c:forEach var="libro" items="${librosEnNovedad}">
+    <c:forEach var="libro" items="${carrito}">
       <tr>
         <td><img class="text-center w-25" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="${libro.titulo}-imagen"></td>
         <td>${libro.titulo}</td>
         <td><input class="w-25" type="number" min="1" max="99"></td>
         <td>$${libro.precioDeVenta}.00</td>
         <td class="d-flex gap-2">
-          <form:form  action="${pageContext.request.contextPath}/admin/borrar-libro/${libro.id}">
+          <form:form  action="${pageContext.request.contextPath}/quitar-libro-del-carrito/${libro.id}">
             <button type="submit" class="btn btn-danger">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>

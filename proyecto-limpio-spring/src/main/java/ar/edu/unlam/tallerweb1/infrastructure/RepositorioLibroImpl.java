@@ -1,5 +1,8 @@
-package ar.edu.unlam.tallerweb1.domain.libros;
+package ar.edu.unlam.tallerweb1.infrastructure;
 
+import ar.edu.unlam.tallerweb1.domain.libros.Libro;
+import ar.edu.unlam.tallerweb1.domain.libros.RepositorioLibro;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -7,10 +10,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.List;
 
 @Repository
-public class RepositorioLibroImpl implements RepositorioLibro {
+public class RepositorioLibroImpl implements RepositorioLibro{
 
     private SessionFactory sessionFactory;
 
@@ -27,7 +31,7 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     }
 
     @Override
-    public List<Libro> obtenerListaDeLibros() {
+    public List<Libro> obtenerListaDeLibrosALaVenta() {
         return  this.sessionFactory
                 .getCurrentSession()
                 .createCriteria(Libro.class)
@@ -81,7 +85,7 @@ public class RepositorioLibroImpl implements RepositorioLibro {
        }
     }
     @Override
-    public void cambiarEstadoDeNovedadDellibro(Integer id) {
+    public void cambiarEstadoDeNovedadDelLibro(Integer id) {
         Libro libro = (Libro) this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.eq("id",id))
                 .uniqueResult();
@@ -94,6 +98,8 @@ public class RepositorioLibroImpl implements RepositorioLibro {
         }
     }
 
+
+
     @Override
     public List<Libro> obtenerListaDeLibrosEnNovedad() {
 
@@ -102,5 +108,10 @@ public class RepositorioLibroImpl implements RepositorioLibro {
                 .add(Restrictions.eq("aLaVenta", true))
                 .list();
     }
+
+    public Session sesion(){
+        return this.sessionFactory.getCurrentSession();
+    }
+
 
 }

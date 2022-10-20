@@ -26,4 +26,9 @@ public class ServicioLoginImpl implements ServicioLogin {
 		return servicioLoginDao.buscarUsuario(email, password);
 	}
 
+	@Override
+	public Usuario buscarUsuarioPorId(Integer usuarioId) {
+	return	servicioLoginDao.buscarUsuarioPorId(usuarioId);
+	}
+
 }
