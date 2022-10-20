@@ -21,4 +21,5 @@ public interface ServicioLibro {
     List<Libro> buscarRelacionadosPorAutor(String autor);
 
     List<Libro> buscarLibroPorAutor(String autor);
+    List<Libro> buscarRelacionadosPorGenero(String genero);
 }

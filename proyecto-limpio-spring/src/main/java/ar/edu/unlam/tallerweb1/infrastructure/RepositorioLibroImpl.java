@@ -144,8 +144,15 @@ public class RepositorioLibroImpl implements RepositorioLibro{
     public List<Libro> devolverLibroPorAutor(String autor) {
         return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.like("autor", autor, MatchMode.ANYWHERE))
+                .add(Restrictions.eq("aLaVenta", true))
                 .list();
     }
 
+    @Override
+    public List<Libro> buscarRelacionadosPorGenero(String genero) {
+        return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.like("genero", genero, MatchMode.ANYWHERE))
+                .list();
+    }
 
 }

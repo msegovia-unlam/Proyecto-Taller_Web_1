@@ -115,6 +115,11 @@ public class ServicioLibroImpl implements ServicioLibro {
     }
 
     @Override
+    public List<Libro> buscarRelacionadosPorGenero(String genero) {
+        return repositorioLibro.buscarRelacionadosPorGenero(genero);
+    }
+
+    @Override
     public List<Libro> devolverTodosLosLibros() {
         return repositorioLibro.devolverTodosLosLibros();
     }
