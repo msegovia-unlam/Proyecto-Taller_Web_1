@@ -8,6 +8,6 @@ public interface ServicioCarrito{
 
     void agregarLibroAlCarrito(Usuario usuario, Libro libro);
     void quitarLibroDelCarrito(Integer id, Integer usuario);
-    List<Integer> obtenerListaDeIdDeLibrosDelCarrito(Integer usuarioId);
+    List<Libro> obtenerListaDeIdDeLibrosDelCarrito(Integer usuarioId);
 
 }

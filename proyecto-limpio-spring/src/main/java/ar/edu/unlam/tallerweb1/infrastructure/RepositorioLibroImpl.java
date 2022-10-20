@@ -108,6 +108,7 @@ public class RepositorioLibroImpl implements RepositorioLibro{
         return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.eq("novedad", true))
                 .add(Restrictions.eq("aLaVenta", true))
+                .add(Restrictions.gt("cantidadEnStock", 0))
                 .list();
     }
 

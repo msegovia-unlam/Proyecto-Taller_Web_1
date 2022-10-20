@@ -65,7 +65,7 @@ public class Libro {
     private Boolean novedad;
 
     @OneToMany(mappedBy = "libro")
-    private Set <Carrito> carrito;
+    private List<Carrito> carrito;
 
     @Column(name = "cantidadEnStock")
     private Integer cantidadEnStock;

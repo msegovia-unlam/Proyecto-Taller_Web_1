@@ -3,12 +3,15 @@ import ar.edu.unlam.tallerweb1.domain.Carrito.Carrito;
 import ar.edu.unlam.tallerweb1.domain.Carrito.RepositorioCarrito;
 import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -30,11 +33,21 @@ public class RepositorioCarritoImpl implements RepositorioCarrito{
 
     }
     @Override
-    public List <Integer> obtenerListaDeIdDeLibrosDelCarrito(Usuario usuario){
-        return  sesion().createCriteria(Libro.class)
+    public List <Libro> obtenerListaDeIdDeLibrosDelCarrito(Usuario usuario){
+        List<Libro> libros = sesion().createCriteria(Libro.class)
                 .createAlias("carrito", "carritoBuscado")
                 .add(Restrictions.eq("carritoBuscado.usuario", usuario))
                 .list();
+        for (Libro libro : libros) {
+            List<Carrito> carritosAAgregar = new ArrayList<>();
+            List<Carrito> carritos = libro.getCarrito();
+            for(Carrito carrito : carritos) {
+                if(carrito.getUsuario().getId().equals(usuario.getId()))
+                    carritosAAgregar.add(carrito);
+            }
+            libro.setCarrito(carritosAAgregar);
+        }
+        return libros;
     }
     @Override
     public void quitarLibroDelCarrito(Usuario usuario, Libro libro){

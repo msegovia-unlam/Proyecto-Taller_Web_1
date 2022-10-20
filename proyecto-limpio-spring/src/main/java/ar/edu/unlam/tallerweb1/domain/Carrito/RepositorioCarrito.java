@@ -7,7 +7,7 @@ import java.util.List;
 public interface RepositorioCarrito{
 
     void agregarLibroAlCarrito(Usuario usuario, Libro libro);
-    List <Integer> obtenerListaDeIdDeLibrosDelCarrito(Usuario usuario);
+    List <Libro> obtenerListaDeIdDeLibrosDelCarrito(Usuario usuario);
     void quitarLibroDelCarrito(Usuario usuario, Libro libro);
 
 }

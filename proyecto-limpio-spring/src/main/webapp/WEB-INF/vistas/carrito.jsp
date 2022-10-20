@@ -41,7 +41,7 @@
       <tr>
         <td><img class="text-center w-25" src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="${libro.titulo}-imagen"></td>
         <td>${libro.titulo}</td>
-        <td><input class="w-25" type="number" min="1" max="99"></td>
+        <td><input style="width: 3em" type="number" min="1" max="99" value="${libro.carrito.size()}"></td>
         <td>$${libro.precioDeVenta}.00</td>
         <td class="d-flex gap-2">
           <form:form  action="${pageContext.request.contextPath}/quitar-libro-del-carrito/${libro.id}">

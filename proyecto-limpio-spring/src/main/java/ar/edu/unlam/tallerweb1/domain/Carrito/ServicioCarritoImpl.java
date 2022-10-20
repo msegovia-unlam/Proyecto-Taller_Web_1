@@ -46,10 +46,8 @@ public class ServicioCarritoImpl implements  ServicioCarrito{
 
     }
     @Override
-    public List <Integer> obtenerListaDeIdDeLibrosDelCarrito(Integer usuarioId){
-
+    public List <Libro> obtenerListaDeIdDeLibrosDelCarrito(Integer usuarioId){
         Usuario usuario = repositorioUsuario.buscarUsuarioPorId(usuarioId);
-
         return repositorioCarrito.obtenerListaDeIdDeLibrosDelCarrito(usuario);
     }
 
