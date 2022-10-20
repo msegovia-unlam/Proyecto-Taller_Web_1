@@ -70,36 +70,40 @@
 
     <article class="mt-4">
         <h2>Libros del mismo autor</h2>
-        <div class="d-flex flex-row flex-nowrap">
+        <div class="d-flex flex-row flex-nowrap overflow-auto">
             <c:forEach items="${relacionados}" var="relacionado">
-                <div class="card-body m-2 col-3">
-                    <a class="text-decoration-none" href="${relacionado.id}">
-                        <h4 class="card-title text-uppercase text-center">${relacionado.titulo}</h4>
-                        <img class="text-center w-100"
-                             src="${pageContext.request.contextPath}/img/${relacionado.imagen.id}.jpg"
-                             alt="${relacionado.titulo}-imagen">
-                    </a>
-                    <p class="card-text my-1">${relacionado.autor}</p>
-                    <h4 class="card-text">$${relacionado.precioDeVenta},00</h4>
-                </div>
+                <c:if test="${relacionado != libro}">
+                    <div class="card-body m-2 col-3">
+                        <a class="text-decoration-none" href="${relacionado.id}" title="${relacionado.titulo}">
+                            <h4 class="card-title text-uppercase text-center text-truncate">${relacionado.titulo}</h4>
+                            <img class="text-center" style="width: 15em;height: 25em;"
+                                 src="${pageContext.request.contextPath}/img/${relacionado.imagen.id}.jpg"
+                                 alt="${relacionado.titulo}-imagen">
+                        </a>
+                        <p class="card-text my-1">${relacionado.autor}</p>
+                        <h4 class="card-text">$${relacionado.precioDeVenta},00</h4>
+                    </div>
+                </c:if>
             </c:forEach>
         </div>
     </article>
 
     <article class="mt-4">
         <h2>Libros que podrian interesarte</h2>
-        <div class="d-flex flex-row flex-nowrap">
+        <div class="d-flex flex-row flex-nowrap overflow-auto">
             <c:forEach items="${relacionadosPorGenero}" var="relacionado">
-                <div class="card-body m-2 col-3">
-                    <a class="text-decoration-none" href="${relacionado.id}">
-                        <h4 class="card-title text-uppercase text-center">${relacionado.titulo}</h4>
-                        <img class="text-center w-100"
-                             src="${pageContext.request.contextPath}/img/${relacionado.imagen.id}.jpg"
-                             alt="${relacionado.titulo}-imagen">
-                    </a>
-                    <p class="card-text my-1">${relacionado.autor}</p>
-                    <h4 class="card-text">$${relacionado.precioDeVenta},00</h4>
-                </div>
+                <c:if test="${relacionado != libro}">
+                    <div class="card-body m-2 col-3">
+                        <a class="text-decoration-none" href="${relacionado.id}">
+                            <h4 class="card-title text-uppercase text-center text-truncate">${relacionado.titulo}</h4>
+                            <img class="text-center" style="width: 15em;height: 25em;"
+                                 src="${pageContext.request.contextPath}/img/${relacionado.imagen.id}.jpg"
+                                 alt="${relacionado.titulo}-imagen">
+                        </a>
+                        <p class="card-text my-1">${relacionado.autor}</p>
+                        <h4 class="card-text">$${relacionado.precioDeVenta},00</h4>
+                    </div>
+                </c:if>
             </c:forEach>
         </div>
     </article>
