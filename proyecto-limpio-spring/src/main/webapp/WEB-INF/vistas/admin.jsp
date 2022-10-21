@@ -11,6 +11,7 @@
 <%@include file="common html/nav-bar.jsp"%>
 
 <main class="container">
+
     <c:if test="${not empty mensajeExitoso}">
         <p class="alert alert-success text-center my-3">${mensajeExitoso}</p>
     </c:if>
