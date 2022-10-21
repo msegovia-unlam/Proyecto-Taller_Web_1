@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.libros;
 
 import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -117,13 +116,26 @@ public class ServicioLibroImpl implements ServicioLibro {
     }
 
     @Override
+    public List<Libro> buscarLibrosPorTitulo(String titulo) {
+        return repositorioLibro.buscarLibrosPorTitulo(titulo);
+    }
+
+    @Override
+    public List<Libro> buscarLibrosPorTituloYAutor(String busqueda) {
+        List<Libro> libros;
+        libros = repositorioLibro.buscarLibrosPorTitulo(busqueda);
+        libros.addAll(repositorioLibro.buscarLibrosPorAutor(busqueda));
+        return libros;
+    }
+
+    @Override
     public List<Libro> devolverTodosLosLibros() {
         return repositorioLibro.devolverTodosLosLibros();
     }
 
     @Override
-    public List<Libro> buscarLibroPorTitulo(String titulo) {
-        return repositorioLibro.buscarLibroPorTitulo(titulo);
+    public List<Libro> buscarLibroPorTituloALaVenta(String titulo) {
+        return repositorioLibro.buscarLibroPorTituloALaVenta(titulo);
     }
 
 }

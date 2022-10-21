@@ -46,7 +46,7 @@ public class ControladorAdmin {
         ModelMap modelo = new ModelMap();
         String vista;
         if (request.getSession().getAttribute("ROL") == Rol.ADMIN) {
-            List<Libro> libros = servicioLibro.buscarLibroPorTitulo(titulo);
+            List<Libro> libros = servicioLibro.buscarLibroPorTituloALaVenta(titulo);
             modelo.put("datosLibro", libros);
             vista = "admin";
         } else {

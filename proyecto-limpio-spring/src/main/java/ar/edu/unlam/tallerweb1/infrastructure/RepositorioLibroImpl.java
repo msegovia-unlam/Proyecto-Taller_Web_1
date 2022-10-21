@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.libros.RepositorioLibro;
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -67,12 +66,14 @@ public class RepositorioLibroImpl implements RepositorioLibro{
     }
 
     @Override
-    public List<Libro> buscarLibroPorTitulo(String titulo) {
+    public List<Libro> buscarLibroPorTituloALaVenta(String titulo) {
         return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.like("titulo",titulo, MatchMode.ANYWHERE))
                 .add(Restrictions.eq("aLaVenta", true))
                 .list();
     }
+
+
 
     @Override
     public void cambiarEstadoDeVentaDelLibro(Integer id) {
@@ -153,6 +154,20 @@ public class RepositorioLibroImpl implements RepositorioLibro{
     public List<Libro> buscarRelacionadosPorGenero(String genero) {
         return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.like("genero", genero, MatchMode.ANYWHERE))
+                .list();
+    }
+
+    @Override
+    public List<Libro> buscarLibrosPorTitulo(String titulo) {
+        return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.like("titulo", titulo, MatchMode.ANYWHERE))
+                .list();
+    }
+
+    @Override
+    public List<Libro> buscarLibrosPorAutor(String autor) {
+        return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.like("autor", autor, MatchMode.ANYWHERE))
                 .list();
     }
 

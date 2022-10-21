@@ -4,9 +4,12 @@ import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 // implelemtacion del repositorio de usuarios, la anotacion @Repository indica a Spring que esta clase es un componente que debe
 // ser manejado por el framework, debe indicarse en applicationContext que busque en el paquete ar.edu.unlam.tallerweb1.dao
@@ -66,6 +69,13 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario{
 		return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class)
 				.add(Restrictions.eq("id", usuarioId))
 				.uniqueResult();
+	}
+
+	@Override
+	public List<Usuario> buscarUsuariosPorNombre(String nombre) {
+		return this.sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+				.add(Restrictions.like("nombre", nombre, MatchMode.ANYWHERE))
+				.list();
 	}
 
 }

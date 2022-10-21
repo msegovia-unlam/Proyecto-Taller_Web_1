@@ -1,24 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Lucas
-  Date: 21/10/2022
-  Time: 01:19
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html class="bg-light">
-<head>
-    <title>YouBook</title>
-</head>
-<body>
-
 <header>
   <nav class=" bg-dark d-flex justify-content-around py-1 align-items-center">
     <ul class="d-flex gap-5 my-0">
       <li class="list-unstyled text-white">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/red-social">Logo</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/red-social/">Logo</a>
       </li>
       <li class="list-unstyled text-white">
         <a class="nav-link active" href="#">
@@ -29,8 +16,8 @@
         <a class="nav-link" href="#">MyBooks</a>
       </li>
     </ul>
-    <form class="d-flex my-1">
-      <input class="form-control me-sm-2" type="text" placeholder="Search">
+    <form class="d-flex my-1" method="get" action="${pageContext.request.contextPath}/red-social/busqueda">
+      <input class="form-control me-sm-2" type="text" placeholder="Buscar" name="busquedaLibro">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
     </form>
     <div>
@@ -47,6 +34,3 @@
 
 
 </header>
-
-</body>
-</html>

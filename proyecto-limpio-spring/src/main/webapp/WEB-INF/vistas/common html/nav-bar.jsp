@@ -16,9 +16,8 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/novedades">Novedades</a>
                     </li>
                     <li class="nav-item  rounded-3 bg-dark me-2">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/red-social">YouBook</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/red-social/">YouBook</a>
                     </li>
-
                     <c:if test="${sessionScope.get('ROL').ordinal() == 0}">
                         <li class="nav-item bg-success bg-gradient rounded-3">
                             <a class="nav-link active" href="${pageContext.request.contextPath}/admin/">Administrar Libros</a>

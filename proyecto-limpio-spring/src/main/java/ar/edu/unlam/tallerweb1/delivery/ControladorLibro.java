@@ -50,7 +50,7 @@ public class ControladorLibro {
     @RequestMapping("/buscar-home")
     public ModelAndView buscarLibroHome(@RequestParam(name = "buscar") String titulo, RedirectAttributes redirectAttributes){
         ModelMap modelo = new ModelMap();
-        List<Libro> libros = servicioLibro.buscarLibroPorTitulo(titulo);
+        List<Libro> libros = servicioLibro.buscarLibroPorTituloALaVenta(titulo);
         if( libros.size()==0){
             modelo.put("sinLibros", "No se ha encontrado ningun libro");
         }
