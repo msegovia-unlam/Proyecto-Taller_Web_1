@@ -92,6 +92,6 @@
 
 <%@include file="common html/footer.html" %>
 
-<script src="${pageContext.context.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

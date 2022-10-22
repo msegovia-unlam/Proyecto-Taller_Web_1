@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header>
   <nav class=" bg-dark d-flex justify-content-around py-1 align-items-center">
-    <ul class="d-flex gap-5 my-0">
+    <ul class="d-flex gap-5 my-0 justify-content-center">
       <li class="list-unstyled text-white">
         <a class="navbar-brand" href="${pageContext.request.contextPath}/red-social/">Logo</a>
       </li>
@@ -14,6 +14,9 @@
       </li>
       <li class="list-unstyled text-white">
         <a class="nav-link" href="#">MyBooks</a>
+      </li>
+      <li class="list-unstyled text-white btn btn-primary">
+        <a class="nav-link" href="#">Ir a la tienda</a>
       </li>
     </ul>
     <form class="d-flex my-1" method="get" action="${pageContext.request.contextPath}/red-social/busqueda">
