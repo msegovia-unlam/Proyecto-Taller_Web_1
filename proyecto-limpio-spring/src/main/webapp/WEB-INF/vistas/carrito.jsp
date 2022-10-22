@@ -37,6 +37,7 @@
         </c:if>
         <%
             String cadena = "";
+            Integer subtotal = 0;
         %>
         <tbody>
         <c:forEach var="libro" items="${carrito}">
@@ -44,7 +45,9 @@
                 Object o = pageContext.findAttribute("libro");
                 Libro librazo = (Libro) o;
                 cadena += librazo.getId().toString() + ":" + librazo.getCarrito().size() + ",";
+                subtotal += (librazo.getPrecioDeVenta() * librazo.getCarrito().size());
                 pageContext.setAttribute("cadena", cadena);
+                pageContext.setAttribute("subtotal", subtotal);
             %>
             <tr>
                 <td>
@@ -82,6 +85,7 @@
         </c:forEach>
         </tbody>
     </table>
+    <p class="text-lg-center">Subtotal: $${subtotal}</p>
     <form action="${pageContext.request.contextPath}/carrito-compra" method="post">
         <input type="hidden" value="${cadena}" name="librosId"/>
         <div class="d-flex justify-content-end me-5 my-3">
@@ -92,6 +96,6 @@
 
 <%@include file="common html/footer.html" %>
 
-<script src="${pageContext.context.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>
