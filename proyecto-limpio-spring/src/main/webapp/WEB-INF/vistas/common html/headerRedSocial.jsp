@@ -8,7 +8,7 @@
         <a class="navbar-brand" href="${pageContext.request.contextPath}/red-social/">Logo</a>
       </li>
       <li class="list-unstyled text-white">
-        <a class="nav-link active" href="#">
+        <a class="nav-link active" href="${pageContext.request.contextPath}/red-social/">
           Home
         </a>
       </li>
@@ -16,7 +16,7 @@
         <a class="nav-link" href="#">MyBooks</a>
       </li>
       <li class="list-unstyled text-white btn btn-primary">
-        <a class="nav-link" href="#">Ir a la tienda</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/">Ir a la tienda</a>
       </li>
     </ul>
     <form class="d-flex my-1" method="get" action="${pageContext.request.contextPath}/red-social/busqueda">

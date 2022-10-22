@@ -1,15 +1,20 @@
 package ar.edu.unlam.tallerweb1.delivery;
 import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.libros.ServicioLibro;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Rol;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,17 +25,64 @@ public class ControladorRedSocial{
 
     private ServicioLibro servicioLibro;
     private ServicioUsuario servicioUsuario;
+    private HttpServletRequest request;
+    private ServicioLogin servicioLogin;
 
     @Autowired
-    public ControladorRedSocial(ServicioLibro servicioLibro, ServicioUsuario servicioUsuario) {
+    public ControladorRedSocial(ServicioLibro servicioLibro, ServicioUsuario servicioUsuario,
+                                HttpServletRequest request, ServicioLogin servicioLogin) {
         this.servicioLibro = servicioLibro;
         this.servicioUsuario = servicioUsuario;
+        this.request=request;
+        this.servicioLogin=servicioLogin;
     }
 
     @RequestMapping("/")
-    public ModelAndView irARedSocial(){
+    public ModelAndView irARedSocial(@ModelAttribute("datosLogin") DatosLogin datosLogin){
         ModelMap modelo = new ModelMap();
-        return new ModelAndView("red-social/home",modelo);
+        String vista;
+        if (request.getSession().getAttribute("ROL") == Rol.ADMIN) {
+            vista = "red-social/home";
+        } else {
+            vista = "red-social/login";
+        }
+        return new ModelAndView(vista,modelo);
+    }
+
+    @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
+    public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        String vista;
+        if(request.getSession().getAttribute("ROL") == null) {
+            // invoca el metodo consultarUsuario del servicio y hace un redirect a la URL /home, esto es, en lugar de enviar a una vista
+            // hace una llamada a otro action a traves de la URL correspondiente a esta
+            Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
+            if (usuarioBuscado != null) {
+                request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+                request.getSession().setAttribute("USUARIO_ID", usuarioBuscado.getId());
+                vista = "redirect:/red-social/";
+            } else {
+                // si el usuario no existe agrega un mensaje de error en el modelo.
+                model.put("error", "Usuario o clave incorrecta");
+                vista = "red-social/login";
+            }
+        } else {
+            vista = "redirect:/";
+        }
+        return new ModelAndView(vista, model);
+    }
+
+    @RequestMapping(path = "/registro", method = RequestMethod.GET)
+    ModelAndView irAlRegistro() {
+        ModelMap modelo = new ModelMap();
+        String vista;
+        if(request.getSession().getAttribute("ROL") == null) {
+            modelo.put("datosRegistro", new DatosRegistro());
+            vista = "red-social/registro";
+        } else {
+            vista = "redirect:/red-social/";
+        }
+        return new ModelAndView(vista, modelo);
     }
 
     @RequestMapping("/busqueda")
