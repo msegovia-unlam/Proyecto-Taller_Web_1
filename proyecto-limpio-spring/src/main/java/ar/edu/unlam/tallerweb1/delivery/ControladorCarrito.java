@@ -16,10 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class ControladorCarrito {
@@ -69,7 +66,7 @@ public class ControladorCarrito {
             Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
             Usuario usuario = servicioLogin.buscarUsuarioPorId(usuarioId);
             boolean seAgrego = servicioCarrito.agregarLibroAlCarrito(usuario, libro);
-            if(seAgrego)
+            if (seAgrego)
                 redirectAttributes.addFlashAttribute("libroAgregado", "El libro se agrego al carrito");
             else
                 redirectAttributes.addFlashAttribute("libroNoAgregado", "No hay stock");
@@ -98,15 +95,59 @@ public class ControladorCarrito {
         String vista;
 
         Libro libro = servicioLibro.buscarLibroPorId(idLibro);
-        if(libro == null || nuevaCantidad == -1)
+        if (libro == null || nuevaCantidad == -1)
             return new ModelAndView("redirect:/");
         Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
         boolean seActualizo = servicioCarrito.actualizarCantidad(libro, nuevaCantidad, usuarioId);
-        if(!seActualizo) {
+        if (!seActualizo) {
             redirectAttributes.addFlashAttribute("errorAgregar", "No hay suficiente stock");
         }
         vista = "redirect:/carrito";
 
         return new ModelAndView(vista, modelo);
     }
+
+    @RequestMapping(path = "/carrito-compra", method = RequestMethod.POST)
+    public ModelAndView realizarCompraCarrito(@RequestParam("librosId") String libros, RedirectAttributes redirectAttributes) {
+
+        ModelMap modelo = new ModelMap();
+        boolean verficacionStock = true;
+
+        if(libros.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorAgregar", "No se puede completar la compra. El carrito esta vacio");
+            return new ModelAndView("redirect:/carrito/", modelo);
+        }
+
+        libros = libros.substring(0, libros.length() - 1);
+        List<String> librosYCantidad = Arrays.asList(libros.split(","));
+        Map<Integer, Integer> mapLibroYCantidad = new HashMap<>();
+        for (String libroYCantidad : librosYCantidad) {
+            String[] librYCant = libroYCantidad.split(":");
+
+            Integer idLibro = Integer.parseInt(librYCant[0]);
+            Integer cantidadDelLibro = Integer.parseInt(librYCant[1]);
+
+            verficacionStock = servicioLibro.verificarStock(idLibro, cantidadDelLibro);
+
+            mapLibroYCantidad.put(idLibro, cantidadDelLibro);
+        }
+
+        if (!verficacionStock) {
+            redirectAttributes.addFlashAttribute("errorAgregar", "Hubo un error en la compra por falta de stock");
+            new ModelAndView("redirect:/carrito/", modelo);
+        } else {
+            mapLibroYCantidad.forEach((idLibro, cantidadDelLibro) -> {
+                for (int i = 0;i < cantidadDelLibro;i++) {
+                    servicioLibro.comprarLibro(idLibro);
+                }
+                Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
+                servicioCarrito.quitarLibroDelCarrito(idLibro, usuarioId);
+            });
+
+            redirectAttributes.addFlashAttribute("compraExitosa", "Se realizo la compra con exito");
+        }
+
+        return new ModelAndView("redirect:/carrito/", modelo);
+    }
+
 }

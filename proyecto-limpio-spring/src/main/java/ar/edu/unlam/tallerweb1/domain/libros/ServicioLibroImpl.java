@@ -129,6 +129,12 @@ public class ServicioLibroImpl implements ServicioLibro {
     }
 
     @Override
+    public boolean verificarStock(Integer idLibro, Integer cantidadDelLibro) {
+        Libro libro = repositorioLibro.buscarLibroPorId(idLibro);
+        return libro.getCantidadEnStock() >= cantidadDelLibro;
+    }
+
+    @Override
     public List<Libro> devolverTodosLosLibros() {
         return repositorioLibro.devolverTodosLosLibros();
     }

@@ -21,4 +21,5 @@ public interface ServicioLibro {
     List<Libro> buscarRelacionadosPorGenero(String genero);
     List<Libro> buscarLibrosPorTitulo(String busqueda);
     List<Libro> buscarLibrosPorTituloYAutor(String busqueda);
+    boolean verificarStock(Integer idLibro, Integer cantidadDelLibro);
 }
