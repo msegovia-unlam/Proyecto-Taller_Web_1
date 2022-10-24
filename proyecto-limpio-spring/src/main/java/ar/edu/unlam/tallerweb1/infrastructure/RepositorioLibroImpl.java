@@ -1,7 +1,9 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.domain.libros.Libro;
+import ar.edu.unlam.tallerweb1.domain.libros.LibroComprado;
 import ar.edu.unlam.tallerweb1.domain.libros.RepositorioLibro;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -169,6 +171,23 @@ public class RepositorioLibroImpl implements RepositorioLibro{
         return this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.like("autor", autor, MatchMode.ANYWHERE))
                 .list();
+    }
+
+    @Override
+    public void asignarLibroComprado(Libro libro, Usuario usuario) {
+        LibroComprado libroComprado = new LibroComprado();
+        libroComprado.setUsuario(usuario);
+        libroComprado.setLibro(libro);
+        this.sessionFactory.getCurrentSession().save(libroComprado);
+    }
+
+    @Override
+    public List<Libro> obtenerLibrosComprados(Usuario usuario) {
+        List<Libro> listaDeLibros = this.sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .createAlias("libroComprados", "lc")
+                .add(Restrictions.eq("lc.usuario", usuario))
+                .list();
+        return listaDeLibros;
     }
 
 }

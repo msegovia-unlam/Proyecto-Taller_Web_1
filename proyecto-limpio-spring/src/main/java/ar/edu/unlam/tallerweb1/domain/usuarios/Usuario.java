@@ -1,14 +1,13 @@
 package ar.edu.unlam.tallerweb1.domain.usuarios;
 
 import ar.edu.unlam.tallerweb1.domain.Carrito.Carrito;
-import ar.edu.unlam.tallerweb1.domain.libros.Libro;
+import ar.edu.unlam.tallerweb1.domain.libros.LibroComprado;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 // Clase que modela el concepto de Usuario, la anotacion @Entity le avisa a hibernate que esta clase es persistible
 // el paquete ar.edu.unlam.tallerweb1.modelo esta indicado en el archivo hibernateCOntext.xml para que hibernate
@@ -38,7 +37,9 @@ public class Usuario {
 	private Boolean activo = false;
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-	private Set <Carrito> carrito;
+	private List<Carrito> carrito;
 
+	@OneToMany(mappedBy = "usuario")
+	private List<LibroComprado> libroComprados;
 
 }

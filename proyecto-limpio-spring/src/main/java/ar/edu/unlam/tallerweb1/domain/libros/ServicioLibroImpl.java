@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.libros;
 
 import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,13 +89,16 @@ public class ServicioLibroImpl implements ServicioLibro {
     }
 
     @Override
-    public boolean comprarLibro(Integer idLibro) {
+    public boolean comprarLibro(Integer idLibro, Integer idUsuario) {
         Libro libro = repositorioLibro.buscarLibroPorId(idLibro);
         if(libro == null)
             return false;
         int librosEnStock = libro.getCantidadEnStock();
-        if(librosEnStock > 0)
-            return this.repositorioLibro.reducirStock(idLibro);
+        if(librosEnStock > 0) {
+            Usuario usuario = repositorioUsuario.buscarUsuarioPorId(idUsuario);
+            repositorioLibro.asignarLibroComprado(libro,usuario);
+            return repositorioLibro.reducirStock(idLibro);
+        }
         else
             return false;
     }
@@ -132,6 +136,12 @@ public class ServicioLibroImpl implements ServicioLibro {
     public boolean verificarStock(Integer idLibro, Integer cantidadDelLibro) {
         Libro libro = repositorioLibro.buscarLibroPorId(idLibro);
         return libro.getCantidadEnStock() >= cantidadDelLibro;
+    }
+
+    @Override
+    public List<Libro> obtenerLibrosComprados(Integer idUsuario) {
+        Usuario usuario = repositorioUsuario.buscarUsuarioPorId(idUsuario);
+        return repositorioLibro.obtenerLibrosComprados(usuario);
     }
 
     @Override

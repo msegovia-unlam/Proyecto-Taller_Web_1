@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.libros;
 
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+
 import java.util.List;
 
 public interface RepositorioLibro {
@@ -19,4 +21,6 @@ public interface RepositorioLibro {
     List<Libro> buscarRelacionadosPorGenero(String genero);
     List<Libro> buscarLibrosPorTitulo(String titulo);
     List<Libro> buscarLibrosPorAutor(String busqueda);
+    void asignarLibroComprado(Libro libro, Usuario usuario);
+    List<Libro> obtenerLibrosComprados(Usuario usuario);
 }

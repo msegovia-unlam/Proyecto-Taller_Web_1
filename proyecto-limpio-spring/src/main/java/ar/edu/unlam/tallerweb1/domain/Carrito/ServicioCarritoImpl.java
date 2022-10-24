@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.domain.Carrito;
 import ar.edu.unlam.tallerweb1.domain.libros.Libro;
-import ar.edu.unlam.tallerweb1.domain.libros.RepositorioLibro;
 import ar.edu.unlam.tallerweb1.domain.libros.ServicioLibro;
 import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.ServletContext;
 import java.util.List;
 
 @Service
