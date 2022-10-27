@@ -21,4 +21,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
     public List<Usuario> obtenerUsuariosPorNombre(String nombre) {
         return repositorioUsuario.buscarUsuariosPorNombre(nombre);
     }
+
+    @Override
+    public void actualizarUsuario(Usuario usuarioAActualizar) {
+        repositorioUsuario.actualizarUsuario(usuarioAActualizar);
+    }
 }

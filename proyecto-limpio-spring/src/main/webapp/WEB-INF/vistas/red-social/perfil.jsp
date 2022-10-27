@@ -39,7 +39,7 @@
                     <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
                 </svg>
             <br>
-            <a href="${pageContext.request.contextPath}/red-social/editar-perfil">editar perfil</a>
+            <a href="${pageContext.request.contextPath}/red-social/modificar-perfil/${usuario.id}">editar perfil</a>
         </div>
         <div class="col-8">
             <table class="table  table-striped table-hover table-bordered table-sm" >
