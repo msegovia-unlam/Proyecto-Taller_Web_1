@@ -114,4 +114,17 @@ public class ControladorRedSocial{
         return new ModelAndView("red-social/busqueda-global", modelo);
     }
 
+    @RequestMapping("/perfil")
+    public ModelAndView irAPerfil(){
+
+        ModelMap modelo = new ModelMap();
+
+        Object usuarioRol = request.getSession().getAttribute("ROL");
+        Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
+
+        Usuario usuarioBuscado = servicioLogin.buscarUsuarioPorId(usuarioId);
+        modelo.addAttribute("usuario", usuarioBuscado);
+
+        return new ModelAndView("red-social/perfil",modelo);
+    }
 }
