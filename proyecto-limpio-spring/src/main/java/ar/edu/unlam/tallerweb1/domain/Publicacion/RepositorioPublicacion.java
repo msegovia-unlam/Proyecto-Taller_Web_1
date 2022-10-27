@@ -8,6 +8,6 @@ import java.util.List;
 public interface RepositorioPublicacion{
 
     void agregarPublicacion(String publicacion, LocalDateTime fecha, Usuario usuario);
-    List<Publicacion> getPublicaciones(List<Usuario> usuariosSeguidos);
+    List<Publicacion> getPublicaciones(Usuario usuario);
 
 }

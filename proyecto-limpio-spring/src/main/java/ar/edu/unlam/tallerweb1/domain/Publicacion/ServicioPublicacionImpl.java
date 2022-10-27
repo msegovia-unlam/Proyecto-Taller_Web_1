@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.ServletContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,8 +30,12 @@ public class ServicioPublicacionImpl implements  ServicioPublicacion{
     }
     @Override
     public List <Publicacion> getPublicaciones(List <Usuario> usuariosSeguidos){
+        List<Publicacion> publicaciones = new ArrayList<>();
+        for (Usuario usuario: usuariosSeguidos) {
+            publicaciones.addAll(repositorioPublicacion.getPublicaciones(usuario));
+        }
 
-       return repositorioPublicacion.getPublicaciones(usuariosSeguidos);
+       return publicaciones;
     }
 
 }

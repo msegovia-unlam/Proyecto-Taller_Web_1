@@ -37,7 +37,7 @@
 <%@include file="../common html/headerRedSocial.jsp" %>
 
 <main class="contenedor">
-    <article>
+    <article class="my-4">
         <form:form modelAttribute="datosPublicacion" class="flex text-end p-2"
                     action="${pageContext.request.contextPath}/red-social/agregar-publicacion">
             <div class="d-flex mx-auto justify-content-center border-bottom mb-2">
@@ -61,7 +61,7 @@
         </form:form>
     </article>
 
-    <c:forEach items="${publicacion}" var="publicacion">
+    <c:forEach items="${publicaciones}" var="publicacion">
         <article class="flex" >
             <div class="d-flex justify-content-center border mb-2">
                 <div class="mt-2">

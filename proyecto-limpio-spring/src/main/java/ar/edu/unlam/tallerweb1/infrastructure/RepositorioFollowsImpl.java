@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -25,10 +26,17 @@ public class RepositorioFollowsImpl implements RepositorioFollows{
     }
     @Override
     public List <Usuario> getUsuariosSeguidos(Usuario usuario){
-        return sesion().createCriteria(Usuario.class)
-                .createAlias("usuarioSeguidor","usuarioSeguidor")
-                .add(Restrictions.eq("usuarioSeguidor.usuarioSeguido", usuario))
+        List<Follows> follows = sesion().createCriteria(Follows.class)
+                .createAlias("usuarioSeguidor", "usuarioSeguidor")
+                .add(Restrictions.eq("usuarioSeguidor", usuario))
                 .list();
+
+        List<Usuario> usuarios = new ArrayList<>();
+        for (Follows follows1: follows) {
+            usuarios.add(follows1.getUsuarioSeguido());
+        }
+
+        return usuarios;
     }
 
 }

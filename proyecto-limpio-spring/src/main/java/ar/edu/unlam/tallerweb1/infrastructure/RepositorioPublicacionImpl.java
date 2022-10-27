@@ -36,21 +36,12 @@ public class RepositorioPublicacionImpl implements RepositorioPublicacion{
 
     }
     @Override
-    public List <Publicacion> getPublicaciones(List <Usuario> usuariosSeguidos){
+    public List <Publicacion> getPublicaciones(Usuario usuario){
 
 
         return sesion().createCriteria(Publicacion.class)
-                .add(Restrictions.eq("usuario", usuariosSeguidos))
+                .add(Restrictions.eq("usuario", usuario))
                 .list();
-
-//        List<Publicacion> listaPublicaciones = new ArrayList <>();
-//        for(Usuario usuario: usuariosSeguidos){
-//            listaPublicaciones.add((Publicacion) sesion().createCriteria(Publicacion.class)
-//                    .add(Restrictions.eq("usuario", usuario))
-//                    .uniqueResult());
-//        }
-//
-//       return listaPublicaciones;
 
     }
 

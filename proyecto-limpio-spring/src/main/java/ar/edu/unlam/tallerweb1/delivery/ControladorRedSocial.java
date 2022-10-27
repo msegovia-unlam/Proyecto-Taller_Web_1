@@ -55,15 +55,13 @@ public class ControladorRedSocial{
         ModelMap modelo = new ModelMap();
         String vista;
 
-//        servicioPublicacion.getPublicaciones(seguidos);
-
         if (request.getSession().getAttribute("ROL") != null) {
             Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
             List<Usuario> usuariosSeguidos = servicioFollows.getUsuariosSeguidos(usuarioId);
 
             List<Publicacion> publicaciones = servicioPublicacion.getPublicaciones(usuariosSeguidos);
 
-            redirectAttributes.addFlashAttribute("publicacion", usuariosSeguidos);
+            modelo.addAttribute("publicaciones", publicaciones);
             modelo.addAttribute("datosPublicacion", new Publicacion());
             vista = "red-social/home";
         } else {
