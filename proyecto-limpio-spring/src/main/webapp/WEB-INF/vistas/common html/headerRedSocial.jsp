@@ -13,7 +13,7 @@
         </a>
       </li>
       <li class="list-unstyled text-white">
-        <a class="nav-link" href="#">MyBooks</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/red-social//my-books">MyBooks</a>
       </li>
       <li class="list-unstyled text-white btn btn-primary">
         <a class="nav-link" href="${pageContext.request.contextPath}/">Ir a la tienda</a>
