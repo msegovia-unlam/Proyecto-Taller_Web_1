@@ -40,13 +40,13 @@ public class Usuario {
 	@Column(name = "activo")
 	private Boolean activo = false;
 
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "usuario")
 	private List<Carrito> carrito;
 
 	@OneToMany(mappedBy = "usuario")
 	private List<LibroComprado> libroComprados;
 
-	@OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "usuario")
 	private List <Publicacion> publicacion;
 
 	@OneToMany(mappedBy = "usuarioSeguidor")

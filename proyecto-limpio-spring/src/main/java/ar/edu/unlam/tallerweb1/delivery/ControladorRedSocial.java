@@ -43,12 +43,15 @@ public class ControladorRedSocial {
                                 ServicioFollows servicioFollows) {
         this.servicioLibro = servicioLibro;
         this.servicioUsuario = servicioUsuario;
-        this.request=request;
-        this.servicioLogin=servicioLogin;
+        this.request = request;
+        this.servicioLogin = servicioLogin;
+        this.servicioRegistro = servicioRegistro;
+        this.servicioPublicacion = servicioPublicacion;
+        this.servicioFollows = servicioFollows;
     }
 
     @RequestMapping("/")
-    public ModelAndView irARedSocial(@ModelAttribute("datosLogin") DatosLogin datosLogin, RedirectAttributes redirectAttributes){
+    public ModelAndView irARedSocial(@ModelAttribute("datosLogin") DatosLogin datosLogin, RedirectAttributes redirectAttributes) {
         ModelMap modelo = new ModelMap();
         String vista;
 
@@ -107,7 +110,7 @@ public class ControladorRedSocial {
     public ModelAndView validarRegistro(@ModelAttribute("datosRegistro") DatosRegistro datosRegistro) {
         ModelMap model = new ModelMap();
         String vista;
-        if(request.getSession().getAttribute("ROL") == null) {
+        if (request.getSession().getAttribute("ROL") == null) {
             Usuario usuarioBuscado = servicioRegistro.consultarUsuario(datosRegistro.getEmail(), datosRegistro.getUsuarioName());
             if (usuarioBuscado != null) {
                 model.put("error", "El usuario ya existe");
@@ -157,17 +160,17 @@ public class ControladorRedSocial {
     }
 
     @RequestMapping("/agregar-publicacion")
-    public ModelAndView agregarPublicacion(@ModelAttribute("datosPublicacion") DatosPublicacion datosPublicacion){
+    public ModelAndView agregarPublicacion(@ModelAttribute("datosPublicacion") DatosPublicacion datosPublicacion) {
         ModelMap modelo = new ModelMap();
         LocalDateTime fecha = LocalDateTime.now();
 
         Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
         Usuario usuario = servicioLogin.buscarUsuarioPorId(usuarioId);
-        servicioPublicacion.crearPublicacion(datosPublicacion.getPublicacion(),fecha,
+        servicioPublicacion.crearPublicacion(datosPublicacion.getPublicacion(), fecha,
                 usuario);
 
 
-        return new ModelAndView("redirect:/red-social/",modelo);
+        return new ModelAndView("redirect:/red-social/", modelo);
 
     }
 
