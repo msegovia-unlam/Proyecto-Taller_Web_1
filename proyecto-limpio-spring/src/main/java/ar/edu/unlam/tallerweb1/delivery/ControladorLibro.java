@@ -80,8 +80,10 @@ public class ControladorLibro {
     public ModelAndView comprarLibro(@PathVariable Integer idLibro, RedirectAttributes redirectAttributes) {
         ModelMap modelo = new ModelMap();
         String vista;
+
         if (request.getSession().getAttribute("ROL") == Rol.NO_ADMIN) {
-            boolean exitoCompra = servicioLibro.comprarLibro(idLibro);
+            Integer idUsuario = (Integer) request.getSession().getAttribute("USUARIO_ID");
+            boolean exitoCompra = servicioLibro.comprarLibro(idLibro, idUsuario);
             if(exitoCompra)
                 redirectAttributes.addFlashAttribute("msj", "¡La compra se realizó con exito!");
             else

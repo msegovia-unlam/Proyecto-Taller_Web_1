@@ -15,11 +15,12 @@ public interface ServicioLibro {
     void cambiarEstadoDeVentaDelLibro(Integer id);
     List<Libro> obtenerLibrosEnNovedad();
     void cambiarEstadoDeNovedadDelLibro(Integer id);
-    boolean comprarLibro(Integer idLibro);
+    boolean comprarLibro(Integer idLibro, Integer idUsuario);
     List<Libro> buscarRelacionadosPorAutor(String autor);
     List<Libro> buscarLibroPorAutor(String autor);
     List<Libro> buscarRelacionadosPorGenero(String genero);
     List<Libro> buscarLibrosPorTitulo(String busqueda);
     List<Libro> buscarLibrosPorTituloYAutor(String busqueda);
     boolean verificarStock(Integer idLibro, Integer cantidadDelLibro);
+    List<Libro> obtenerLibrosComprados(Integer idUsuario);
 }

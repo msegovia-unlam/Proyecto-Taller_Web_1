@@ -113,11 +113,14 @@ public class ControladorCarrito {
         ModelMap modelo = new ModelMap();
         boolean verficacionStock = true;
 
+        /* Verifico que el carrito no este vacio */
         if(libros.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorAgregar", "No se puede completar la compra. El carrito esta vacio");
             return new ModelAndView("redirect:/carrito/", modelo);
         }
 
+        /* Extraigo los ids de los libros y las cantidades del parametro que se pasa, y verifico que haya stock para
+        * proceder a la compra */
         libros = libros.substring(0, libros.length() - 1);
         List<String> librosYCantidad = Arrays.asList(libros.split(","));
         Map<Integer, Integer> mapLibroYCantidad = new HashMap<>();
@@ -132,13 +135,15 @@ public class ControladorCarrito {
             mapLibroYCantidad.put(idLibro, cantidadDelLibro);
         }
 
+        /* Si hay stock, entonces se realiza la compra */
         if (!verficacionStock) {
             redirectAttributes.addFlashAttribute("errorAgregar", "Hubo un error en la compra por falta de stock");
             new ModelAndView("redirect:/carrito/", modelo);
         } else {
+            Integer idUsuario = (Integer) request.getSession().getAttribute("USUARIO_ID");
             mapLibroYCantidad.forEach((idLibro, cantidadDelLibro) -> {
                 for (int i = 0;i < cantidadDelLibro;i++) {
-                    servicioLibro.comprarLibro(idLibro);
+                    servicioLibro.comprarLibro(idLibro, idUsuario);
                 }
                 Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
                 servicioCarrito.quitarLibroDelCarrito(idLibro, usuarioId);

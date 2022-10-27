@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.delivery;
+
 import ar.edu.unlam.tallerweb1.domain.Follows.Follows;
 import ar.edu.unlam.tallerweb1.domain.Follows.ServicioFollows;
 import ar.edu.unlam.tallerweb1.domain.Publicacion.Publicacion;
@@ -6,7 +7,6 @@ import ar.edu.unlam.tallerweb1.domain.Publicacion.ServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.libros.ServicioLibro;
 import ar.edu.unlam.tallerweb1.domain.usuarios.*;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,7 +26,7 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("/red-social/")
-public class ControladorRedSocial{
+public class ControladorRedSocial {
 
     private ServicioLibro servicioLibro;
     private ServicioUsuario servicioUsuario;
@@ -45,9 +45,6 @@ public class ControladorRedSocial{
         this.servicioUsuario = servicioUsuario;
         this.request=request;
         this.servicioLogin=servicioLogin;
-        this.servicioRegistro=servicioRegistro;
-        this.servicioPublicacion=servicioPublicacion;
-        this.servicioFollows=servicioFollows;
     }
 
     @RequestMapping("/")
@@ -67,14 +64,14 @@ public class ControladorRedSocial{
         } else {
             vista = "red-social/login";
         }
-        return new ModelAndView(vista,modelo);
+        return new ModelAndView(vista, modelo);
     }
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
         ModelMap model = new ModelMap();
         String vista;
-        if(request.getSession().getAttribute("ROL") == null) {
+        if (request.getSession().getAttribute("ROL") == null) {
             // invoca el metodo consultarUsuario del servicio y hace un redirect a la URL /home, esto es, en lugar de enviar a una vista
             // hace una llamada a otro action a traves de la URL correspondiente a esta
             Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
@@ -97,7 +94,7 @@ public class ControladorRedSocial{
     ModelAndView irAlRegistro() {
         ModelMap modelo = new ModelMap();
         String vista;
-        if(request.getSession().getAttribute("ROL") == null) {
+        if (request.getSession().getAttribute("ROL") == null) {
             modelo.put("datosRegistro", new DatosRegistro());
             vista = "red-social/registro";
         } else {
@@ -135,16 +132,16 @@ public class ControladorRedSocial{
                                  @RequestParam(value = "busquedaUsuario", defaultValue = "") String busquedaPersona) {
         ModelMap modelo = new ModelMap();
 
-        if(!busquedaLibro.isEmpty() && busquedaPersona.isEmpty()) {
-            if(busquedaLibro.equals(" ")) {
+        if (!busquedaLibro.isEmpty() && busquedaPersona.isEmpty()) {
+            if (busquedaLibro.equals(" ")) {
                 modelo.addAttribute("mensajeError", "La busqueda no puede ir vacia");
                 return new ModelAndView("red-social/busqueda-global", modelo);
             } else {
                 Set<Libro> libros = new HashSet<>(servicioLibro.buscarLibrosPorTituloYAutor(busquedaLibro));
                 modelo.addAttribute("libros", libros);
             }
-        } else if(!busquedaPersona.isEmpty() && busquedaLibro.isEmpty()) {
-            if(busquedaPersona.equals(" ")) {
+        } else if (!busquedaPersona.isEmpty() && busquedaLibro.isEmpty()) {
+            if (busquedaPersona.equals(" ")) {
                 modelo.addAttribute("mensajeError", "La busqueda no puede ir vacia");
                 return new ModelAndView("red-social/busqueda-global", modelo);
             } else {
@@ -158,7 +155,6 @@ public class ControladorRedSocial{
 
         return new ModelAndView("red-social/busqueda-global", modelo);
     }
-
 
     @RequestMapping("/agregar-publicacion")
     public ModelAndView agregarPublicacion(@ModelAttribute("datosPublicacion") DatosPublicacion datosPublicacion){
@@ -175,5 +171,19 @@ public class ControladorRedSocial{
 
     }
 
+    @RequestMapping("/my-books")
+    public ModelAndView irAMyBooks() {
+        ModelMap modelo = new ModelMap();
+        String vista;
+        if (request.getSession().getAttribute("ROL") != null) {
+            Integer idUsuario = (Integer) request.getSession().getAttribute("USUARIO_ID");
+            Set<Libro> librosComprados = new HashSet<>(servicioLibro.obtenerLibrosComprados(idUsuario));
+            modelo.addAttribute("librosComprados", librosComprados);
+            vista = "red-social/my-books";
+        } else {
+            vista = "redirect:/red-social/";
+        }
+        return new ModelAndView(vista, modelo);
+    }
 
 }

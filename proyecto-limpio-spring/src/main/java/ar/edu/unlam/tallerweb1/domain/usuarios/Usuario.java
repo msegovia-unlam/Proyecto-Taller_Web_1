@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.domain.usuarios;
 
 import ar.edu.unlam.tallerweb1.domain.Carrito.Carrito;
+import ar.edu.unlam.tallerweb1.domain.libros.LibroComprado;
+import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.Follows.Follows;
 import ar.edu.unlam.tallerweb1.domain.Publicacion.Publicacion;
 import lombok.Getter;
@@ -38,9 +40,11 @@ public class Usuario {
 	@Column(name = "activo")
 	private Boolean activo = false;
 
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+	private List<Carrito> carrito;
 
-	@OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER)
-	private Set <Carrito> carrito;
+	@OneToMany(mappedBy = "usuario")
+	private List<LibroComprado> libroComprados;
 
 	@OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER)
 	private List <Publicacion> publicacion;
@@ -50,6 +54,5 @@ public class Usuario {
 
 	@OneToMany(mappedBy = "usuarioSeguido")
 	private List <Follows> usuarioSeguido;
-
 
 }

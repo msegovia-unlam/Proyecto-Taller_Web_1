@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <%@include file="../common html/bootstrap.html" %><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%@include file="../common html/bootstrap.html" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Buscar</title>
 </head>
 <body>
@@ -21,7 +22,7 @@
                     <a href="${pageContext.request.contextPath}/red-social/busqueda?busquedaLibro=${param.get("busquedaLibro")}">
                         <label class="btn btn-outline-dark">Libros</label>
                     </a>
-                    <a href="${pageContext.request.contextPath}/red-social/busqueda?busquedaUsuario=${param.get("busquedaLibro")}" >
+                    <a href="${pageContext.request.contextPath}/red-social/busqueda?busquedaUsuario=${param.get("busquedaLibro")}">
                         <label class="btn btn-outline-dark">Usuarios</label>
                     </a>
                 </c:if>
@@ -29,7 +30,7 @@
                     <a href="${pageContext.request.contextPath}/red-social/busqueda?busquedaLibro=${param.get("busquedaUsuario")}">
                         <label class="btn btn-outline-dark">Libros</label>
                     </a>
-                    <a href="${pageContext.request.contextPath}/red-social/busqueda?busquedaUsuario=${param.get("busquedaUsuario")}" >
+                    <a href="${pageContext.request.contextPath}/red-social/busqueda?busquedaUsuario=${param.get("busquedaUsuario")}">
                         <label class="btn btn-outline-dark">Usuarios</label>
                     </a>
                 </c:if>
@@ -37,45 +38,47 @@
         </div>
     </div>
     <c:if test="${not empty libros}">
-        <c:forEach items="${libros}" var="libro"><div class="d-flex w-50 flex-column container-fluid p-2 justify-content-center border-bottom my-2">
-            <div class="d-flex w-100">
-                <a href="#">
-                    <img src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="" class="p1"
-                         style="width: 6em; height: 10em; margin-right: 1em;">
-                </a>
-                <div class="d-flex flex-column">
+        <c:forEach items="${libros}" var="libro">
+            <div class="d-flex w-50 flex-column container-fluid p-2 justify-content-center border-bottom my-2">
+                <div class="d-flex w-100">
                     <a href="#">
-                        <h5 class="py-2">${libro.titulo}</h5>
+                        <img src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="" class="p1"
+                             style="width: 6em; height: 10em; margin-right: 1em;">
                     </a>
-                    <p class="text-muted">Por: ${libro.autor}</p>
-                    <div>
-                        <span class="fa fa-star text-warning"></span>
-                        <span class="fa fa-star text-warning"></span>
-                        <span class="fa fa-star text-warning"></span>
-                        <span class="fa fa-star text-warning"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="text-danger">(3)</span>
+                    <div class="d-flex flex-column">
+                        <a href="#">
+                            <h5 class="py-2">${libro.titulo}</h5>
+                        </a>
+                        <p class="text-muted">Por: ${libro.autor}</p>
+                        <div>
+                            <span class="fa fa-star text-warning"></span>
+                            <span class="fa fa-star text-warning"></span>
+                            <span class="fa fa-star text-warning"></span>
+                            <span class="fa fa-star text-warning"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="text-danger">(3)</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </c:forEach>
     </c:if>
     <c:if test="${not empty usuarios}">
-        <c:forEach items="${usuarios}" var="usuario"><div class="d-flex w-50 flex-column container-fluid p-2 justify-content-center border-bottom my-2">
-            <div class="d-flex w-100">
-                <a href="#">
-                    <img src="" alt="Foto de perfil del usuario" class="p1"
-                         style="width: 6em; height: 10em; margin-right: 1em;">
-                </a>
-                <div class="d-flex flex-column">
+        <c:forEach items="${usuarios}" var="usuario">
+            <div class="d-flex w-50 flex-column container-fluid p-2 justify-content-center border-bottom my-2">
+                <div class="d-flex w-100">
                     <a href="#">
-                        <h5 class="py-2">${usuario.nombre}</h5>
+                        <img src="" alt="Foto de perfil del usuario" class="p1"
+                             style="width: 6em; height: 10em; margin-right: 1em;">
                     </a>
-                    <p class="text-muted">Algun dato del usuario</p>
+                    <div class="d-flex flex-column">
+                        <a href="#">
+                            <h5 class="py-2">${usuario.nombre}</h5>
+                        </a>
+                        <p class="text-muted">Algun dato del usuario</p>
+                    </div>
                 </div>
             </div>
-        </div>
         </c:forEach>
     </c:if>
 </main>
