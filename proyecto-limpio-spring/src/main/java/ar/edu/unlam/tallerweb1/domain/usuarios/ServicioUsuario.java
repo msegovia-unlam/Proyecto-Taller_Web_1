@@ -4,4 +4,6 @@ import java.util.List;
 
 public interface ServicioUsuario {
     List<Usuario> obtenerUsuariosPorNombre(String busquedaPersona);
+
+    void actualizarUsuario(Usuario usuarioAActualizar);
 }

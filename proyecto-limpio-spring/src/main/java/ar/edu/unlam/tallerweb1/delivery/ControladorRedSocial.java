@@ -8,10 +8,7 @@ import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -126,5 +123,33 @@ public class ControladorRedSocial{
         modelo.addAttribute("usuario", usuarioBuscado);
 
         return new ModelAndView("red-social/perfil",modelo);
+    }
+
+    @RequestMapping(value = "/modificar-perfil/{id}")
+    public ModelAndView modificarPerfil(@PathVariable("id") Integer id) {
+
+        ModelMap modelo = new ModelMap();
+        String vista;
+
+        Usuario usuarioBuscado = servicioLogin.buscarUsuarioPorId(id);
+        modelo.put("usuario", usuarioBuscado);
+
+        vista = "red-social/modificar-perfil";
+
+        return new ModelAndView(vista, modelo);
+    }
+
+    @RequestMapping(path = "/actualizarPerfil", method = RequestMethod.POST)
+    public ModelAndView actualizarPerfil(@ModelAttribute("usuario") Usuario usuarioAActualizar) {
+        ModelMap modelo = new ModelMap();
+        String vista;
+
+        servicioUsuario.actualizarUsuario(usuarioAActualizar);
+
+        modelo.put("usuario", usuarioAActualizar);
+        vista = "red-social/perfil";
+
+        return new ModelAndView(vista, modelo);
+
     }
 }
