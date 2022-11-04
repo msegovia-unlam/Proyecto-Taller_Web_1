@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -228,6 +227,31 @@ public class ControladorRedSocial {
 
         return new ModelAndView(vista, modelo);
 
+    }
+
+    @RequestMapping(path = "/usuario/{id}", method = RequestMethod.GET)
+    public ModelAndView verPerfilDeUsuario(@PathVariable("id") Integer usuarioId) {
+        ModelMap modelo = new ModelMap();
+        Usuario usuario = servicioLogin.buscarUsuarioPorId(usuarioId);
+        if(usuario == null)
+            return new ModelAndView("redirect:/", modelo);
+        modelo.addAttribute("usuario", usuario);
+
+        return new ModelAndView("red-social/perfil-otro-usuario", modelo);
+    }
+
+    @RequestMapping(path = "/seguir/{usuarioASeguirId}", method = RequestMethod.POST)
+    public ModelAndView seguirUsuario(@PathVariable("usuarioASeguirId") Integer usuarioASeguirId, RedirectAttributes redirectAttributes) {
+        ModelMap modelo = new ModelMap();
+
+        if (request.getSession().getAttribute("ROL") != null) {
+            Integer idUsuarioSeguidor = (Integer) request.getSession().getAttribute("USUARIO_ID");
+            servicioFollows.crearSeguimiento(idUsuarioSeguidor, usuarioASeguirId);
+            redirectAttributes.addFlashAttribute("msjFollow", "¡Ahora estas siguiendo a");
+            return new ModelAndView("redirect:/red-social/usuario/" + usuarioASeguirId, modelo);
+        } else {
+            return new ModelAndView("red-social/my-books", modelo);
+        }
     }
 
 }

@@ -39,4 +39,12 @@ public class RepositorioFollowsImpl implements RepositorioFollows{
         return usuarios;
     }
 
+    @Override
+    public void crearSeguimiento(Usuario usuarioSeguidor, Usuario usuarioASeguir) {
+        Follows follows = new Follows();
+        follows.setUsuarioSeguidor(usuarioSeguidor);
+        follows.setUsuarioSeguido(usuarioASeguir);
+        sesion().save(follows);
+    }
+
 }

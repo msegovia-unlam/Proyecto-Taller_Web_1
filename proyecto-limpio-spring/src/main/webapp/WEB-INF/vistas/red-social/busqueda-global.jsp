@@ -67,12 +67,12 @@
         <c:forEach items="${usuarios}" var="usuario">
             <div class="d-flex w-50 flex-column container-fluid p-2 justify-content-center border-bottom my-2">
                 <div class="d-flex w-100">
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/red-social/usuario/${usuario.id}">
                         <img src="" alt="Foto de perfil del usuario" class="p1"
                              style="width: 6em; height: 10em; margin-right: 1em;">
                     </a>
                     <div class="d-flex flex-column">
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/red-social/usuario/${usuario.id}">
                             <h5 class="py-2">${usuario.nombre}</h5>
                         </a>
                         <p class="text-muted">Algun dato del usuario</p>

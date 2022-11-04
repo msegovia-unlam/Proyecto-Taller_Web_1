@@ -6,5 +6,5 @@ import java.util.List;
 public interface RepositorioFollows{
 
     List<Usuario> getUsuariosSeguidos(Usuario usuario);
-
+    void crearSeguimiento(Usuario usuarioSeguidor, Usuario usuarioASeguir);
 }

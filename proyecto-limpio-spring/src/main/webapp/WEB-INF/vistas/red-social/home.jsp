@@ -32,7 +32,7 @@
 <main class="contenedor">
     <article class="my-4">
         <form:form modelAttribute="datosPublicacion" class="flex text-end p-2"
-                    action="${pageContext.request.contextPath}/red-social/agregar-publicacion">
+                    action="${pageContext.request.contextPath}/red-social/agregar-publicacion" enctype="multipart/form-data">
             <div class="d-flex mx-auto justify-content-center border-bottom mb-2">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="54"
