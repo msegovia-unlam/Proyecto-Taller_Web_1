@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -217,11 +218,16 @@ public class ControladorRedSocial {
     }
 
     @RequestMapping(path = "/actualizarPerfil", method = RequestMethod.POST)
-    public ModelAndView actualizarPerfil(@ModelAttribute("usuario") Usuario usuarioAActualizar) {
+    public ModelAndView actualizarPerfil(@ModelAttribute("usuario") Usuario usuarioAActualizar, MultipartFile file) {
         ModelMap modelo = new ModelMap();
         String vista;
 
-        servicioUsuario.actualizarUsuario(usuarioAActualizar);
+        if(!file.isEmpty()){
+            servicioUsuario.actualizarUsuario(usuarioAActualizar, file);
+        }else{
+            servicioUsuario.actualizarUsuario(usuarioAActualizar);
+        }
+
 
         modelo.put("usuario", usuarioAActualizar);
         vista = "red-social/perfil";

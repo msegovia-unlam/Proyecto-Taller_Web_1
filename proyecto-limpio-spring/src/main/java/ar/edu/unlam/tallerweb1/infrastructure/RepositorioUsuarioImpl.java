@@ -79,8 +79,9 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario{
 	}
 
 	@Override
-	public void actualizarUsuario(Usuario usuarioAActualizar) {
+	public Usuario actualizarUsuario(Usuario usuarioAActualizar) {
 		sessionFactory.getCurrentSession().update(usuarioAActualizar);
+		return usuarioAActualizar;
 	}
 
 }

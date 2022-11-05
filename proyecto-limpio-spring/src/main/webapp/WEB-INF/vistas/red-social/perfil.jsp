@@ -30,14 +30,16 @@
 <main class="contenedor mt-5">
     <div class="row">
         <div class="col-4 bg-dark text-center py-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="54"
-                     height="54" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round"
-                     stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <circle cx="12" cy="12" r="9" />
-                    <circle cx="12" cy="10" r="3" />
-                    <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
-                </svg>
+
+            <img src="${pageContext.request.contextPath}/img/${usuario.imagen.id}.jpg" alt="perfil" width="150" height="150">
+<%--                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="54"--%>
+<%--                     height="54" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round"--%>
+<%--                     stroke-linejoin="round">--%>
+<%--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--%>
+<%--                    <circle cx="12" cy="12" r="9" />--%>
+<%--                    <circle cx="12" cy="10" r="3" />--%>
+<%--                    <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />--%>
+<%--                </svg>--%>
             <br>
             <a href="${pageContext.request.contextPath}/red-social/modificar-perfil/${usuario.id}">editar perfil</a>
         </div>
@@ -71,11 +73,13 @@
                 </tbody>
 
             </table>
+
+            <form action="${pageContext.request.contextPath}/cerrar-sesion">
+                <button class="btn btn-secondary my-2 my-sm-0 mx-3" name="cerrarSesion" type="submit">Cerrar Sesion
+                </button>
+            </form>
         </div>
-        <form action="${pageContext.request.contextPath}/cerrar-sesion">
-            <button class="btn btn-secondary my-2 my-sm-0 mx-3" name="cerrarSesion" type="submit">Cerrar Sesion
-            </button>
-        </form>
+
     </div>
 </main>
 
