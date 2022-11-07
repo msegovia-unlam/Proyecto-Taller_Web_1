@@ -68,7 +68,7 @@
             <div class="d-flex w-50 flex-column container-fluid p-2 justify-content-center border-bottom my-2">
                 <div class="d-flex w-100">
                     <a href="${pageContext.request.contextPath}/red-social/usuario/${usuario.id}">
-                        <img src="" alt="Foto de perfil del usuario" class="p1"
+                        <img src="${pageContext.request.contextPath}/img/${usuario.imagen.id}.jpg" alt="Foto de perfil del usuario" class="p1"
                              style="width: 6em; height: 10em; margin-right: 1em;">
                     </a>
                     <div class="d-flex flex-column">
