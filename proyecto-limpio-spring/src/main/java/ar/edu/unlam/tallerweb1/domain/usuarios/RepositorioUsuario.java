@@ -14,5 +14,5 @@ public interface RepositorioUsuario {
     Usuario buscarUsuarioPorId(Integer usuarioId);
 	List<Usuario> buscarUsuariosPorNombre(String nombre);
 
-    void actualizarUsuario(Usuario usuarioAActualizar);
+    Usuario actualizarUsuario(Usuario usuarioAActualizar);
 }

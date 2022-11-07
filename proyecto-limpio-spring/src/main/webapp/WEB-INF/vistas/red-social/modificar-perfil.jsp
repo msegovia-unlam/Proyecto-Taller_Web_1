@@ -33,6 +33,11 @@
                 <form:input type="password" class="form-control"  id="password" path="password" />
             </div>
 
+            <div class="form-group">
+                <label for="file" class="form-label mt-4">Subir una imagen</label>
+                <input class="form-control" type="file" id="file" name="file">
+            </div>
+
             </div>
             <button type="submit" class="btn btn-primary mt-4">Actualizar</button>
         </fieldset>

@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.usuarios;
 
 import ar.edu.unlam.tallerweb1.domain.Carrito.Carrito;
+import ar.edu.unlam.tallerweb1.domain.libros.ImagenLibro;
 import ar.edu.unlam.tallerweb1.domain.libros.LibroComprado;
 import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.Follows.Follows;
@@ -54,5 +55,9 @@ public class Usuario {
 
 	@OneToMany(mappedBy = "usuarioSeguido")
 	private List <Follows> usuarioSeguido;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "imagen")
+	private ImagenLibro imagen;
 
 }
