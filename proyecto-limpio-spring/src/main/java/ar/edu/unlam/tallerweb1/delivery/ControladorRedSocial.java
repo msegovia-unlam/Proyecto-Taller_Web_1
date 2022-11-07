@@ -260,4 +260,14 @@ public class ControladorRedSocial {
         }
     }
 
+    @RequestMapping(path = "/libro/{id}")
+    public ModelAndView verDetallesLibro(@PathVariable("id") Integer libroId) {
+        ModelMap modelo = new ModelMap();
+        Libro libro = servicioLibro.buscarLibroPorId(libroId);
+        if(libro == null)
+            return new ModelAndView("redirect:/red-social/", modelo);
+        modelo.addAttribute("libro", libro);
+        return new ModelAndView("red-social/libro", modelo);
+    }
+
 }
