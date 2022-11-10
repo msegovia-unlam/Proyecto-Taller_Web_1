@@ -7,6 +7,7 @@
 <head>
     <title>${libro.titulo}</title>
     <%@include file="common html/bootstrap.html" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -36,20 +37,38 @@
                         <h4 >$${libro.precioDeVenta},00</h4>
                         <div class="grid">
                             <form action="${pageContext.request.contextPath}/comprar/${libro.id}">
-                                <button class="btn btn-primary rounded-pill m-2" type="submit">Comprar Ahora
-                                </button>
+                                <button class="btn btn-primary rounded-pill mb-2" type="submit">Comprar Ahora</button>
                             </form>
                             <form action="${pageContext.request.contextPath}/agregar-a-carrito/${libro.id}" method="POST">
-                            <button href="" class="btn btn-success rounded-pill" type="submit">Agregar al carrito</button>
+                                <button href="" class="btn btn-success rounded-pill" type="submit">Agregar al carrito</button>
                             </form>
-                        </div>
-                    </div>
-                    <div class="row" style="width: 22rem;">
-                        <label for="customRange2" class="form-label">¿Ya leíste este libro? ¡Rankealo!</label>
-                        <input type="range" class="form-range" min="1" max="5" id="customRange2">
-                        <div class="clearfix">
-                            <strong class="float-start">1</strong>
-                            <strong class="float-end">5</strong>
+                            <form action="${pageContext.request.contextPath}/calificar/${libro.id}" method="POST">
+                                <label for="calificacion" class="form-label">¿Ya leíste este libro? ¡Rankealo!</label>
+                                <input type="range" class="form-range" min="1" max="5" id="calificacion" name="calificacion">
+                                <div class="clearfix">
+                                    <strong class="float-start">1</strong>
+                                    <strong class="float-end">5</strong>
+                                </div>
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                    <button class="btn btn-warning btn-sm rounded-pill" type="submit">Califica</button>
+                                </div>
+                            </form>
+
+                            <%
+                                int calificacion = (int)pageContext.findAttribute("calificacion");
+
+                                for(int i=0; i< calificacion; i++){
+                                    out.print("<span class='fa fa-star text-warning'></span>");
+                                }
+
+                                for(int i=0; i< 5-calificacion; i++){
+                                    out.print("<span class='fa fa-star'></span>");
+                                }
+                            %>
+                            <span>(${usuariosCalificacion})</span>
+                            <c:if test="${calificacion == 0}">
+                                <br><span class="text-warning">Sin calificar</span>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -57,7 +76,7 @@
         </div>
     </article>
 
-        <article class="mb-3 col-5">
+        <article class="mb-3 col-12">
             <h2 class="mt-4">Sinopsis</h2>
             <p class="w-75">${libro.sinopsis}</p>
             <h3>Detalles del libro</h3>
@@ -113,5 +132,11 @@
 <%@include file="common html/footer.html" %>
 
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function mostrarCalificacion(){
+        x = document.getElementById("calificacion").value;
+        alert(x)
+    }
+</script>
 </body>
 </html>

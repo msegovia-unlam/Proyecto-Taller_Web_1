@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.Calificacion.Calificacion;
 import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.libros.ServicioLibro;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Rol;
@@ -40,10 +41,15 @@ public class ControladorLibro {
         Libro libro = servicioLibro.buscarLibroPorId(idLibro);
         List<Libro> librosRelacionados = servicioLibro.buscarRelacionadosPorAutor(libro.getAutor());
         List<Libro> librosDelMismoGenero = servicioLibro.buscarRelacionadosPorGenero(libro.getGenero());
+        Integer promedioGeneral = servicioLibro.obtenerPromedioGlobal(idLibro);
+        Integer cantUsuariosCalifican = servicioLibro.obtenerUsuariosQueCalificarionUnLibro(idLibro);
 
         modelo.addAttribute("relacionadosPorGenero", librosDelMismoGenero);
         modelo.addAttribute("libro", libro);
         modelo.addAttribute("relacionados", librosRelacionados);
+        modelo.addAttribute("calificacion", promedioGeneral);
+        modelo.addAttribute("usuariosCalificacion", cantUsuariosCalifican);
+
         return new ModelAndView("libro", modelo);
     }
 
@@ -96,6 +102,23 @@ public class ControladorLibro {
             vista = "redirect:/";
         }
         return new ModelAndView(vista, modelo);
+    }
+
+    @RequestMapping(path = "/calificar/{idLibro}", method = RequestMethod.POST)
+    public ModelAndView calificarLibro(@PathVariable Integer idLibro, @RequestParam Integer calificacion){
+
+        ModelMap modelo = new ModelMap();
+        String vista;
+
+        Integer idUsuario = (Integer) request.getSession().getAttribute("USUARIO_ID");
+
+        servicioLibro.calificarLibro(idLibro, calificacion, idUsuario);
+
+        vista = "redirect:/libro/" + idLibro;
+
+        return new ModelAndView(vista, modelo);
+
+
     }
 
 }

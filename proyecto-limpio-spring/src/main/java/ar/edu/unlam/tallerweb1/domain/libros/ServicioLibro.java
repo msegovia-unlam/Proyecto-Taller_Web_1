@@ -23,4 +23,10 @@ public interface ServicioLibro {
     List<Libro> buscarLibrosPorTituloYAutor(String busqueda);
     boolean verificarStock(Integer idLibro, Integer cantidadDelLibro);
     List<Libro> obtenerLibrosComprados(Integer idUsuario);
+
+    void calificarLibro(Integer idLibro, Integer calificacion, Integer idUsuario);
+
+    Integer obtenerPromedioGlobal(Integer idLibro);
+
+    Integer obtenerUsuariosQueCalificarionUnLibro(Integer idLibro);
 }

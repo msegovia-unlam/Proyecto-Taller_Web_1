@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.libros;
 
+import ar.edu.unlam.tallerweb1.domain.Calificacion.Calificacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,6 +143,50 @@ public class ServicioLibroImpl implements ServicioLibro {
     public List<Libro> obtenerLibrosComprados(Integer idUsuario) {
         Usuario usuario = repositorioUsuario.buscarUsuarioPorId(idUsuario);
         return repositorioLibro.obtenerLibrosComprados(usuario);
+    }
+
+    @Override
+    public void calificarLibro(Integer idLibro, Integer calificacion, Integer idUsuario) {
+
+        Calificacion calificacionBuscada = repositorioLibro.buscarCalificacionPorLibroYUsuario(idLibro,idUsuario );
+
+        if(calificacionBuscada == null){
+            repositorioLibro.calificarLibro(idLibro, calificacion, idUsuario);
+        }else{
+            repositorioLibro.actualizarCalificacion(idLibro, calificacion, idUsuario);
+        }
+
+    }
+
+    @Override
+    public Integer obtenerPromedioGlobal(Integer idLibro) {
+
+        Libro libroCalificado = repositorioLibro.buscarLibroPorId(idLibro);
+        List<Calificacion> cantidadDeCalifPorLibro = repositorioLibro.calificacionesLibro(libroCalificado);
+
+        Integer total = cantidadDeCalifPorLibro.size();
+        Integer calificacionesSUma = 0;
+
+        for (Calificacion calificacion : cantidadDeCalifPorLibro) {
+            calificacionesSUma+=calificacion.getCalificacion();
+        }
+
+        if(total == null  || total == 0){
+
+            return 0;
+        }
+
+        Double promedioD = (double)calificacionesSUma/total;
+
+        return (int)(promedioD+0.5);
+
+    }
+
+    @Override
+    public Integer obtenerUsuariosQueCalificarionUnLibro(Integer idLibro) {
+
+        Libro libro = repositorioLibro.buscarLibroPorId(idLibro);
+        return repositorioLibro.obtenerUsuariosQueCalificarionUnLibro(libro);
     }
 
     @Override

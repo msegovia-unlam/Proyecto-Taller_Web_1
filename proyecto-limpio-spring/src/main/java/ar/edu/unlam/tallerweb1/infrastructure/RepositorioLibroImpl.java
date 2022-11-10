@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
+import ar.edu.unlam.tallerweb1.domain.Calificacion.Calificacion;
 import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.libros.LibroComprado;
 import ar.edu.unlam.tallerweb1.domain.libros.RepositorioLibro;
@@ -189,5 +190,79 @@ public class RepositorioLibroImpl implements RepositorioLibro{
                 .list();
         return listaDeLibros;
     }
+
+    @Override
+    public void calificarLibro(Integer idLibro, Integer calificacionNumero, Integer idUsuario) {
+
+        final Session session= this.sessionFactory.getCurrentSession();
+
+        Libro libroACalificar = buscarLibroPorId(idLibro);
+
+        Usuario usuarioCalifica = (Usuario) this.sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", idUsuario))
+                .uniqueResult();
+
+        Calificacion calificacion = new Calificacion();
+        calificacion.setUsuario(usuarioCalifica);
+        calificacion.setCalificacion(calificacionNumero);
+        calificacion.setLibro(libroACalificar);
+
+        sessionFactory.getCurrentSession().save(calificacion);
+
+    }
+
+    @Override
+    public Calificacion buscarCalificacionPorLibroYUsuario(Integer idLibro, Integer idUsuario) {
+
+        Libro libroABuscar = buscarLibroPorId(idLibro);
+
+        Usuario usuarioABuscar = (Usuario) this.sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", idUsuario))
+                .uniqueResult();
+
+        Calificacion calificacion = (Calificacion) this.sessionFactory.getCurrentSession().createCriteria(Calificacion.class)
+                .add(Restrictions.eq("usuario", usuarioABuscar))
+                .add(Restrictions.eq("libro",libroABuscar ))
+                .uniqueResult();
+
+        return calificacion;
+
+    }
+
+    @Override
+    public void actualizarCalificacion(Integer idLibro, Integer calificacion, Integer idUsuario) {
+
+        Libro libroABuscar = buscarLibroPorId(idLibro);
+
+        Usuario usuarioABuscar = (Usuario) this.sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", idUsuario))
+                .uniqueResult();
+
+        Calificacion calificacion1 = (Calificacion) this.sessionFactory.getCurrentSession().createCriteria(Calificacion.class)
+                .add(Restrictions.eq("usuario", usuarioABuscar))
+                .add(Restrictions.eq("libro",libroABuscar ))
+                .uniqueResult();
+
+        calificacion1.setCalificacion(calificacion);
+
+        sessionFactory.getCurrentSession().update(calificacion1);
+
+    }
+
+    @Override
+    public List<Calificacion> calificacionesLibro(Libro libroCalificado) {
+
+        List<Calificacion> Calificaciones = sesion().createCriteria(Calificacion.class).add(Restrictions.eq("libro", libroCalificado)).list();
+
+        return Calificaciones;
+    }
+
+    @Override
+    public Integer obtenerUsuariosQueCalificarionUnLibro(Libro libro) {
+
+        return sesion().createCriteria(Calificacion.class).add(Restrictions.eq("libro", libro)).list().size();
+
+    }
+
 
 }

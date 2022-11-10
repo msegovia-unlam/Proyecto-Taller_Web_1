@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.libros;
 
+import ar.edu.unlam.tallerweb1.domain.Calificacion.Calificacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 
 import java.util.List;
@@ -23,4 +24,13 @@ public interface RepositorioLibro {
     List<Libro> buscarLibrosPorAutor(String busqueda);
     void asignarLibroComprado(Libro libro, Usuario usuario);
     List<Libro> obtenerLibrosComprados(Usuario usuario);
+
+    void calificarLibro(Integer idLibro, Integer calificacion, Integer idUsuario);
+    Calificacion buscarCalificacionPorLibroYUsuario(Integer idLibro, Integer idUsuario);
+
+    void actualizarCalificacion(Integer idLibro, Integer calificacion, Integer idUsuario);
+
+    List<Calificacion> calificacionesLibro(Libro libroCalificado);
+
+    Integer obtenerUsuariosQueCalificarionUnLibro(Libro libro);
 }
