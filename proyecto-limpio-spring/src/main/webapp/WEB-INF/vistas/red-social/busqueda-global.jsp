@@ -41,12 +41,12 @@
         <c:forEach items="${libros}" var="libro">
             <div class="d-flex w-50 flex-column container-fluid p-2 justify-content-center border-bottom my-2">
                 <div class="d-flex w-100">
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/red-social/libro/${libro.id}">
                         <img src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="" class="p1"
                              style="width: 6em; height: 10em; margin-right: 1em;">
                     </a>
                     <div class="d-flex flex-column">
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/red-social/libro/${libro.id}">
                             <h5 class="py-2">${libro.titulo}</h5>
                         </a>
                         <p class="text-muted">Por: ${libro.autor}</p>
@@ -67,12 +67,12 @@
         <c:forEach items="${usuarios}" var="usuario">
             <div class="d-flex w-50 flex-column container-fluid p-2 justify-content-center border-bottom my-2">
                 <div class="d-flex w-100">
-                    <a href="#">
-                        <img src="" alt="Foto de perfil del usuario" class="p1"
+                    <a href="${pageContext.request.contextPath}/red-social/usuario/${usuario.id}">
+                        <img src="${pageContext.request.contextPath}/img/${usuario.imagen.id}.jpg" alt="Foto de perfil del usuario" class="p1"
                              style="width: 6em; height: 10em; margin-right: 1em;">
                     </a>
                     <div class="d-flex flex-column">
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/red-social/usuario/${usuario.id}">
                             <h5 class="py-2">${usuario.nombre}</h5>
                         </a>
                         <p class="text-muted">Algun dato del usuario</p>

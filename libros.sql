@@ -1,7 +1,7 @@
 INSERT INTO `imagenlibro` VALUES (null), (null), (null), (null), (null), (null), (null), (null), (null), (null);
 INSERT INTO `imagenlibro` VALUES (null), (null), (null), (null), (null), (null), (null), (null), (null), (null);
 INSERT INTO `imagenlibro` VALUES (null), (null), (null), (null), (null), (null), (null), (null), (null), (null);
-INSERT INTO `imagenlibro` VALUES (null), (null), (null), (null), (null), (null), (null), (null), (null), (null);
+INSERT INTO `imagenlibro` VALUES (null), (null), (null);
 INSERT INTO `libro` (`ISBN`, `aLaVenta`, `agnoDeImpresion`, `autor`, `editorial`, `genero`, `numeroDePaginas`, `precioDeVenta`, `tipoDeObra`, `titulo`, `imagen`, `sinopsis`, `cantidadEnStock`, `novedad`) VALUES ('"9788480000000"', true, '1999', 'J. K. Rowling', 'Salamadra', 'Fantasia', '310', '2500', 'Novela', 'Harry Potter y la piedra filosofal', '1', 'Harry Potter se ha quedado huérfano y vive en casa de sus abominables tíos y del insoportable primo Dudley. Se siente muy triste y solo, hasta que un buen día recibe una carta que cambiará su vida para siempre. En ella le comunican que ha sido aceptado como alumno en el colegio interno Hogwarts de magia y hechicería. A partir de ese momento, la suerte de Harry da un vuelco espectacular. En esa escuela tan especial aprenderá encantamientos, trucos fabulosos y tácticas de defensa contra las malas artes. Se convertirá en el campeón escolar de quidditch, especie de fútbol aéreo que se juega montado sobre escobas, y hará un puñado de buenos amigos... aunque también algunos temibles enemigos. Pero, sobre todo, conocerá los secretos que le permitirán cumplir con su destino. Pues, aunque no lo parezca a primera vista, Harry no es un chico común y corriente. íEs un verdadero mago! ', 10, true);
 INSERT INTO `libro` (`ISBN`, `aLaVenta`, `agnoDeImpresion`, `autor`, `editorial`, `genero`, `numeroDePaginas`, `precioDeVenta`, `tipoDeObra`, `titulo`, `imagen`, `sinopsis`, `cantidadEnStock`, `novedad`) VALUES ('"9789880000000"', true, '2020', 'J. K. Rowling', 'Salamadra', 'Fantasia', '320', '2600', 'Novela', 'Harry Potter y la cámara secreta', '2', ' ', 10, true);
 INSERT INTO `libro` (`ISBN`, `aLaVenta`, `agnoDeImpresion`, `autor`, `editorial`, `genero`, `numeroDePaginas`, `precioDeVenta`, `tipoDeObra`, `titulo`, `imagen`, `sinopsis`, `cantidadEnStock`, `novedad`) VALUES ('"8498383439"', true, '2011', 'J. K. Rowling', 'Salamadra', 'Fantasia', '360', '2500', 'Novela', 'Harry Potter y el prisionero de Azkaban', '3', ' ', 10, true);
@@ -36,5 +36,5 @@ INSERT INTO `libro` (`ISBN`, `aLaVenta`, `agnoDeImpresion`, `autor`, `editorial`
 INSERT INTO `libro` (`ISBN`, `aLaVenta`, `agnoDeImpresion`, `autor`, `editorial`, `genero`, `numeroDePaginas`, `precioDeVenta`, `tipoDeObra`, `titulo`, `imagen`, `sinopsis`, `cantidadEnStock`, `novedad`) VALUES ('"9789876707213"', true, '2022', 'Padura Leonardo', 'TUSQUETS', 'Policial', '448', '4200', 'Novela', 'Personas decentes', '32', ' ', 10, false);
 
 -- INSERT para poner un usuario como Administrador y uno como usuario comun
-INSERT INTO `usuario` VALUES (null, 1, 'admin@admin.com', 'admin', 1234, 0);
-INSERT INTO `usuario` VALUES (null, 1, 'usuario@usuario.com', 'usuario', 1234, 1);
+INSERT INTO `usuario` VALUES (null, 1, 'admin@admin.com', 'admin', 1234, 0, null);
+INSERT INTO `usuario` VALUES (null, 1, 'usuario@usuario.com', 'usuario', 1234, 1, 33);

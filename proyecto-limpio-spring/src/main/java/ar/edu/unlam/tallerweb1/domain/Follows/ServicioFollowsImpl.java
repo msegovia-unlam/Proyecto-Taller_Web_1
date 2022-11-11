@@ -26,4 +26,12 @@ public class ServicioFollowsImpl implements ServicioFollows{
         return repositorioFollows.getUsuariosSeguidos(usuario);
     }
 
+    @Override
+    public void crearSeguimiento(Integer idUsuarioSeguidor, Integer usuarioASeguirId) {
+        Usuario usuarioSeguidor = repositorioUsuario.buscarUsuarioPorId(idUsuarioSeguidor);
+        Usuario usuarioASeguir = repositorioUsuario.buscarUsuarioPorId(usuarioASeguirId);
+
+        repositorioFollows.crearSeguimiento(usuarioSeguidor, usuarioASeguir);
+    }
+
 }

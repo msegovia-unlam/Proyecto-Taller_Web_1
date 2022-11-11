@@ -6,5 +6,6 @@ import java.util.List;
 public interface ServicioFollows{
 
     List <Usuario> getUsuariosSeguidos(Integer usuarioId);
+    void crearSeguimiento(Integer idUsuarioSeguidor, Integer usuarioASeguirId);
 
 }
