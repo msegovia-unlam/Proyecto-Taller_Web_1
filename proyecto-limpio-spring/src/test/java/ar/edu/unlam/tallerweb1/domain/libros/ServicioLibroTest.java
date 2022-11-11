@@ -11,33 +11,33 @@ import static org.mockito.Mockito.mock;
 
 public class ServicioLibroTest {
 
-    RepositorioLibro repositorioLibro = mock(RepositorioLibro.class);
-    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
-    ServletContext servletContext = mock(ServletContext.class);
-    ServicioLibro servicioLibro = new ServicioLibroImpl(repositorioLibro, servletContext, repositorioUsuario);
-
-    @Test
-    public void siElLibroNoTieneImagenNoSeCrea() {
-
-        // preparacion
-        //givenLibro();
-
-        // ejecucion
-        Libro libro = new Libro();
-        Integer idCreado = whenCrearLibro(libro);
-
-        // comprobacion
-        thenLaCreacionFalla(idCreado);
-
-    }
-
-    private void thenLaCreacionFalla(Integer idCreado) {
-        assertThat(idCreado).isNull();
-    }
-
-    private Integer whenCrearLibro(Libro libro) {
-        // la imagen vacia se simula con un nulo
-        return servicioLibro.crearLibro(libro, null);
-    }
+//    RepositorioLibro repositorioLibro = mock(RepositorioLibro.class);
+//    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+//    ServletContext servletContext = mock(ServletContext.class);
+//    ServicioLibro servicioLibro = new ServicioLibroImpl(repositorioLibro, servletContext, repositorioUsuario);
+//
+//    @Test
+//    public void siElLibroNoTieneImagenNoSeCrea() {
+//
+//        // preparacion
+//        //givenLibro();
+//
+//        // ejecucion
+//        Libro libro = new Libro();
+//        Integer idCreado = whenCrearLibro(libro);
+//
+//        // comprobacion
+//        thenLaCreacionFalla(idCreado);
+//
+//    }
+//
+//    private void thenLaCreacionFalla(Integer idCreado) {
+//        assertThat(idCreado).isNull();
+//    }
+//
+//    private Integer whenCrearLibro(Libro libro) {
+//        // la imagen vacia se simula con un nulo
+//        return servicioLibro.crearLibro(libro, null);
+//    }
 
 }

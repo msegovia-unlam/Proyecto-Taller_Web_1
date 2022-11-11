@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.domain.libros.Libro;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Rol;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.junit.Test;
@@ -27,5 +28,13 @@ public class ConexionBaseDeDatosTest extends SpringTest{
         usuario.setRol(Rol.ADMIN);
         session().save(usuario);
         assertThat(usuario.getId()).isNotNull();
+    }
+
+    @Test
+    @Transactional @Rollback
+    public void crearLibro(){
+        Libro libro = new Libro();
+        session().save(libro);
+        assertThat(libro.getId()).isNotNull();
     }
 }
