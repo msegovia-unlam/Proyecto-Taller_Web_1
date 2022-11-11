@@ -23,33 +23,68 @@
         max-width: 675px;
         margin: 0 auto;
     }
+
+    #encuesta{
+        display: none;
+    }
 </style>
+<script>
+
+    function abrirEncuesta(){
+        document.getElementById('encuesta').style.display = "block";
+    }
+    function cerrarEncuesta(){
+        document.getElementById('encuesta').style.display = "none";
+    }
+</script>
 
 <body>
 
 <%@include file="../common html/headerRedSocial.jsp" %>
 
 <main class="contenedor">
-    <article class="my-4">
-        <form:form modelAttribute="datosPublicacion" class="flex text-end p-2"
+    <article >
+        <form:form modelAttribute="publicacion" class="flex text-end p-2"
                     action="${pageContext.request.contextPath}/red-social/agregar-publicacion">
             <div class="d-flex mx-auto justify-content-center border-bottom mb-2">
                 <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="54"
-                         height="54" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <circle cx="12" cy="12" r="9" />
-                        <circle cx="12" cy="10" r="3" />
-                        <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
-                    </svg>
+                    <img class="rounded-circle" style="width:54px"
+                         src="${pageContext.request.contextPath}/img/${usuario.imagen.id}.jpg" alt="foto-perfil">
                 </div>
                 <div class="form-group p-3">
                 <form:textarea path="publicacion" rows="5" cols="50" class="bg-opacity-50"
                                maxlength="280"
                           placeholder="En que estas pensando?"/>
+                    <div id="encuesta">
+                        <div class="form-group my-2">
+                            <fieldset>
+                                <form:input path="encuesta.opcion1" class="form-control" maxlength="25" type="text"
+                                            placeholder="Opción 1"/>
+                            </fieldset>
+                        </div>
+                        <div class="form-group">
+                            <fieldset>
+                                <form:input path="encuesta.opcion2" class="form-control" maxlength="25" type="text"
+                                            placeholder="Opción 2"/>
+                            </fieldset>
+                        </div>
+                        <div class="form-group my-2">
+                            <fieldset>
+                                <form:input path="encuesta.opcion3" class="form-control" maxlength="25" type="text"
+                                            placeholder="Opción 3"/>
+                            </fieldset>
+                        </div>
+                        <div class="form-group">
+                            <fieldset>
+                                <form:input path="encuesta.opcion4" class="form-control" maxlength="25" type="text"
+                                            placeholder="Opción 4"/>
+                            </fieldset>
+                        </div>
+                        <input class="btn btn-dark my-2" onclick="cerrarEncuesta()" value="Cerrar encuesta">
+                    </div>
                 </div>
             </div>
+            <input  class="btn btn-dark" onclick="abrirEncuesta()" value="Crear encuesta">
             <input id="publicar"  type="submit" class="btn btn-dark" value="Publicar">
         </form:form>
     </article>
@@ -69,6 +104,40 @@
                 </div>
                 <div class="form-group p-3 mt-2">
                 <p>${publicacion.publicacion}</p>
+                    <c:if test="${not empty publicacion.encuesta.opcion1}">
+                    <div>
+                        <form action="${pageContext.request.contextPath}/red-social/votar" method="post">
+
+                            <input type="hidden" name="encuestaId" value="${publicacion.encuesta.id}">
+
+
+                                 <input name="encuesta" id="opcion1"  type="radio"
+                                        value="${publicacion.encuesta.opcion1}"/>
+                                 <label class="mx-2" for="opcion1">${publicacion.encuesta.opcion1}</label>
+                            <br>
+                                 <input name="encuesta" id="opcion2"  type="radio"
+                                        value="${publicacion.encuesta.opcion2}"/>
+                                 <label class="mx-2" for="opcion2">${publicacion.encuesta.opcion2}</label>
+                                 <br>
+                             <c:if test="${not empty publicacion.encuesta.opcion3}">
+                                 <input name="encuesta" id="opcion3" type="radio"
+                                        value="${publicacion.encuesta.opcion3}"/>
+                                 <label class="mx-2" for="opcion3">${publicacion.encuesta.opcion3}</label>
+                                 <br>
+                             </c:if>
+                             <c:if test="${not empty publicacion.encuesta.opcion4}">
+                                 <input name="encuesta" id="opcion4" type="radio" value="${publicacion.encuesta.opcion4}"/>
+
+                                 <label class="mx-2" for="opcion4">${publicacion.encuesta.opcion4}</label>
+
+                             </c:if>
+
+                            <input id="votar"  type="submit" class="btn btn-dark" value="Votar">
+
+                        </form>
+                    </div>
+
+                    </c:if>
                 </div>
             </div>
             <div class="d-flex justify-content-around my-1">

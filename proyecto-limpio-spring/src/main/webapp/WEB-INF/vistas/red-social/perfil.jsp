@@ -74,7 +74,7 @@
 
             </table>
 
-            <form action="${pageContext.request.contextPath}/cerrar-sesion">
+            <form action="${pageContext.request.contextPath}/red-social/cerrar-sesion">
                 <button class="btn btn-secondary my-2 my-sm-0 mx-3" name="cerrarSesion" type="submit">Cerrar Sesion
                 </button>
             </form>

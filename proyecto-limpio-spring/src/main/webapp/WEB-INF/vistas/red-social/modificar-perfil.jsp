@@ -18,8 +18,8 @@
             <legend>"${usuario.nombre}"</legend>
 
             <form:input path="id" type="hidden" id="id" value="${usuario.id}" />
-            <form:input path="id" type="hidden" id="rol" value="${usuario.rol}" />
-            <form:input path="id" type="hidden" id="activo" value="${usuario.activo}" />
+            <form:input path="rol" type="hidden" id="rol" value="${usuario.rol}" />
+            <form:input path="activo" type="hidden" id="activo" value="${usuario.activo}" />
             <div class="form-group">
                 <label class="col-form-label mt-4" for="nombre">Nombre</label>
                 <form:input type="text" class="form-control"  id="nombre" path="nombre" />

@@ -60,4 +60,6 @@ public class Usuario {
 	@JoinColumn(name = "imagen")
 	private ImagenLibro imagen;
 
+
+
 }
