@@ -10,6 +10,10 @@ import java.time.LocalDateTime;
 public class DatosPublicacion{
 
     private String publicacion;
+    private String opcion1;
+    private String opcion2;
+    private String opcion3;
+    private String opcion4;
 
 
 

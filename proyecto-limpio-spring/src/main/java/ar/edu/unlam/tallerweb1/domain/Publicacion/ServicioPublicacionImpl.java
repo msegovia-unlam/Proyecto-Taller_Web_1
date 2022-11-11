@@ -1,13 +1,11 @@
 package ar.edu.unlam.tallerweb1.domain.Publicacion;
-import ar.edu.unlam.tallerweb1.domain.libros.RepositorioLibro;
-import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
+import ar.edu.unlam.tallerweb1.domain.Encuesta.Encuesta;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletContext;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +34,23 @@ public class ServicioPublicacionImpl implements  ServicioPublicacion{
         }
 
        return publicaciones;
+    }
+    @Override
+    public void crearPublicacionConEncuesta(String publicacion, LocalDateTime fecha, Usuario usuario, Encuesta encuesta){
+        repositorioPublicacion.agregarPublicacionConEncuesta(publicacion,fecha,usuario, encuesta);
+    }
+    @Override
+    public void votar(Usuario usuarioLogueado, Integer encuestaId, String opcionElegida){
+
+        Encuesta encuesta = repositorioPublicacion.buscarEncuestaPorId(encuestaId);
+
+        repositorioPublicacion.votar(usuarioLogueado,encuesta,opcionElegida);
+    }
+    @Override
+    public Boolean verificarDobleVoto(Usuario usuarioLogueado, Integer encuestaId){
+
+      Encuesta encuesta =  repositorioPublicacion.buscarEncuestaPorId(encuestaId);
+       return repositorioPublicacion.verificarDobleVoto(usuarioLogueado, encuesta);
     }
 
 }

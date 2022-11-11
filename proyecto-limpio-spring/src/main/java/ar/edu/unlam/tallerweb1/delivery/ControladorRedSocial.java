@@ -9,6 +9,7 @@ import ar.edu.unlam.tallerweb1.domain.libros.ServicioLibro;
 import ar.edu.unlam.tallerweb1.domain.usuarios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,12 +55,14 @@ public class ControladorRedSocial {
 
         if (request.getSession().getAttribute("ROL") != null) {
             Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
+            Usuario usuarioBuscado = servicioLogin.buscarUsuarioPorId(usuarioId);
             List<Usuario> usuariosSeguidos = servicioFollows.getUsuariosSeguidos(usuarioId);
 
             List<Publicacion> publicaciones = servicioPublicacion.getPublicaciones(usuariosSeguidos);
 
             modelo.addAttribute("publicaciones", publicaciones);
-            modelo.addAttribute("datosPublicacion", new Publicacion());
+            modelo.addAttribute("publicacion", new Publicacion());
+            modelo.put("usuario", usuarioBuscado);
             vista = "red-social/home";
         } else {
             vista = "red-social/login";
@@ -170,15 +173,24 @@ public class ControladorRedSocial {
         return new ModelAndView("red-social/perfil",modelo);
     }
 
-    @RequestMapping("/agregar-publicacion")
-    public ModelAndView agregarPublicacion(@ModelAttribute("datosPublicacion") DatosPublicacion datosPublicacion) {
+    @RequestMapping(value = "/agregar-publicacion", method = RequestMethod.POST)
+    public ModelAndView agregarPublicacion(@ModelAttribute("publicacion") Publicacion datosPublicacion) {
         ModelMap modelo = new ModelMap();
         LocalDateTime fecha = LocalDateTime.now();
 
         Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
         Usuario usuario = servicioLogin.buscarUsuarioPorId(usuarioId);
-        servicioPublicacion.crearPublicacion(datosPublicacion.getPublicacion(), fecha,
-                usuario);
+
+
+        if(datosPublicacion.getEncuesta().getOpcion1()!=null){
+
+
+            servicioPublicacion.crearPublicacionConEncuesta(datosPublicacion.getPublicacion(), fecha,
+                    usuario, datosPublicacion.getEncuesta());
+        }else{
+            servicioPublicacion.crearPublicacion(datosPublicacion.getPublicacion(), fecha,
+                    usuario);
+        }
 
 
         return new ModelAndView("redirect:/red-social/", modelo);
@@ -191,8 +203,10 @@ public class ControladorRedSocial {
         String vista;
         if (request.getSession().getAttribute("ROL") != null) {
             Integer idUsuario = (Integer) request.getSession().getAttribute("USUARIO_ID");
+            Usuario usuarioBuscado = servicioLogin.buscarUsuarioPorId(idUsuario);
             Set<Libro> librosComprados = new HashSet<>(servicioLibro.obtenerLibrosComprados(idUsuario));
             modelo.addAttribute("librosComprados", librosComprados);
+            modelo.put("usuario",usuarioBuscado);
             vista = "red-social/my-books";
         } else {
             vista = "redirect:/red-social/";
@@ -269,5 +283,31 @@ public class ControladorRedSocial {
         modelo.addAttribute("libro", libro);
         return new ModelAndView("red-social/libro", modelo);
     }
+
+    @RequestMapping(path = "/cerrar-sesion", method = RequestMethod.GET)
+    public ModelAndView cerrarSesion() {
+        ModelMap model = new ModelMap();
+        if(request.getSession().getAttribute("ROL") != null)
+            request.getSession().removeAttribute("ROL");
+        return new ModelAndView("redirect:/red-social/", model);
+    }
+
+    @RequestMapping(path = "/votar", method = RequestMethod.POST)
+        public ModelAndView votar(@RequestParam("encuesta") String opcionElegida,
+                                  @RequestParam("encuestaId") Integer encuestaId){
+            ModelMap model = new ModelMap();
+
+            Integer idUsuario = (Integer) request.getSession().getAttribute("USUARIO_ID");
+            Usuario usuarioLogueado = servicioLogin.buscarUsuarioPorId(idUsuario);
+
+            Boolean votoDoble=servicioPublicacion.verificarDobleVoto(usuarioLogueado, encuestaId);
+
+            if(!votoDoble){
+            servicioPublicacion.votar(usuarioLogueado, encuestaId, opcionElegida);
+        }
+
+
+            return new ModelAndView("redirect:/red-social/", model);
+        }
 
 }
