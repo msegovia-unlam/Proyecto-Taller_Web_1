@@ -18,9 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/red-social/")
@@ -138,6 +136,19 @@ public class ControladorRedSocial {
                 return new ModelAndView("red-social/busqueda-global", modelo);
             } else {
                 Set<Libro> libros = new HashSet<>(servicioLibro.buscarLibrosPorTituloYAutor(busquedaLibro));
+                Map<Integer, Integer> mapIdLibroYPromedio = new HashMap<>();
+                Map<Integer, Integer> mapIdLibroYCantidadDeUsuariosCalificaron = new HashMap<>();
+
+                for (Libro libro : libros) {
+                    Integer promedioLibro = servicioLibro.obtenerPromedioGlobal(libro.getId());
+                    mapIdLibroYPromedio.put(libro.getId(), promedioLibro);
+
+                    Integer cantidadDeUsuariosCalificaron = servicioLibro.obtenerUsuariosQueCalificarionUnLibro(libro.getId());
+                    mapIdLibroYCantidadDeUsuariosCalificaron.put(libro.getId(), cantidadDeUsuariosCalificaron);
+                }
+
+                modelo.addAttribute("libroIdYPromedio", mapIdLibroYPromedio);
+                modelo.addAttribute("libroIdYCantidadDeUsuariosCalificaron", mapIdLibroYCantidadDeUsuariosCalificaron);
                 modelo.addAttribute("libros", libros);
             }
         } else if (!busquedaPersona.isEmpty() && busquedaLibro.isEmpty()) {
@@ -202,6 +213,20 @@ public class ControladorRedSocial {
             Integer idUsuario = (Integer) request.getSession().getAttribute("USUARIO_ID");
             Usuario usuarioBuscado = servicioLogin.buscarUsuarioPorId(idUsuario);
             Set<Libro> librosComprados = new HashSet<>(servicioLibro.obtenerLibrosComprados(idUsuario));
+
+            Map<Integer, Integer> mapIdLibroYPromedio = new HashMap<>();
+            Map<Integer, Integer> mapIdLibroYCantidadDeUsuariosCalificaron = new HashMap<>();
+
+            for (Libro libro : librosComprados) {
+                Integer promedioLibro = servicioLibro.obtenerPromedioGlobal(libro.getId());
+                mapIdLibroYPromedio.put(libro.getId(), promedioLibro);
+
+                Integer cantidadDeUsuariosCalificaron = servicioLibro.obtenerUsuariosQueCalificarionUnLibro(libro.getId());
+                mapIdLibroYCantidadDeUsuariosCalificaron.put(libro.getId(), cantidadDeUsuariosCalificaron);
+            }
+
+            modelo.addAttribute("libroIdYPromedio", mapIdLibroYPromedio);
+            modelo.addAttribute("libroIdYCantidadDeUsuariosCalificaron", mapIdLibroYCantidadDeUsuariosCalificaron);
             modelo.addAttribute("librosComprados", librosComprados);
             modelo.put("usuario",usuarioBuscado);
             vista = "red-social/my-books";
@@ -275,9 +300,16 @@ public class ControladorRedSocial {
     public ModelAndView verDetallesLibro(@PathVariable("id") Integer libroId) {
         ModelMap modelo = new ModelMap();
         Libro libro = servicioLibro.buscarLibroPorId(libroId);
+
         if(libro == null)
             return new ModelAndView("redirect:/red-social/", modelo);
+
+        Integer promedioGeneral = servicioLibro.obtenerPromedioGlobal(libroId);
+        Integer cantUsuariosCalifican = servicioLibro.obtenerUsuariosQueCalificarionUnLibro(libroId);
+
         modelo.addAttribute("libro", libro);
+        modelo.addAttribute("calificacion", promedioGeneral);
+        modelo.addAttribute("usuariosCalificacion", cantUsuariosCalifican);
         return new ModelAndView("red-social/libro", modelo);
     }
 

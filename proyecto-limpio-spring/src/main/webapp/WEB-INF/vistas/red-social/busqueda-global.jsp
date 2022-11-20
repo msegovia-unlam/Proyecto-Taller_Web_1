@@ -1,3 +1,5 @@
+<%@ page import="java.util.Map" %>
+<%@ page import="ar.edu.unlam.tallerweb1.domain.libros.Libro" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -51,12 +53,31 @@
                         </a>
                         <p class="text-muted">Por: ${libro.autor}</p>
                         <div>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="text-danger">(3)</span>
+
+                            <%
+                                Map<Integer, Integer> libroIdYPromedio = (Map<Integer, Integer>) pageContext.findAttribute("libroIdYPromedio");
+                                Libro libro = (Libro) pageContext.findAttribute("libro");
+                                int calificacion = libroIdYPromedio.get(libro.getId());
+
+                                for(int i=0; i< calificacion; i++){
+                                    out.print("<span class='fa fa-star text-warning'></span>");
+                                }
+
+                                for(int i=0; i< 5-calificacion; i++){
+                                    out.print("<span class='fa fa-star'></span>");
+                                }
+                            %>
+
+                            <%
+                                Map<Integer, Integer> libroIdyCantidadDeUsuariosCalificaron = (Map<Integer, Integer>) pageContext.findAttribute("libroIdYCantidadDeUsuariosCalificaron");
+                                int cantidadDeUsuariosCalificaron = libroIdyCantidadDeUsuariosCalificaron.get(libro.getId());
+                                out.print("<span>(" + cantidadDeUsuariosCalificaron + ")</span>");
+
+                                if(cantidadDeUsuariosCalificaron == 0) {
+                                    out.print("<br><span class=\"text-warning\">Sin calificar</span>");
+                                }
+                            %>
+
                         </div>
                     </div>
                 </div>

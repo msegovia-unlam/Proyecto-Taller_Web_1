@@ -1,3 +1,5 @@
+<%@ page import="java.util.Map" %>
+<%@ page import="ar.edu.unlam.tallerweb1.domain.libros.Libro" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -20,22 +22,41 @@
         <c:forEach items="${librosComprados}" var="libro">
             <div class="d-flex w-50 flex-column container-fluid p-2 justify-content-center border-bottom my-2">
                 <div class="d-flex w-100">
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/red-social/libro/${libro.id}">
                         <img src="${pageContext.request.contextPath}/img/${libro.imagen.id}.jpg" alt="" class="p1"
                              style="width: 6em; height: 10em; margin-right: 1em;">
                     </a>
                     <div class="d-flex flex-column">
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/red-social/libro/${libro.id}">
                             <h5 class="py-2">${libro.titulo}</h5>
                         </a>
                         <p class="text-muted">Por: ${libro.autor}</p>
                         <div>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="text-danger">(3)</span>
+
+                            <%
+                                Map<Integer, Integer> libroIdYPromedio = (Map<Integer, Integer>) pageContext.findAttribute("libroIdYPromedio");
+                                Libro libro = (Libro) pageContext.findAttribute("libro");
+                                int calificacion = libroIdYPromedio.get(libro.getId());
+
+                                for(int i=0; i< calificacion; i++){
+                                    out.print("<span class='fa fa-star text-warning'></span>");
+                                }
+
+                                for(int i=0; i< 5-calificacion; i++){
+                                    out.print("<span class='fa fa-star'></span>");
+                                }
+                            %>
+
+                            <%
+                                Map<Integer, Integer> libroIdyCantidadDeUsuariosCalificaron = (Map<Integer, Integer>) pageContext.findAttribute("libroIdYCantidadDeUsuariosCalificaron");
+                                int cantidadDeUsuariosCalificaron = libroIdyCantidadDeUsuariosCalificaron.get(libro.getId());
+                                out.print("<span>(" + cantidadDeUsuariosCalificaron + ")</span>");
+
+                                if(cantidadDeUsuariosCalificaron == 0) {
+                                    out.print("<br><span class=\"text-warning\">Sin calificar</span>");
+                                }
+                            %>
+
                         </div>
                     </div>
                 </div>
