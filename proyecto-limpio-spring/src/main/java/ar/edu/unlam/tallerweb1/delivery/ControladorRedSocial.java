@@ -55,14 +55,11 @@ public class ControladorRedSocial {
 
         if (request.getSession().getAttribute("ROL") != null) {
             Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
-            Usuario usuarioBuscado = servicioLogin.buscarUsuarioPorId(usuarioId);
             List<Usuario> usuariosSeguidos = servicioFollows.getUsuariosSeguidos(usuarioId);
-
             List<Publicacion> publicaciones = servicioPublicacion.getPublicaciones(usuariosSeguidos);
 
             modelo.addAttribute("publicaciones", publicaciones);
             modelo.addAttribute("publicacion", new Publicacion());
-            modelo.put("usuario", usuarioBuscado);
             vista = "red-social/home";
         } else {
             vista = "red-social/login";
@@ -309,5 +306,15 @@ public class ControladorRedSocial {
 
             return new ModelAndView("redirect:/red-social/", model);
         }
+
+    @ModelAttribute("usuarioEnLaSesion")
+    public Usuario obtenerUsuarioEnLaSesion() {
+        if(request.getSession().getAttribute("ROL") != null) {
+            Integer usuarioId = (int) request.getSession().getAttribute("USUARIO_ID");
+            Usuario usuarioEnLaSesion = servicioLogin.buscarUsuarioPorId(usuarioId);
+            return usuarioEnLaSesion;
+        }
+        return null;
+    }
 
 }

@@ -33,7 +33,7 @@ public class ServicioLibroImpl implements ServicioLibro {
     @Override
     public Integer crearLibro(Libro libro, MultipartFile imagen) {
         // Pregunto si la imagen que se subio esta vacia o es nula
-        if (!imagen.isEmpty() && imagen != null) {
+        if (imagen != null && !imagen.isEmpty()) {
             // Guardo el libro y su imagen en la base de datos
             ImagenLibro imagenLibro = new ImagenLibro();
             libro.setImagen(imagenLibro);
