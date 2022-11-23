@@ -11,11 +11,11 @@ import static org.mockito.Mockito.mock;
 
 public class ServicioLibroTest {
 
-//    RepositorioLibro repositorioLibro = mock(RepositorioLibro.class);
-//    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
-//    ServletContext servletContext = mock(ServletContext.class);
-//    ServicioLibro servicioLibro = new ServicioLibroImpl(repositorioLibro, servletContext, repositorioUsuario);
-//
+    RepositorioLibro repositorioLibro = mock(RepositorioLibro.class);
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    ServletContext servletContext = mock(ServletContext.class);
+    ServicioLibro servicioLibro = new ServicioLibroImpl(repositorioLibro, servletContext, repositorioUsuario);
+
 //    @Test
 //    public void siElLibroNoTieneImagenNoSeCrea() {
 //

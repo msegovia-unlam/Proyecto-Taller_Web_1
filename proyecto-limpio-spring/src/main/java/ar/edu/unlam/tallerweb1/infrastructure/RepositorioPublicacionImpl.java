@@ -2,15 +2,21 @@ package ar.edu.unlam.tallerweb1.infrastructure;
 import ar.edu.unlam.tallerweb1.domain.Encuesta.Encuesta;
 import ar.edu.unlam.tallerweb1.domain.Publicacion.Publicacion;
 import ar.edu.unlam.tallerweb1.domain.Publicacion.RepositorioPublicacion;
+import ar.edu.unlam.tallerweb1.domain.Votacion.VotacionesTotales;
 import ar.edu.unlam.tallerweb1.domain.Votacion.Voto;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Repository
@@ -79,6 +85,31 @@ public class RepositorioPublicacionImpl implements RepositorioPublicacion{
         }else {
             return false;
         }
+
+    }
+
+    @Override
+    public List<VotacionesTotales> obtenerVotosTotales(Integer encuestaId) {
+
+        List<VotacionesTotales> totals = new ArrayList<VotacionesTotales>();
+
+        ProjectionList projectionList = Projections.projectionList();
+        projectionList.add(Projections.groupProperty("opcionElegida"))
+                .add(Projections.count("id"));
+
+        Criteria criteria  = sesion().createCriteria(Voto.class);
+        criteria.setProjection(projectionList);
+        List<Object> result = criteria.list();
+        Iterator itr = result.iterator();
+        while(itr.hasNext()){
+            VotacionesTotales votacion = new VotacionesTotales();
+            Object[] obj = (Object[]) itr.next();
+            votacion.setLibro(String.valueOf(obj[0]));
+            votacion.setCantidadVotos(Integer.parseInt(String.valueOf(obj[1])));
+            totals.add(votacion);
+        }
+
+    return totals;
 
     }
 

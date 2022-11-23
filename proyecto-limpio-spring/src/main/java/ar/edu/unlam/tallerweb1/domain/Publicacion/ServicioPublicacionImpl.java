@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.Publicacion;
 import ar.edu.unlam.tallerweb1.domain.Encuesta.Encuesta;
+import ar.edu.unlam.tallerweb1.domain.Votacion.VotacionesTotales;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,12 @@ public class ServicioPublicacionImpl implements  ServicioPublicacion{
 
       Encuesta encuesta =  repositorioPublicacion.buscarEncuestaPorId(encuestaId);
        return repositorioPublicacion.verificarDobleVoto(usuarioLogueado, encuesta);
+    }
+
+    @Override
+    public List<VotacionesTotales> obtenerVotosTotales(Integer encuestaId) {
+
+        return repositorioPublicacion.obtenerVotosTotales(encuestaId);
     }
 
 }
