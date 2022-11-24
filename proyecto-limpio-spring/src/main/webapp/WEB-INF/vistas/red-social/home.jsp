@@ -1,3 +1,6 @@
+<%@ page import="ar.edu.unlam.tallerweb1.domain.Votacion.VotacionesTotales" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -43,6 +46,7 @@
 <%@include file="../common html/headerRedSocial.jsp" %>
 
 <main class="contenedor">
+
     <article >
         <form:form modelAttribute="publicacion" class="flex text-end p-2"
                     action="${pageContext.request.contextPath}/red-social/agregar-publicacion">
@@ -91,7 +95,7 @@
 
     <c:forEach items="${publicaciones}" var="publicacion">
         <article class="flex" >
-            <div class="d-flex justify-content-center border mb-2">
+            <div class="d-flex border mb-2">
                 <div class="mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="54"
                          height="54" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round"
@@ -102,7 +106,7 @@
                         <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
                     </svg>
                 </div>
-                <div class="form-group p-3 mt-2">
+                <div class="form-group p-3 mt-2 col-9 text-center">
                 <p>${publicacion.publicacion}</p>
                     <c:if test="${not empty publicacion.encuesta.opcion1}">
                     <div>
@@ -127,18 +131,48 @@
                              </c:if>
                              <c:if test="${not empty publicacion.encuesta.opcion4}">
                                  <input name="encuesta" id="opcion4" type="radio" value="${publicacion.encuesta.opcion4}"/>
-
                                  <label class="mx-2" for="opcion4">${publicacion.encuesta.opcion4}</label>
-
                              </c:if>
-
-                            <input id="votar"  type="submit" class="btn btn-dark" value="Votar">
-
+                            <input id="votar"  type="submit" class="btn btn-dark btn-sm rounded-pill" value="Votar">
                         </form>
                     </div>
 
+                        <div class="mt-2 justify-content-center">
+
+                            <c:forEach var="entry" items="${porcentaje}">
+                                <c:out value="${entry.key.libro}"/>
+                                <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: ${entry.value}%;" aria-valuenow="${entry.value}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </c:forEach>
+                            <%
+//                                Integer votosTotales = 0;
+//                                List<VotacionesTotales> votos = (List<VotacionesTotales>)pageContext.findAttribute("votaciones");
+
+//                                for (Map.Entry<VotacionesTotales, Integer> ) {
+//                                       votosTotales += voto.getCantidadVotos();
+//                                }
+
+
+//                                for (VotacionesTotales voto : votos ) {
+//                                    Integer porcentaje = 0;
+//
+//                                    porcentaje = voto.getCantidadVotos()*100/votosTotales;
+//
+//                                    out.print("<div class=\"progress\">");
+//                                    out.print("<div class=\"progress-bar progress-bar-striped\" role=\"progressbar\" style=\"width: " + porcentaje + ";\" aria-valuenow=\" " + porcentaje + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
+//                                    out.print("</div>");
+//                                }
+
+                            %>
+
+<%--                           <c:forEach var="votacion" items="${votaciones}">--%>
+<%--                               <p>${votacion.libro}: (${votacion.cantidadVotos})</p>--%>
+<%--                           </c:forEach>--%>
+                        </div>
                     </c:if>
                 </div>
+
             </div>
             <div class="d-flex justify-content-around my-1">
                 <form action="">
@@ -183,8 +217,51 @@
         </article>
     </c:forEach>
 
-
 </main>
 
 </body>
 </html>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+
+    var markers = [
+        <c:forEach var="votacion" items="${votaciones}">
+        ['<c:out value="${votacion.libro}" />',
+            <c:out value="${votacion.cantidadVotos}" />, //double without apostrophe
+        </c:forEach>   ]];
+
+
+
+
+
+    // Load google charts
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Libros', 'Cantidad de votos'],
+
+            for( i = 0; i < markers.length; i++ ) {
+
+                [markers[i], markers[i][i]],
+
+            } //for end
+
+            ['Work', 8],
+            ['Friends', 8],
+            ['Eat', 8],
+            ['Sleep', 8]
+
+        ]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = {'width':250, 'height':200};
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+</script>

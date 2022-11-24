@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.Publicacion;
 import ar.edu.unlam.tallerweb1.domain.Encuesta.Encuesta;
+import ar.edu.unlam.tallerweb1.domain.Votacion.VotacionesTotales;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 
 import java.time.LocalDateTime;
@@ -14,4 +15,5 @@ public interface RepositorioPublicacion{
     void votar(Usuario usuarioLogueado, Encuesta encuesta, String opcionElegida);
     Boolean verificarDobleVoto(Usuario usuarioLogueado, Encuesta encuesta);
 
+    List<VotacionesTotales> obtenerVotosTotales(Integer encuestaId);
 }

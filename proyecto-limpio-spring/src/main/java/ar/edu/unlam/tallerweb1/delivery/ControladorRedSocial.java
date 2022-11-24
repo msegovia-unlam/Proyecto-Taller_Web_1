@@ -10,6 +10,7 @@ import ar.edu.unlam.tallerweb1.domain.usuarios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import ar.edu.unlam.tallerweb1.domain.Votacion.VotacionesTotales;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,13 +48,42 @@ public class ControladorRedSocial {
     }
 
     @RequestMapping("/")
-    public ModelAndView irARedSocial(@ModelAttribute("datosLogin") DatosLogin datosLogin, RedirectAttributes redirectAttributes) {
+    public ModelAndView irARedSocial(@ModelAttribute("datosLogin") DatosLogin datosLogin,
+                                     @RequestParam(value = "idPublicacion", required = false) String idPublicacion,
+                                     RedirectAttributes redirectAttributes) {
         ModelMap modelo = new ModelMap();
         String vista;
 
         if (request.getSession().getAttribute("ROL") != null) {
             Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
+            Usuario usuarioBuscado = servicioLogin.buscarUsuarioPorId(usuarioId);
+
             List<Usuario> usuariosSeguidos = servicioFollows.getUsuariosSeguidos(usuarioId);
+            if(null != idPublicacion) {
+
+                List<VotacionesTotales> Lista;
+                Lista = servicioPublicacion.obtenerVotosTotales( Integer.valueOf(idPublicacion));
+                Map<VotacionesTotales, Integer> mapaPorcentaje = new HashMap<>();
+
+                Integer votosTotales = 0;
+
+
+                for (VotacionesTotales voto : Lista ) {
+                    votosTotales += voto.getCantidadVotos();
+                }
+
+                for (VotacionesTotales voto : Lista) {
+                    Integer porcentaje = 0;
+
+                    porcentaje = voto.getCantidadVotos()*100/votosTotales;
+                    mapaPorcentaje.put(voto, porcentaje);
+                }
+
+
+                modelo.addAttribute("votaciones", Lista);
+                modelo.addAttribute("porcentaje", mapaPorcentaje);
+
+            }
             List<Publicacion> publicaciones = servicioPublicacion.getPublicaciones(usuariosSeguidos);
 
             modelo.addAttribute("publicaciones", publicaciones);
@@ -323,8 +353,10 @@ public class ControladorRedSocial {
 
     @RequestMapping(path = "/votar", method = RequestMethod.POST)
         public ModelAndView votar(@RequestParam("encuesta") String opcionElegida,
-                                  @RequestParam("encuestaId") Integer encuestaId){
+                                  @RequestParam("encuestaId") Integer encuestaId ){
+
             ModelMap model = new ModelMap();
+
 
             Integer idUsuario = (Integer) request.getSession().getAttribute("USUARIO_ID");
             Usuario usuarioLogueado = servicioLogin.buscarUsuarioPorId(idUsuario);
@@ -333,10 +365,13 @@ public class ControladorRedSocial {
 
             if(!votoDoble){
             servicioPublicacion.votar(usuarioLogueado, encuestaId, opcionElegida);
-        }
+            }
 
+            List<VotacionesTotales> Lista;
+            Lista = servicioPublicacion.obtenerVotosTotales(encuestaId);
+            model.addAttribute("votaciones", Lista);
 
-            return new ModelAndView("redirect:/red-social/", model);
+            return new ModelAndView("redirect:/red-social/?idPublicacion=" + encuestaId , model);
         }
 
     @ModelAttribute("usuarioEnLaSesion")
