@@ -53,7 +53,7 @@
             <div class="d-flex mx-auto justify-content-center border-bottom mb-2">
                 <div>
                     <img class="rounded-circle" style="width:54px"
-                         src="${pageContext.request.contextPath}/img/${usuario.imagen.id}.jpg" alt="foto-perfil">
+                         src="${pageContext.request.contextPath}/img/${usuarioEnLaSesion.imagen.id}.jpg" alt="foto-perfil">
                 </div>
                 <div class="form-group p-3">
                 <form:textarea path="publicacion" rows="5" cols="50" class="bg-opacity-50"

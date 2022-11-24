@@ -29,14 +29,27 @@
     <div class="px-4">
         <h2 class="">${libro.titulo}</h2>
         <span>${libro.autor}</span>
-        <div class="my-2">
-            <span class="fa fa-star text-warning estrella"></span>
-            <span class="fa fa-star text-warning estrella"></span>
-            <span class="fa fa-star text-warning estrella"></span>
-            <span class="fa fa-star text-warning estrella"></span>
-            <span class="fa fa-star estrella"></span>
-            <span class="text-danger estrella">(3)</span>
+
+        <br>
+
+        <div style="font-size: 1.5em">
+        <%
+            int calificacion = (int)pageContext.findAttribute("calificacion");
+
+            for(int i=0; i< calificacion; i++){
+                out.print("<span class='fa fa-star text-warning'></span>");
+            }
+
+            for(int i=0; i< 5-calificacion; i++){
+                out.print("<span class='fa fa-star'></span>");
+            }
+        %>
         </div>
+        <span>(${usuariosCalificacion})</span>
+        <c:if test="${calificacion == 0}">
+            <br><span class="text-warning">Sin calificar</span>
+        </c:if>
+
         <div>
             <p>${libro.sinopsis}</p>
         </div>

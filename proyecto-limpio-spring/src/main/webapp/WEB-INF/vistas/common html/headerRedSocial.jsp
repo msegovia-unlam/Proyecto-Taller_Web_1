@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <header>
   <nav class=" bg-dark d-flex justify-content-around py-1 align-items-center">
     <ul class="d-flex gap-5 my-0 justify-content-center">
@@ -27,9 +28,21 @@
 
       <a class="nav-link" href="${pageContext.request.contextPath}/red-social/perfil">
 
-        <img class="rounded-circle " style="width:54px"
-             src="${pageContext.request.contextPath}/img/${usuario.imagen.id}.jpg"
-             alt="foto-perfil">
+        <c:if test="${usuarioEnLaSesion != null}">
+          <img class="rounded-circle " style="width:54px"
+               src="${pageContext.request.contextPath}/img/${usuarioEnLaSesion.imagen.id}.jpg"
+               alt="foto-perfil">
+        </c:if>
+        <c:if test="${usuarioEnLaSesion == null}">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="54"
+               height="54" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round"
+               stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <circle cx="12" cy="12" r="9" />
+            <circle cx="12" cy="10" r="3" />
+            <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+          </svg>
+        </c:if>
       </a>
     </div>
   </nav>

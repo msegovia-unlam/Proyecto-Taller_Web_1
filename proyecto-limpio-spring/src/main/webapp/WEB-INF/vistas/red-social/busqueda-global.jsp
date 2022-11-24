@@ -1,3 +1,5 @@
+<%@ page import="java.util.Map" %>
+<%@ page import="ar.edu.unlam.tallerweb1.domain.libros.Libro" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -51,12 +53,31 @@
                         </a>
                         <p class="text-muted">Por: ${libro.autor}</p>
                         <div>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star text-warning"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="text-danger">(3)</span>
+
+                            <%
+                                Map<Integer, Integer> libroIdYPromedio = (Map<Integer, Integer>) pageContext.findAttribute("libroIdYPromedio");
+                                Libro libro = (Libro) pageContext.findAttribute("libro");
+                                int calificacion = libroIdYPromedio.get(libro.getId());
+
+                                for(int i=0; i< calificacion; i++){
+                                    out.print("<span class='fa fa-star text-warning'></span>");
+                                }
+
+                                for(int i=0; i< 5-calificacion; i++){
+                                    out.print("<span class='fa fa-star'></span>");
+                                }
+                            %>
+
+                            <%
+                                Map<Integer, Integer> libroIdyCantidadDeUsuariosCalificaron = (Map<Integer, Integer>) pageContext.findAttribute("libroIdYCantidadDeUsuariosCalificaron");
+                                int cantidadDeUsuariosCalificaron = libroIdyCantidadDeUsuariosCalificaron.get(libro.getId());
+                                out.print("<span>(" + cantidadDeUsuariosCalificaron + ")</span>");
+
+                                if(cantidadDeUsuariosCalificaron == 0) {
+                                    out.print("<br><span class=\"text-warning\">Sin calificar</span>");
+                                }
+                            %>
+
                         </div>
                     </div>
                 </div>
@@ -68,8 +89,22 @@
             <div class="d-flex w-50 flex-column container-fluid p-2 justify-content-center border-bottom my-2">
                 <div class="d-flex w-100">
                     <a href="${pageContext.request.contextPath}/red-social/usuario/${usuario.id}">
-                        <img src="${pageContext.request.contextPath}/img/${usuario.imagen.id}.jpg" alt="Foto de perfil del usuario" class="p1"
-                             style="width: 6em; height: 10em; margin-right: 1em;">
+                        <c:if test="${usuario.imagen != null}">
+                            <img src="${pageContext.request.contextPath}/img/${usuario.imagen.id}.jpg" alt="Foto de perfil del usuario" class="p1"
+                                 style="width: 6em; height: 10em; margin-right: 1em;">
+                        </c:if>
+                        <c:if test="${usuario.imagen == null}">
+                            <div style="width: 6em; height: 10em; margin-right: 1em;">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="54"
+                                     height="54" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round"
+                                     stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <circle cx="12" cy="12" r="9" />
+                                    <circle cx="12" cy="10" r="3" />
+                                    <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                                </svg>
+                            </div>
+                        </c:if>
                     </a>
                     <div class="d-flex flex-column">
                         <a href="${pageContext.request.contextPath}/red-social/usuario/${usuario.id}">

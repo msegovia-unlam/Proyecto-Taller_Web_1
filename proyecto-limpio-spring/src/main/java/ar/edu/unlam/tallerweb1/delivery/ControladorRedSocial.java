@@ -88,7 +88,6 @@ public class ControladorRedSocial {
 
             modelo.addAttribute("publicaciones", publicaciones);
             modelo.addAttribute("publicacion", new Publicacion());
-            modelo.put("usuario", usuarioBuscado);
             vista = "red-social/home";
         } else {
             vista = "red-social/login";
@@ -167,6 +166,19 @@ public class ControladorRedSocial {
                 return new ModelAndView("red-social/busqueda-global", modelo);
             } else {
                 Set<Libro> libros = new HashSet<>(servicioLibro.buscarLibrosPorTituloYAutor(busquedaLibro));
+                Map<Integer, Integer> mapIdLibroYPromedio = new HashMap<>();
+                Map<Integer, Integer> mapIdLibroYCantidadDeUsuariosCalificaron = new HashMap<>();
+
+                for (Libro libro : libros) {
+                    Integer promedioLibro = servicioLibro.obtenerPromedioGlobal(libro.getId());
+                    mapIdLibroYPromedio.put(libro.getId(), promedioLibro);
+
+                    Integer cantidadDeUsuariosCalificaron = servicioLibro.obtenerUsuariosQueCalificarionUnLibro(libro.getId());
+                    mapIdLibroYCantidadDeUsuariosCalificaron.put(libro.getId(), cantidadDeUsuariosCalificaron);
+                }
+
+                modelo.addAttribute("libroIdYPromedio", mapIdLibroYPromedio);
+                modelo.addAttribute("libroIdYCantidadDeUsuariosCalificaron", mapIdLibroYCantidadDeUsuariosCalificaron);
                 modelo.addAttribute("libros", libros);
             }
         } else if (!busquedaPersona.isEmpty() && busquedaLibro.isEmpty()) {
@@ -231,6 +243,20 @@ public class ControladorRedSocial {
             Integer idUsuario = (Integer) request.getSession().getAttribute("USUARIO_ID");
             Usuario usuarioBuscado = servicioLogin.buscarUsuarioPorId(idUsuario);
             Set<Libro> librosComprados = new HashSet<>(servicioLibro.obtenerLibrosComprados(idUsuario));
+
+            Map<Integer, Integer> mapIdLibroYPromedio = new HashMap<>();
+            Map<Integer, Integer> mapIdLibroYCantidadDeUsuariosCalificaron = new HashMap<>();
+
+            for (Libro libro : librosComprados) {
+                Integer promedioLibro = servicioLibro.obtenerPromedioGlobal(libro.getId());
+                mapIdLibroYPromedio.put(libro.getId(), promedioLibro);
+
+                Integer cantidadDeUsuariosCalificaron = servicioLibro.obtenerUsuariosQueCalificarionUnLibro(libro.getId());
+                mapIdLibroYCantidadDeUsuariosCalificaron.put(libro.getId(), cantidadDeUsuariosCalificaron);
+            }
+
+            modelo.addAttribute("libroIdYPromedio", mapIdLibroYPromedio);
+            modelo.addAttribute("libroIdYCantidadDeUsuariosCalificaron", mapIdLibroYCantidadDeUsuariosCalificaron);
             modelo.addAttribute("librosComprados", librosComprados);
             modelo.put("usuario",usuarioBuscado);
             vista = "red-social/my-books";
@@ -304,9 +330,16 @@ public class ControladorRedSocial {
     public ModelAndView verDetallesLibro(@PathVariable("id") Integer libroId) {
         ModelMap modelo = new ModelMap();
         Libro libro = servicioLibro.buscarLibroPorId(libroId);
+
         if(libro == null)
             return new ModelAndView("redirect:/red-social/", modelo);
+
+        Integer promedioGeneral = servicioLibro.obtenerPromedioGlobal(libroId);
+        Integer cantUsuariosCalifican = servicioLibro.obtenerUsuariosQueCalificarionUnLibro(libroId);
+
         modelo.addAttribute("libro", libro);
+        modelo.addAttribute("calificacion", promedioGeneral);
+        modelo.addAttribute("usuariosCalificacion", cantUsuariosCalifican);
         return new ModelAndView("red-social/libro", modelo);
     }
 
@@ -340,5 +373,15 @@ public class ControladorRedSocial {
 
             return new ModelAndView("redirect:/red-social/?idPublicacion=" + encuestaId , model);
         }
+
+    @ModelAttribute("usuarioEnLaSesion")
+    public Usuario obtenerUsuarioEnLaSesion() {
+        if(request.getSession().getAttribute("ROL") != null) {
+            Integer usuarioId = (int) request.getSession().getAttribute("USUARIO_ID");
+            Usuario usuarioEnLaSesion = servicioLogin.buscarUsuarioPorId(usuarioId);
+            return usuarioEnLaSesion;
+        }
+        return null;
+    }
 
 }
