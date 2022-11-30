@@ -121,7 +121,7 @@ public class RepositorioLibroImpl implements RepositorioLibro{
 
         return this.sessionFactory.getCurrentSession();
     }
-    @Override
+    @Override  //MANEJAR LA EXCEPTION EN VEZ DE RETURN TRUE Y FALSE
     public boolean reducirStock(Integer idLibro) {
         Libro libro = this.buscarLibroPorId(idLibro);
         libro.setCantidadEnStock(libro.getCantidadEnStock() - 1);

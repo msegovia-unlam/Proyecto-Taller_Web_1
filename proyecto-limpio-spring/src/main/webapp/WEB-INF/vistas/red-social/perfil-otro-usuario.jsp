@@ -23,7 +23,14 @@
         </div>
     </div>
     <form action="${pageContext.request.contextPath}/red-social/seguir/${usuario.id}" method="post">
-        <button type="submit" class="btn btn-info px-5 my-4">Seguir</button>
+        <c:choose>
+            <c:when test="${not empty msjFollow}">
+                <button type="submit" class="btn btn-success px-5 my-4 disabled">Siguiendo</button>
+            </c:when>
+            <c:otherwise>
+                <button type="submit" class="btn btn-info px-5 my-4">Seguir</button>
+            </c:otherwise>
+        </c:choose>
     </form>
 </main>
 

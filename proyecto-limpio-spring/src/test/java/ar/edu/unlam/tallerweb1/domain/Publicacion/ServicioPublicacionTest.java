@@ -26,8 +26,6 @@ public class ServicioPublicacionTest{
     @Test
     public void queObtengaTodasLasPublicaciones() {
 
-        String publicacion = "asdasd";
-        LocalDateTime fecha = LocalDateTime.now();
         Usuario usuario = new Usuario();
         List<Usuario> usuarios = new ArrayList<>();
         usuarios.add(usuario);

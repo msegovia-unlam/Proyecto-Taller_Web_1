@@ -5,6 +5,8 @@ import ar.edu.unlam.tallerweb1.domain.usuarios.Rol;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.stubbing.OngoingStubbing;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +25,7 @@ public class ControladorLibroTest {
     HttpServletRequest request = mock(HttpServletRequest.class);
     ControladorLibro controladorLibro = new ControladorLibro(servicioLibro, request);
     RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
+
 
 
     HttpSession session = mock(HttpSession.class);
@@ -70,7 +73,9 @@ public class ControladorLibroTest {
         when(servicioLibro.buscarLibroPorId(idLibro)).thenReturn(new Libro());
         ModelAndView mav = controladorLibro.irALibro(idLibro);
 
+
         assertThat(mav.getViewName()).isEqualTo("libro");
+        assertThat(mav.getModel().get("libro")).isNotNull();
 
     }
 
@@ -98,9 +103,15 @@ public class ControladorLibroTest {
 
         when(servicioLibro.buscarLibroPorAutor(autor)).thenReturn(new ArrayList<Libro>());
 
+        //VER QUE DEVUELVE EL FLASHATTRIBUTES
+        //when(redirectAttributes.getFlashAttributes().get("msj")).thenReturn("PRUE BA");
+
         ModelAndView  mav = controladorLibro.libroPorAutor(autor);
 
         assertThat(mav.getViewName()).isEqualTo("libros-por-autor");
+
+        assertThat(redirectAttributes.getFlashAttributes().get("msj")).isNotNull();
+
     }
 
 
