@@ -377,10 +377,14 @@ public class ControladorRedSocial {
     }
 
     @RequestMapping(path = "/votar", method = RequestMethod.POST)
-        public ModelAndView votar(@RequestParam("encuesta") String opcionElegida,
+        public ModelAndView votar(@RequestParam(value = "encuesta", defaultValue = "null") String opcionElegida,
                                   @RequestParam("encuestaId") Integer encuestaId ){
 
             ModelMap model = new ModelMap();
+
+            if (opcionElegida.equals("null")) {
+                return new ModelAndView("redirect:/red-social/", model);
+            }
 
 
             Integer idUsuario = (Integer) request.getSession().getAttribute("USUARIO_ID");
