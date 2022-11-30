@@ -315,8 +315,17 @@ public class ControladorRedSocial {
             usuarioEnLaSesion = servicioLogin.buscarUsuarioPorId(usuarioEnLaSesionId);
 
             if(usuarioEnLaSesion.getId().equals(usuarioId))
-                modelo.addAttribute("msjMismoUsuario", "verdader");
+                modelo.addAttribute("msjMismoUsuario", "verdadero");
+        } else {
+            return new ModelAndView("red-social/home", modelo);
         }
+
+        List<Usuario> usuariosSeguidos = servicioFollows.getUsuariosSeguidos(usuarioEnLaSesion.getId());
+
+        usuariosSeguidos.forEach(usuario1 -> {
+            if (usuario1.getId().equals(usuarioId))
+                modelo.addAttribute("usuarioYaSiendoSeguido", "verdadero");
+        });
 
         modelo.addAttribute("usuario", usuario);
 

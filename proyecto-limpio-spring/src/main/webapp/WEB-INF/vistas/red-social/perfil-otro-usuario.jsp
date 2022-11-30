@@ -24,14 +24,22 @@
     </div>
     <c:if test="${msjMismoUsuario == null}">
         <form action="${pageContext.request.contextPath}/red-social/seguir/${usuario.id}" method="post">
-            <c:choose>
-                <c:when test="${not empty msjFollow}">
-                    <button type="submit" class="btn btn-success px-5 my-4 disabled">Siguiendo</button>
-                </c:when>
-                <c:otherwise>
-                    <button type="submit" class="btn btn-info px-5 my-4">Seguir</button>
-                </c:otherwise>
-            </c:choose>
+
+            <c:if test="${usuarioYaSiendoSeguido == null}">
+                <button type="submit" class="btn btn-info px-5 my-4">Seguir</button>
+            </c:if>
+            <c:if test="${usuarioYaSiendoSeguido != null}">
+                <button type="submit" class="btn btn-success px-5 my-4 disabled">Siguiendo</button>
+            </c:if>
+
+<%--            <c:choose>--%>
+<%--                <c:when test="${not empty msjFollow}">--%>
+<%--                    <button type="submit" class="btn btn-success px-5 my-4 disabled">Siguiendo</button>--%>
+<%--                </c:when>--%>
+<%--                <c:otherwise>--%>
+<%--                    <button type="submit" class="btn btn-info px-5 my-4">Seguir</button>--%>
+<%--                </c:otherwise>--%>
+<%--            </c:choose>--%>
         </form>
     </c:if>
 </main>
