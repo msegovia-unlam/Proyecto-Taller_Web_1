@@ -305,8 +305,19 @@ public class ControladorRedSocial {
     public ModelAndView verPerfilDeUsuario(@PathVariable("id") Integer usuarioId) {
         ModelMap modelo = new ModelMap();
         Usuario usuario = servicioLogin.buscarUsuarioPorId(usuarioId);
+        Usuario usuarioEnLaSesion;
+
         if(usuario == null)
             return new ModelAndView("redirect:/", modelo);
+
+        if(request.getSession().getAttribute("USUARIO_ID") != null) {
+            Integer usuarioEnLaSesionId = (int) request.getSession().getAttribute("USUARIO_ID");
+            usuarioEnLaSesion = servicioLogin.buscarUsuarioPorId(usuarioEnLaSesionId);
+
+            if(usuarioEnLaSesion.getId().equals(usuarioId))
+                modelo.addAttribute("msjMismoUsuario", "verdader");
+        }
+
         modelo.addAttribute("usuario", usuario);
 
         return new ModelAndView("red-social/perfil-otro-usuario", modelo);
