@@ -202,8 +202,11 @@ public class ControladorRedSocial {
 
         ModelMap modelo = new ModelMap();
 
-        Object usuarioRol = request.getSession().getAttribute("ROL");
         Integer usuarioId = (Integer) request.getSession().getAttribute("USUARIO_ID");
+
+        if(usuarioId == null) {
+            return new ModelAndView("redirect:/red-social/", modelo);
+        }
 
         Usuario usuarioBuscado = servicioLogin.buscarUsuarioPorId(usuarioId);
         modelo.addAttribute("usuario", usuarioBuscado);
@@ -366,8 +369,10 @@ public class ControladorRedSocial {
     @RequestMapping(path = "/cerrar-sesion", method = RequestMethod.GET)
     public ModelAndView cerrarSesion() {
         ModelMap model = new ModelMap();
-        if(request.getSession().getAttribute("ROL") != null)
+        if(request.getSession().getAttribute("ROL") != null) {
             request.getSession().removeAttribute("ROL");
+            request.getSession().removeAttribute("USUARIO_ID");
+        }
         return new ModelAndView("redirect:/red-social/", model);
     }
 
